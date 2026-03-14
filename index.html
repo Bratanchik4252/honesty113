@@ -519,93 +519,86 @@
     </div>
 
     <script>
-        (function() {
-            // === КАЛЕНДАРЬ ===
-            function renderCalendar() {
-                const calendarDiv = document.getElementById('calendar');
-                const days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
-                const today = new Date();
-                let html = '';
-                for (let i = 0; i < 7; i++) {
-                    const date = new Date(today);
-                    date.setDate(today.getDate() + i);
-                    const dayName = days[date.getDay()];
-                    const dayNumber = date.getDate();
-                    const isPast = date.setHours(0,0,0,0) < new Date().setHours(0,0,0,0);
-                    html += `<div class="calendar-day stream-day ${isPast ? 'off' : ''}"><span class="day-label">${dayName}</span> ${dayNumber}</div>`;
-                }
-                calendarDiv.innerHTML = html;
-            }
-            renderCalendar();
+(function() {
+    // === КАЛЕНДАРЬ ===
+    function renderCalendar() {
+        const calendarDiv = document.getElementById('calendar');
+        const days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+        const today = new Date();
+        let html = '';
+        for (let i = 0; i < 7; i++) {
+            const date = new Date(today);
+            date.setDate(today.getDate() + i);
+            const dayName = days[date.getDay()];
+            const dayNumber = date.getDate();
+            const isPast = date.setHours(0,0,0,0) < new Date().setHours(0,0,0,0);
+            html += `<div class="calendar-day stream-day ${isPast ? 'off' : ''}"><span class="day-label">${dayName}</span> ${dayNumber}</div>`;
+        }
+        calendarDiv.innerHTML = html;
+    }
+    renderCalendar();
 
-            // === СЛУЧАЙНЫЙ ФАКТ ===
-            const facts = [
-                "Honesty113 стримит каждый день без выходных!",
-                "Коллыван — его главный зритель и вдохновитель.",
-                "Любимая игра — Minecraft, но пробует всё подряд.",
-                "В Valorant 'жду только я' — это уже мем.",
-                "Однажды стримил 24 часа подряд.",
-                "Его Telegram-канал живёт своей жизнью.",
-                "Честность — главное качество стримера.",
-                "Обожает, когда в чате пишут его эмоции."
-            ];
-            document.getElementById('randomFact').innerText = facts[Math.floor(Math.random() * facts.length)];
+    // === СЛУЧАЙНЫЙ ФАКТ ===
+    const facts = [
+        "Honesty113 стримит каждый день без выходных!",
+        "Коллыван — его главный зритель и вдохновитель.",
+        "Любимая игра — Minecraft, но пробует всё подряд.",
+        "В Valorant 'жду только я' — это уже мем.",
+        "Однажды стримил 24 часа подряд.",
+        "Его Telegram-канал живёт своей жизнью.",
+        "Честность — главное качество стримера.",
+        "Обожает, когда в чате пишут его эмоции."
+    ];
+    document.getElementById('randomFact').innerText = facts[Math.floor(Math.random() * facts.length)];
 
-            // === СТАТИСТИКА ===
-            async function loadChatStats() {
-                try {
-                    const response = await fetch('https://corsproxy.io/?https://stats.streamelements.com/c/honesty113');
-                    const html = await response.text();
-                    
-                    const chattersMatch = html.match(/TOP CHATTERS[\s\S]*?<ol>([\s\S]*?)<\/ol>/i);
-                    if (chattersMatch) {
-                        const items = chattersMatch[1].match(/<li>([^<]+)<\/li>/g);
-                        if (items) {
-                            const top5 = items.slice(0, 5).map(item => {
-                                const clean = item.replace(/<[^>]*>/g, '').trim();
-                                const parts = clean.match(/(\d+)\s+(.+)/);
-                                return parts ? { count: parts[1], name: parts[2] } : null;
-                            }).filter(Boolean);
-                            
-                            document.getElementById('topChatters').innerHTML = top5.map((chatter, i) => `
-                                <div class="leaderboard-item">
-                                    <span class="rank">${i+1}</span>
-                                    <span class="name">${chatter.name}</span>
-                                    <span class="count">${chatter.count} сообщ.</span>
-                                </div>
-                            `).join('');
-                        }
-                    }
-                    
-                    const emotesMatch = html.match(/TOP TWITCH EMOTES[\s\S]*?<ol>([\s\S]*?)<\/ol>/i);
-                    if (emotesMatch) {
-                        const items = emotesMatch[1].match(/<li>([^<]+)<\/li>/g);
-                        if (items) {
-                            const top5 = items.slice(0, 5).map(item => {
-                                const clean = item.replace(/<[^>]*>/g, '').trim();
-                                const parts = clean.match(/(.+?)\s*–\s*(\d+)/);
-                                return parts ? { name: parts[1].trim(), count: parts[2] } : null;
-                            }).filter(Boolean);
-                            
-                            document.getElementById('topEmotes').innerHTML = top5.map((emote, i) => `
-                                <div class="leaderboard-item">
-                                    <span class="rank">${i+1}</span>
-                                    <span class="name">${emote.name}</span>
-                                    <span class="count">${emote.count} раз</span>
-                                </div>
-                            `).join('');
-                        }
-                    }
-                } catch (error) {
-                    console.error('Ошибка загрузки статистики:', error);
-                    document.getElementById('topChatters').innerHTML = '<div style="color: #ff6b6b;">Ошибка загрузки</div>';
-                    document.getElementById('topEmotes').innerHTML = '<div style="color: #ff6b6b;">Ошибка загрузки</div>';
-                }
+    // === СТАТИСТИКА (АВТОМАТИЧЕСКАЯ) ===
+    async function loadChatStats() {
+        try {
+            // Используем JSON-версию вместо HTML (быстрее и надёжнее)
+            const response = await fetch('https://stats.streamelements.com/api/channel/honesty113/statistics');
+            
+            if (!response.ok) {
+                throw new Error('Ошибка загрузки');
             }
             
-            loadChatStats();
-            setInterval(loadChatStats, 3600000);
-        })();
-    </script>
+            const data = await response.json();
+            
+            // Топ чатеров
+            if (data.topChatters && data.topChatters.length > 0) {
+                const top5 = data.topChatters.slice(0, 5);
+                document.getElementById('topChatters').innerHTML = top5.map((chatter, i) => `
+                    <div class="leaderboard-item">
+                        <span class="rank">${i+1}</span>
+                        <span class="name">${chatter.name}</span>
+                        <span class="count">${chatter.count} сообщ.</span>
+                    </div>
+                `).join('');
+            }
+            
+            // Топ эмоций
+            if (data.topEmotes && data.topEmotes.length > 0) {
+                const top5 = data.topEmotes.slice(0, 5);
+                document.getElementById('topEmotes').innerHTML = top5.map((emote, i) => `
+                    <div class="leaderboard-item">
+                        <span class="rank">${i+1}</span>
+                        <span class="name">${emote.name}</span>
+                        <span class="count">${emote.count} раз</span>
+                    </div>
+                `).join('');
+            }
+            
+        } catch (error) {
+            console.error('Ошибка:', error);
+            // Если API не работает, показываем заглушку
+            document.getElementById('topChatters').innerHTML = '<div style="text-align: center; color: #bda0e6;">Статистика временно недоступна</div>';
+            document.getElementById('topEmotes').innerHTML = '<div style="text-align: center; color: #bda0e6;">Статистика временно недоступна</div>';
+        }
+    }
+    
+    // Загружаем сразу и обновляем каждый час
+    loadChatStats();
+    setInterval(loadChatStats, 3600000);
+})();
+</script>
 </body>
 </html>
