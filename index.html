@@ -80,39 +80,21 @@
             box-shadow: 0 5px 0 #4a2b6e;
         }
 
-        /* ===== СТРИМ + ЧАТ ===== */
-        .stream-chat-row {
-            display: flex;
-            gap: 30px;
+        /* ===== ПЛЕЕР (НА ВСЮ ШИРИНУ) ===== */
+        .stream-full {
+            width: 100%;
             margin-bottom: 40px;
-            flex-wrap: wrap;
-        }
-
-        .stream-column {
-            flex: 2;
-            min-width: 350px;
-        }
-
-        .chat-column {
-            flex: 1;
-            min-width: 300px;
-            height: 450px;
-            background: #1a0b28;
-            border: 3px solid #a55be0;
-            border-radius: 30px;
-            overflow: hidden;
-            box-shadow: 0 15px 25px -8px #00000080;
         }
 
         .twitch-embed {
             position: relative;
             width: 100%;
-            padding-bottom: 56.25%;
+            padding-bottom: 56.25%; /* 16:9 */
             height: 0;
             overflow: hidden;
-            border-radius: 25px;
-            border: 3px solid #c28eff;
-            box-shadow: 0 15px 25px -8px #00000080;
+            border-radius: 30px;
+            border: 4px solid #c28eff;
+            box-shadow: 0 20px 30px -8px #000000b3;
         }
 
         .twitch-embed iframe {
@@ -122,27 +104,7 @@
             width: 100%;
             height: 100%;
             border: none;
-            border-radius: 22px;
-        }
-
-        .chat-column iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* ===== ТАЙМЕР ===== */
-        .timer-block {
-            background: #281a33;
-            border: 2px solid #ac6eff;
-            border-radius: 70px;
-            padding: 20px 35px;
-            text-align: center;
-            margin: 20px 0 40px;
-            font-size: 2rem;
-            font-weight: 700;
-            box-shadow: 0 10px 0 #3e2557;
-            letter-spacing: 1px;
+            border-radius: 26px;
         }
 
         /* ===== СТАТИСТИКА ЧАТА ===== */
@@ -447,36 +409,23 @@
             </div>
         </div>
 
-        <!-- СТРИМ + ЧАТ -->
-        <div class="stream-chat-row">
-            <div class="stream-column">
-                <div class="twitch-embed">
-                    <iframe src="https://player.twitch.tv/?channel=honesty113&parent=bratanchik4252.github.io&parent=localhost" allowfullscreen="true" scrolling="no" allow="autoplay; fullscreen"></iframe>
-                </div>
-            </div>
-            <div class="chat-column">
-                <iframe src="https://www.twitch.tv/embed/honesty113/chat?parent=bratanchik4252.github.io&parent=localhost"></iframe>
+        <!-- ПЛЕЕР НА ВСЮ ШИРИНУ (ЧАТ УБРАН) -->
+        <div class="stream-full">
+            <div class="twitch-embed">
+                <iframe src="https://player.twitch.tv/?channel=honesty113&parent=bratanchik4252.github.io&parent=localhost" allowfullscreen="true" scrolling="no" allow="autoplay; fullscreen"></iframe>
             </div>
         </div>
 
-        <!-- ТАЙМЕР -->
-        <div class="timer-block" id="timer">
-            ⏳ До следующего стрима: ...
-        </div>
-
-        <!-- СТАТИСТИКА ЧАТА (РЕАЛЬНЫЕ ДАННЫЕ) -->
+        <!-- СТАТИСТИКА ЧАТА -->
         <div class="stats-block">
             <h2 class="stats-title">📊 Статистика чата</h2>
             <div class="stats-grid">
-                <!-- Топ чатеров (реальные данные) -->
                 <div class="stat-card">
                     <h3>👑 Топ чатеров</h3>
                     <div id="topChatters" class="leaderboard-list">
                         <div style="text-align: center; color: #bda0e6;">Загрузка...</div>
                     </div>
                 </div>
-                
-                <!-- Топ эмоций (реальные данные) -->
                 <div class="stat-card">
                     <h3>😄 Топ эмоций</h3>
                     <div id="topEmotes" class="leaderboard-list">
@@ -491,14 +440,11 @@
 
         <!-- КАЛЕНДАРЬ + ФАКТ -->
         <div class="info-grid">
-            <!-- Календарь -->
             <div class="info-card">
                 <h2>📅 Календарь стримов</h2>
                 <div class="calendar-grid" id="calendar"></div>
                 <p style="margin-top: 20px; text-align: center; color: #bda0e6;">🌟 Стримы каждый день в 18:00 МСК</p>
             </div>
-
-            <!-- Случайный факт -->
             <div class="info-card">
                 <h2>🎲 Знаете ли вы?</h2>
                 <div class="fact-text" id="randomFact">
@@ -534,30 +480,9 @@
         </div>
     </div>
 
-    <!-- СКРИПТЫ -->
     <script>
         (function() {
-            // === 1. ТАЙМЕР ===
-            function updateTimer() {
-                const now = new Date();
-                const mskHour = (now.getUTCHours() + 3) % 24;
-                
-                let nextStream = new Date(now);
-                nextStream.setUTCHours(15, 0, 0, 0); // 18:00 MSK = 15:00 UTC
-                
-                if (mskHour >= 18) {
-                    nextStream.setDate(nextStream.getDate() + 1);
-                }
-                
-                const diff = nextStream - now;
-                const hours = Math.floor(diff / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                document.getElementById('timer').innerHTML = `⏳ До стрима: ${hours} ч ${minutes} мин`;
-            }
-            updateTimer();
-            setInterval(updateTimer, 60000);
-
-            // === 2. КАЛЕНДАРЬ ===
+            // === КАЛЕНДАРЬ ===
             function renderCalendar() {
                 const calendarDiv = document.getElementById('calendar');
                 const days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
@@ -575,7 +500,7 @@
             }
             renderCalendar();
 
-            // === 3. СЛУЧАЙНЫЙ ФАКТ ===
+            // === СЛУЧАЙНЫЙ ФАКТ ===
             const facts = [
                 "Honesty113 стримит каждый день без выходных!",
                 "Коллыван — его главный зритель и вдохновитель.",
@@ -588,14 +513,12 @@
             ];
             document.getElementById('randomFact').innerText = facts[Math.floor(Math.random() * facts.length)];
 
-            // === 4. ЗАГРУЗКА СТАТИСТИКИ (РЕАЛЬНЫЕ ДАННЫЕ С StreamElements) ===
+            // === ЗАГРУЗКА СТАТИСТИКИ ===
             async function loadChatStats() {
                 try {
-                    // Используем CORS Proxy для обхода блокировок
                     const response = await fetch('https://corsproxy.io/?https://stats.streamelements.com/c/honesty113');
                     const html = await response.text();
                     
-                    // Парсим топ чатеров (100% точные числа)
                     const chattersMatch = html.match(/TOP CHATTERS[\s\S]*?<ol>([\s\S]*?)<\/ol>/i);
                     if (chattersMatch) {
                         const items = chattersMatch[1].match(/<li>([^<]+)<\/li>/g);
@@ -616,7 +539,6 @@
                         }
                     }
                     
-                    // Парсим топ эмоций (100% точные числа)
                     const emotesMatch = html.match(/TOP TWITCH EMOTES[\s\S]*?<ol>([\s\S]*?)<\/ol>/i);
                     if (emotesMatch) {
                         const items = emotesMatch[1].match(/<li>([^<]+)<\/li>/g);
@@ -644,7 +566,7 @@
             }
             
             loadChatStats();
-            setInterval(loadChatStats, 3600000); // Обновление каждый час
+            setInterval(loadChatStats, 3600000);
         })();
     </script>
 </body>
