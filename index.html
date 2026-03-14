@@ -33,13 +33,23 @@
             backdrop-filter: blur(8px);
             border: 2px solid #a55be0;
             border-radius: 60px;
-            padding: 40px 35px;
+            padding: 30px 35px;
             margin-bottom: 40px;
             box-shadow: 0 25px 35px -10px #2a0e3f;
         }
 
+        .header-top {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
         .title-box {
-            text-align: center;
+            text-align: left;
+            flex: 2;
+            min-width: 300px;
         }
 
         .title-box .nick {
@@ -50,37 +60,72 @@
             background-clip: text;
             font-weight: 900;
             letter-spacing: 2px;
+            line-height: 1.2;
         }
 
         .title-box h1 {
-            font-size: 3.5rem;
-            font-weight: 900;
-            text-shadow: 0 0 15px #b05eff;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-shadow: 0 0 10px #b05eff;
             color: #f3e5ff;
-            line-height: 1.2;
-            margin: 5px 0 15px;
+            margin: 5px 0 10px;
         }
 
         .kalevan-box {
-            display: flex;
-            justify-content: center;
-            font-size: 1.6rem;
+            font-size: 1.3rem;
         }
 
         .kalevan-box span {
             background: #ab73ff;
             color: #140021;
-            padding: 12px 35px;
+            padding: 8px 25px;
             border-radius: 60px;
-            font-weight: 800;
+            font-weight: 700;
             display: inline-flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             border: 2px solid #f0e6ff;
-            box-shadow: 0 5px 0 #4a2b6e;
+            box-shadow: 0 4px 0 #4a2b6e;
         }
 
-        /* ===== ПЛЕЕР (НА ВСЮ ШИРИНУ) ===== */
+        .header-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: flex-end;
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .social-btn {
+            background: #2e1d40;
+            border: 2px solid #9a5fde;
+            border-radius: 50px;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 5px 0 #311f49;
+            transition: 0.15s;
+            white-space: nowrap;
+        }
+
+        .social-btn:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+
+        .donate-btn {
+            background: #c43aff;
+            border-color: #f2a5ff;
+            box-shadow: 0 5px 0 #832da8;
+        }
+
+        /* ===== ПЛЕЕР ===== */
         .stream-full {
             width: 100%;
             margin-bottom: 40px;
@@ -89,7 +134,7 @@
         .twitch-embed {
             position: relative;
             width: 100%;
-            padding-bottom: 56.25%; /* 16:9 */
+            padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
             border-radius: 30px;
@@ -107,7 +152,7 @@
             border-radius: 26px;
         }
 
-        /* ===== СТАТИСТИКА ЧАТА ===== */
+        /* ===== СТАТИСТИКА ===== */
         .stats-block {
             margin: 50px 0;
             background: rgba(26, 11, 40, 0.97);
@@ -209,7 +254,7 @@
             border: 1px solid #b47bf0;
         }
 
-        /* ===== СЕТКА КАЛЕНДАРЬ + ФАКТ ===== */
+        /* ===== КАЛЕНДАРЬ + ФАКТ ===== */
         .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -236,7 +281,6 @@
             gap: 12px;
         }
 
-        /* Календарь */
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -269,7 +313,6 @@
             margin-bottom: 5px;
         }
 
-        /* Факт */
         .fact-text {
             font-size: 1.3rem;
             font-style: italic;
@@ -335,42 +378,6 @@
             border: 1px solid #b26bf2;
         }
 
-        /* ===== ССЫЛКИ ===== */
-        .links-block {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin: 40px 0 30px;
-        }
-
-        .social-btn {
-            background: #2e1d40;
-            border: 3px solid #9a5fde;
-            border-radius: 60px;
-            padding: 15px 35px;
-            color: white;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.2rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 8px 0 #311f49;
-            transition: 0.15s;
-        }
-
-        .social-btn:active {
-            transform: translateY(6px);
-            box-shadow: none;
-        }
-
-        .donate-btn {
-            background: #c43aff;
-            border-color: #f2a5ff;
-            box-shadow: 0 8px 0 #832da8;
-        }
-
         /* ===== ПОДПИСЬ ===== */
         .signature {
             margin-top: 60px;
@@ -398,25 +405,32 @@
 </head>
 <body>
     <div class="container">
-        <!-- ШАПКА -->
+        <!-- ШАПКА С КНОПКАМИ -->
         <div class="header-card">
-            <div class="title-box">
-                <div class="nick">Honesty113</div>
-                <h1>⚡TWITCH⚡</h1>
-                <div class="kalevan-box">
-                    <span>🐻 Коллыван ⚔️</span>
+            <div class="header-top">
+                <div class="title-box">
+                    <div class="nick">Honesty113</div>
+                    <h1>⚡TWITCH⚡</h1>
+                    <div class="kalevan-box">
+                        <span>🐻 Коллыван ⚔️</span>
+                    </div>
+                </div>
+                <div class="header-links">
+                    <a href="https://t.me/hoststreet" target="_blank" class="social-btn">📱 Telegram</a>
+                    <a href="https://discord.gg/ynDWeAYB2" target="_blank" class="social-btn">💬 Discord</a>
+                    <a href="https://www.donationalerts.com/r/honesty113" target="_blank" class="social-btn donate-btn">💰 Donate</a>
                 </div>
             </div>
         </div>
 
-        <!-- ПЛЕЕР НА ВСЮ ШИРИНУ (ЧАТ УБРАН) -->
+        <!-- ПЛЕЕР -->
         <div class="stream-full">
             <div class="twitch-embed">
                 <iframe src="https://player.twitch.tv/?channel=honesty113&parent=bratanchik4252.github.io&parent=localhost" allowfullscreen="true" scrolling="no" allow="autoplay; fullscreen"></iframe>
             </div>
         </div>
 
-        <!-- СТАТИСТИКА ЧАТА -->
+        <!-- СТАТИСТИКА -->
         <div class="stats-block">
             <h2 class="stats-title">📊 Статистика чата</h2>
             <div class="stats-grid">
@@ -466,13 +480,6 @@
             </div>
         </div>
 
-        <!-- ССЫЛКИ -->
-        <div class="links-block">
-            <a href="https://t.me/hoststreet" target="_blank" class="social-btn">📱 Telegram-канал</a>
-            <a href="https://discord.gg/ynDWeAYB2" target="_blank" class="social-btn">💬 Discord</a>
-            <a href="https://dalink.to/honesty113" target="_blank" class="social-btn donate-btn">💰 DonationAlerts</a>
-        </div>
-
         <!-- ПОДПИСЬ -->
         <div class="footer-note">
             <div class="signature">✦ by BuShiZm ✦</div>
@@ -513,7 +520,7 @@
             ];
             document.getElementById('randomFact').innerText = facts[Math.floor(Math.random() * facts.length)];
 
-            // === ЗАГРУЗКА СТАТИСТИКИ ===
+            // === СТАТИСТИКА ===
             async function loadChatStats() {
                 try {
                     const response = await fetch('https://corsproxy.io/?https://stats.streamelements.com/c/honesty113');
