@@ -591,7 +591,8 @@
             // === 4. ЗАГРУЗКА СТАТИСТИКИ (РЕАЛЬНЫЕ ДАННЫЕ С StreamElements) ===
             async function loadChatStats() {
                 try {
-                    const response = await fetch('https://api.allorigins.win/raw?url=https://stats.streamelements.com/c/honesty113');
+                    // Используем CORS Proxy для обхода блокировок
+                    const response = await fetch('https://corsproxy.io/?https://stats.streamelements.com/c/honesty113');
                     const html = await response.text();
                     
                     // Парсим топ чатеров (100% точные числа)
