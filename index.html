@@ -16,31 +16,26 @@
             background: linear-gradient(145deg, #0d0015 0%, #1e0a2b 70%, #2d1040 100%);
             color: #f0e6ff;
             min-height: 100vh;
-            padding: 20px 16px 40px;
+            padding: 30px 20px 50px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             width: 100%;
         }
 
-        /* Шапка */
+        /* ===== ШАПКА ===== */
         .header-card {
             background: rgba(75, 20, 120, 0.3);
             backdrop-filter: blur(8px);
             border: 2px solid #a55be0;
-            border-radius: 48px;
-            padding: 24px 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 20px 30px -10px #2a0e3f;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
+            border-radius: 60px;
+            padding: 40px 35px;
+            margin-bottom: 40px;
+            box-shadow: 0 25px 35px -10px #2a0e3f;
         }
 
         .title-box {
@@ -48,68 +43,65 @@
         }
 
         .title-box .nick {
-            font-size: 1.8rem;
+            font-size: 2.8rem;
             background: linear-gradient(135deg, #ceadff, #a159ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            font-weight: bold;
+            font-weight: 900;
+            letter-spacing: 2px;
         }
 
         .title-box h1 {
-            font-size: 2.6rem;
+            font-size: 3.5rem;
             font-weight: 900;
-            letter-spacing: 3px;
-            text-shadow: 0 0 10px #b05eff;
+            text-shadow: 0 0 15px #b05eff;
             color: #f3e5ff;
-            line-height: 1;
+            line-height: 1.2;
+            margin: 5px 0 15px;
         }
 
         .kalevan-box {
             display: flex;
-            justify-content: flex-end;
-            margin-top: 10px;
-            font-size: 1.2rem;
-            background: #2e1647;
-            padding: 8px 25px;
-            border-radius: 60px;
-            width: fit-content;
-            margin-left: auto;
-            border: 2px solid #b47bf0;
+            justify-content: center;
+            font-size: 1.6rem;
         }
 
         .kalevan-box span {
             background: #ab73ff;
             color: #140021;
-            padding: 5px 20px;
-            border-radius: 40px;
+            padding: 12px 35px;
+            border-radius: 60px;
             font-weight: 800;
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
+            border: 2px solid #f0e6ff;
+            box-shadow: 0 5px 0 #4a2b6e;
         }
 
-        /* Блок: Стрим + Чат */
+        /* ===== СТРИМ + ЧАТ ===== */
         .stream-chat-row {
             display: flex;
-            gap: 20px;
-            margin-bottom: 30px;
+            gap: 30px;
+            margin-bottom: 40px;
             flex-wrap: wrap;
         }
 
         .stream-column {
             flex: 2;
-            min-width: 300px;
+            min-width: 350px;
         }
 
         .chat-column {
             flex: 1;
-            min-width: 250px;
-            height: 400px;
+            min-width: 300px;
+            height: 450px;
             background: #1a0b28;
             border: 3px solid #a55be0;
             border-radius: 30px;
             overflow: hidden;
+            box-shadow: 0 15px 25px -8px #00000080;
         }
 
         .twitch-embed {
@@ -118,8 +110,9 @@
             padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
-            border-radius: 20px;
-            border: 2px solid #c28eff;
+            border-radius: 25px;
+            border: 3px solid #c28eff;
+            box-shadow: 0 15px 25px -8px #00000080;
         }
 
         .twitch-embed iframe {
@@ -129,7 +122,7 @@
             width: 100%;
             height: 100%;
             border: none;
-            border-radius: 18px;
+            border-radius: 22px;
         }
 
         .chat-column iframe {
@@ -138,158 +131,307 @@
             border: none;
         }
 
-        /* Таймер */
+        /* ===== ТАЙМЕР ===== */
         .timer-block {
             background: #281a33;
-            border: 1px solid #ac6eff;
-            border-radius: 60px;
-            padding: 15px 30px;
+            border: 2px solid #ac6eff;
+            border-radius: 70px;
+            padding: 20px 35px;
             text-align: center;
-            margin: 20px 0 30px;
-            font-size: 1.5rem;
-            font-weight: 600;
+            margin: 20px 0 40px;
+            font-size: 2rem;
+            font-weight: 700;
+            box-shadow: 0 10px 0 #3e2557;
+            letter-spacing: 1px;
         }
 
-        /* Сетка для блоков: Календарь + Факт + Telegram */
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .info-card {
-            background: rgba(42, 16, 63, 0.7);
+        /* ===== СТАТИСТИКА ЧАТА ===== */
+        .stats-block {
+            margin: 50px 0;
+            background: rgba(26, 11, 40, 0.97);
+            border: 3px solid #a55be0;
+            border-radius: 45px;
+            padding: 35px;
             backdrop-filter: blur(5px);
-            border: 1px solid #ac71e6;
-            border-radius: 30px;
-            padding: 20px;
+            box-shadow: 0 20px 30px -5px #000000b3;
         }
 
-        .info-card h2 {
+        .stats-title {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            border-bottom: 4px dashed #ad5bff;
+            padding-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .stats-grid {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            flex: 1;
+            min-width: 280px;
+            background: #221530;
+            border-radius: 30px;
+            padding: 25px;
+            border: 2px solid #b47bf0;
+            box-shadow: 0 10px 0 #3e2557;
+        }
+
+        .stat-card h3 {
+            color: #bf7cff;
             font-size: 1.8rem;
-            margin-bottom: 15px;
-            border-bottom: 2px dashed #ad5bff;
-            padding-bottom: 5px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 10px;
+            border-bottom: 2px solid #6a3e9e;
+            padding-bottom: 10px;
+        }
+
+        .leaderboard-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: #2c193b;
+            border-radius: 40px;
+            border: 1px solid #8a5ac9;
+            transition: 0.2s;
+            font-size: 1.1rem;
+        }
+
+        .leaderboard-item:hover {
+            background: #3d2357;
+            transform: translateX(5px);
+        }
+
+        .rank {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            background: #b47bf0;
+            color: #140021;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: 800;
+            margin-right: 15px;
+            font-size: 1.1rem;
+            box-shadow: 0 3px 0 #6a3e9e;
+        }
+
+        .name {
+            flex: 1;
+            font-weight: 600;
+            color: #f0e6ff;
+            font-size: 1.1rem;
+        }
+
+        .count {
+            color: #bf7cff;
+            font-weight: 700;
+            font-size: 1.1rem;
+            background: #1a0e24;
+            padding: 5px 15px;
+            border-radius: 30px;
+            border: 1px solid #b47bf0;
+        }
+
+        /* ===== СЕТКА КАЛЕНДАРЬ + ФАКТ ===== */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .info-card {
+            background: rgba(42, 16, 63, 0.8);
+            backdrop-filter: blur(5px);
+            border: 2px solid #ac71e6;
+            border-radius: 40px;
+            padding: 25px;
+            box-shadow: 0 15px 25px -5px #000000b3;
+        }
+
+        .info-card h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            border-bottom: 3px dashed #ad5bff;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         /* Календарь */
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 5px;
+            gap: 8px;
             text-align: center;
-            font-size: 0.9rem;
         }
 
         .calendar-day {
             background: #1e102b;
-            padding: 8px 0;
-            border-radius: 15px;
-            border: 1px solid #5a3c7a;
+            padding: 12px 0;
+            border-radius: 20px;
+            border: 1px solid #6a3e9e;
+            font-weight: 500;
         }
 
         .calendar-day.stream-day {
             background: #7d3eb0;
             border-color: #bf7cff;
-            font-weight: bold;
-            box-shadow: 0 0 10px #b05eff;
+            font-weight: 700;
+            box-shadow: 0 0 12px #b05eff;
         }
 
         .calendar-day.off {
-            opacity: 0.4;
+            opacity: 0.5;
         }
 
         .day-label {
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             color: #b59ec9;
-            margin-bottom: 4px;
+            margin-bottom: 5px;
         }
 
-        /* Случайный факт */
+        /* Факт */
         .fact-text {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-style: italic;
             background: #221530;
-            padding: 15px;
-            border-radius: 20px;
-            border-left: 5px solid #b47bf0;
+            padding: 20px;
+            border-radius: 25px;
+            border-left: 6px solid #b47bf0;
+            line-height: 1.5;
         }
 
-        /* Telegram Виджет (адаптивный) */
-        .telegram-widget-container {
-            background: #1a0e24;
-            border-radius: 20px;
-            overflow: hidden;
-        }
-        .telegram-widget-container telegram-widget {
-            width: 100% !important;
-        }
-
-        /* Игры и соцсети */
+        /* ===== ИГРЫ ===== */
         .games-block {
-            margin: 30px 0;
+            margin: 50px 0;
         }
+
         .games-block h2 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            border-bottom: 3px dashed #ad5bff;
-            padding-bottom: 8px;
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            border-bottom: 4px dashed #ad5bff;
+            padding-bottom: 12px;
         }
+
         .games-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
         }
+
         .game-square {
             background: #211030;
             border: 3px solid #a25ef0;
-            border-radius: 30px;
-            padding: 18px 10px;
+            border-radius: 35px;
+            padding: 25px 15px;
             text-align: center;
-            box-shadow: 0 8px 0 #3c2357;
+            box-shadow: 0 12px 0 #3c2357;
+            transition: 0.15s;
         }
-        .game-icon { font-size: 3rem; }
-        .game-title { font-weight: 800; background: #30204b; padding: 5px; border-radius: 60px; }
-        .game-status { font-size: 0.9rem; background: #2c193b; padding: 5px; border-radius: 40px; margin-top: 5px; border: 1px solid #b26bf2; }
 
+        .game-square:active {
+            transform: translateY(8px);
+            box-shadow: none;
+        }
+
+        .game-icon {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+        }
+
+        .game-title {
+            font-weight: 800;
+            font-size: 1.3rem;
+            background: #30204b;
+            padding: 6px;
+            border-radius: 60px;
+            margin-bottom: 8px;
+        }
+
+        .game-status {
+            font-size: 1rem;
+            background: #2c193b;
+            padding: 6px;
+            border-radius: 40px;
+            border: 1px solid #b26bf2;
+        }
+
+        /* ===== ССЫЛКИ ===== */
         .links-block {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
-            margin: 30px 0;
+            gap: 20px;
+            margin: 40px 0 30px;
         }
+
         .social-btn {
             background: #2e1d40;
-            border: 2px solid #9a5fde;
-            border-radius: 50px;
-            padding: 12px 25px;
+            border: 3px solid #9a5fde;
+            border-radius: 60px;
+            padding: 15px 35px;
             color: white;
             text-decoration: none;
             font-weight: 700;
+            font-size: 1.2rem;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            box-shadow: 0 5px 0 #311f49;
+            gap: 12px;
+            box-shadow: 0 8px 0 #311f49;
+            transition: 0.15s;
         }
-        .donate-btn { background: #c43aff; border-color: #f2a5ff; }
 
+        .social-btn:active {
+            transform: translateY(6px);
+            box-shadow: none;
+        }
+
+        .donate-btn {
+            background: #c43aff;
+            border-color: #f2a5ff;
+            box-shadow: 0 8px 0 #832da8;
+        }
+
+        /* ===== ПОДПИСЬ ===== */
         .signature {
-            margin-top: 50px;
-            font-size: 1.4rem;
+            margin-top: 60px;
+            font-size: 1.8rem;
             text-align: center;
             background: #1d0b2c;
-            padding: 14px 25px;
-            border-radius: 60px;
-            border: 2px solid #ac71e6;
+            padding: 18px 35px;
+            border-radius: 70px;
+            border: 3px solid #ac71e6;
             display: inline-block;
+            box-shadow: 0 0 25px #9f67e0;
+            font-weight: 600;
         }
-        .footer-note { text-align: center; width: 100%; }
+
+        .footer-note {
+            text-align: center;
+            width: 100%;
+        }
+
+        .footer-note small {
+            font-size: 1rem;
+            color: #bda0e6;
+        }
     </style>
 </head>
 <body>
@@ -305,7 +447,7 @@
             </div>
         </div>
 
-        <!-- СТРИМ + ЧАТ (Бок о бок) -->
+        <!-- СТРИМ + ЧАТ -->
         <div class="stream-chat-row">
             <div class="stream-column">
                 <div class="twitch-embed">
@@ -317,123 +459,55 @@
             </div>
         </div>
 
-        <!-- ТАЙМЕР ДО СТРИМА -->
+        <!-- ТАЙМЕР -->
         <div class="timer-block" id="timer">
             ⏳ До следующего стрима: ...
         </div>
 
-        <!-- СЕТКА: КАЛЕНДАРЬ + ФАКТ + TELEGRAM -->
-        <div class="info-grid">
-            <!-- Календарь стримов -->
-            <div class="info-card">
-                <h2>📅 Календарь</h2>
-                <div class="calendar-grid" id="calendar">
-                    <!-- Заполняется скриптом -->
+        <!-- СТАТИСТИКА ЧАТА (РЕАЛЬНЫЕ ДАННЫЕ) -->
+        <div class="stats-block">
+            <h2 class="stats-title">📊 Статистика чата</h2>
+            <div class="stats-grid">
+                <!-- Топ чатеров (реальные данные) -->
+                <div class="stat-card">
+                    <h3>👑 Топ чатеров</h3>
+                    <div id="topChatters" class="leaderboard-list">
+                        <div style="text-align: center; color: #bda0e6;">Загрузка...</div>
+                    </div>
                 </div>
-                <p style="margin-top: 10px; text-align: center; color: #bda0e6;">🌟 Прошедшие / будущие стримы</p>
+                
+                <!-- Топ эмоций (реальные данные) -->
+                <div class="stat-card">
+                    <h3>😄 Топ эмоций</h3>
+                    <div id="topEmotes" class="leaderboard-list">
+                        <div style="text-align: center; color: #bda0e6;">Загрузка...</div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 25px; font-size: 1rem; color: #bda0e6;">
+                ✨ Данные с StreamElements • обновляются ежечасно • полные числа
+            </div>
+        </div>
+
+        <!-- КАЛЕНДАРЬ + ФАКТ -->
+        <div class="info-grid">
+            <!-- Календарь -->
+            <div class="info-card">
+                <h2>📅 Календарь стримов</h2>
+                <div class="calendar-grid" id="calendar"></div>
+                <p style="margin-top: 20px; text-align: center; color: #bda0e6;">🌟 Стримы каждый день в 18:00 МСК</p>
             </div>
 
             <!-- Случайный факт -->
             <div class="info-card">
                 <h2>🎲 Знаете ли вы?</h2>
                 <div class="fact-text" id="randomFact">
-                    Honesty113 обожает майнкрафт и Коллывана!
+                    Honesty113 стримит каждый день и любит Коллывана!
                 </div>
             </div>
+        </div>
 
-            <!-- Telegram ЛЕНТА (автообновление) -->
-<div class="info-card">
-    <h2>📱 Последние посты</h2>
-    <div id="telegram-feed" class="telegram-feed">
-        <p style="text-align: center; color: #bda0e6;">Загрузка...</p>
-    </div>
-</div>
-
-<script>
-// Функция загрузки последних постов из Telegram (с запасными источниками)
-async function loadTelegramPosts() {
-    const feedContainer = document.getElementById('telegram-feed');
-    // Массив источников RSS на случай, если какой-то не сработает
-    const sources = [
-        'https://rsshub.app/telegram/channel/hoststreet',
-        'https://api.eggradar.com/feed?url=https://t.me/s/hoststreet'
-    ];
-
-    for (const source of sources) {
-        try {
-            const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(source)}`);
-            const data = await response.json();
-            
-            if (data.items && data.items.length > 0) {
-                let html = '';
-                // Показываем последние 3 поста
-                for (let i = 0; i < Math.min(3, data.items.length); i++) {
-                    const post = data.items[i];
-                    const date = new Date(post.pubDate).toLocaleString('ru-RU', {
-                        day: 'numeric',
-                        month: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                    });
-                    
-                    // Чистим и сокращаем текст
-                    let cleanText = post.description.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
-                    if (cleanText.length > 120) {
-                        cleanText = cleanText.substring(0, 120) + '...';
-                    }
-                    
-                    html += `
-                        <div class="telegram-post-item" style="background: #221530; border-radius: 15px; padding: 12px; margin-bottom: 12px; border-left: 4px solid #b47bf0;">
-                            <div style="font-size: 0.8rem; color: #bda0e6; margin-bottom: 6px;">📅 ${date}</div>
-                            <div style="color: #f0e6ff; word-break: break-word;">${cleanText || '📎 Медиа или опрос'}</div>
-                        </div>
-                    `;
-                }
-                feedContainer.innerHTML = html;
-                return; // Успешно загрузили, выходим из функции
-            }
-        } catch (error) {
-            console.log(`Не удалось загрузить из ${source}, пробуем следующий...`);
-            // Если не получилось, пробуем следующий источник
-        }
-    }
-    // Если ни один источник не сработал
-    feedContainer.innerHTML = '<p style="color: #bda0e6; text-align: center;">Не удалось загрузить посты. Обновите страницу позже.</p>';
-}
-
-// Загружаем сразу
-loadTelegramPosts();
-
-// И обновляем каждые 10 минут (600000 миллисекунд), чтобы не нагружать лишний раз
-setInterval(loadTelegramPosts, 600000);
-</script>
-
-<style>
-.telegram-feed {
-    max-height: 350px;
-    overflow-y: auto;
-    padding-right: 8px;
-}
-.telegram-feed::-webkit-scrollbar {
-    width: 6px;
-}
-.telegram-feed::-webkit-scrollbar-track {
-    background: #1e102b;
-    border-radius: 10px;
-}
-.telegram-feed::-webkit-scrollbar-thumb {
-    background: #b47bf0;
-    border-radius: 10px;
-}
-.telegram-post-item {
-    transition: 0.2s;
-}
-.telegram-post-item:hover {
-    background: #2f1b42 !important;
-    transform: translateX(3px);
-}
-</style>
-        <!-- ИГРОВОЙ КОМПАС -->
+        <!-- ИГРЫ -->
         <div class="games-block">
             <h2>🎮 Игровой компас</h2>
             <div class="games-grid">
@@ -456,23 +530,21 @@ setInterval(loadTelegramPosts, 600000);
         <!-- ПОДПИСЬ -->
         <div class="footer-note">
             <div class="signature">✦ by BuShiZm ✦</div>
-            <div style="margin-top: 16px; color: #bda0e6;">для самого честного стримера Honesty113</div>
+            <small>для самого честного стримера Honesty113</small>
         </div>
     </div>
 
-    <!-- СКРИПТЫ: Таймер, Календарь, Факты -->
+    <!-- СКРИПТЫ -->
     <script>
         (function() {
-            // === 1. ТАЙМЕР ДО СТРИМА ===
+            // === 1. ТАЙМЕР ===
             function updateTimer() {
                 const now = new Date();
                 const mskHour = (now.getUTCHours() + 3) % 24;
-                const mskDay = now.getUTCDay(); // 0 вс, 1 пн...
-
+                
                 let nextStream = new Date(now);
-                nextStream.setUTCHours(18 - 3, 0, 0, 0); // 18:00 MSK = 15:00 UTC
-
-                // Если сегодня после 18:00 или день не стримовый (но у нас каждый день), то ищем завтра
+                nextStream.setUTCHours(15, 0, 0, 0); // 18:00 MSK = 15:00 UTC
+                
                 if (mskHour >= 18) {
                     nextStream.setDate(nextStream.getDate() + 1);
                 }
@@ -485,7 +557,7 @@ setInterval(loadTelegramPosts, 600000);
             updateTimer();
             setInterval(updateTimer, 60000);
 
-            // === 2. КАЛЕНДАРЬ (ближайшие 7 дней) ===
+            // === 2. КАЛЕНДАРЬ ===
             function renderCalendar() {
                 const calendarDiv = document.getElementById('calendar');
                 const days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
@@ -496,24 +568,82 @@ setInterval(loadTelegramPosts, 600000);
                     date.setDate(today.getDate() + i);
                     const dayName = days[date.getDay()];
                     const dayNumber = date.getDate();
-                    const isStreamDay = true; // стримы каждый день
-                    const isPast = date < new Date().setHours(0,0,0,0);
-                    html += `<div class="calendar-day ${isStreamDay ? 'stream-day' : ''} ${isPast ? 'off' : ''}"><span class="day-label">${dayName}</span> ${dayNumber}</div>`;
+                    const isPast = date.setHours(0,0,0,0) < new Date().setHours(0,0,0,0);
+                    html += `<div class="calendar-day stream-day ${isPast ? 'off' : ''}"><span class="day-label">${dayName}</span> ${dayNumber}</div>`;
                 }
                 calendarDiv.innerHTML = html;
             }
             renderCalendar();
 
-            // === 3. СЛУЧАЙНЫЕ ФАКТЫ (массив) ===
+            // === 3. СЛУЧАЙНЫЙ ФАКТ ===
             const facts = [
-                "Honesty113 стримит майнкрафт чаще, чем ест!",
-                "Коллыван — его духовный наставник в стримах.",
-                "Однажды он стримил 12 часов подряд и не устал.",
-                "Любит Valorant, но там 'жду только я'.",
-                "Начинал с майнкрафта, а теперь пробует хорроры.",
-                "Его Telegram-канал — кладезь мемов."
+                "Honesty113 стримит каждый день без выходных!",
+                "Коллыван — его главный зритель и вдохновитель.",
+                "Любимая игра — Minecraft, но пробует всё подряд.",
+                "В Valorant 'жду только я' — это уже мем.",
+                "Однажды стримил 24 часа подряд.",
+                "Его Telegram-канал живёт своей жизнью.",
+                "Честность — главное качество стримера.",
+                "Обожает, когда в чате пишут его эмоции."
             ];
             document.getElementById('randomFact').innerText = facts[Math.floor(Math.random() * facts.length)];
+
+            // === 4. ЗАГРУЗКА СТАТИСТИКИ (РЕАЛЬНЫЕ ДАННЫЕ С StreamElements) ===
+            async function loadChatStats() {
+                try {
+                    const response = await fetch('https://api.allorigins.win/raw?url=https://stats.streamelements.com/c/honesty113');
+                    const html = await response.text();
+                    
+                    // Парсим топ чатеров (100% точные числа)
+                    const chattersMatch = html.match(/TOP CHATTERS[\s\S]*?<ol>([\s\S]*?)<\/ol>/i);
+                    if (chattersMatch) {
+                        const items = chattersMatch[1].match(/<li>([^<]+)<\/li>/g);
+                        if (items) {
+                            const top5 = items.slice(0, 5).map(item => {
+                                const clean = item.replace(/<[^>]*>/g, '').trim();
+                                const parts = clean.match(/(\d+)\s+(.+)/);
+                                return parts ? { count: parts[1], name: parts[2] } : null;
+                            }).filter(Boolean);
+                            
+                            document.getElementById('topChatters').innerHTML = top5.map((chatter, i) => `
+                                <div class="leaderboard-item">
+                                    <span class="rank">${i+1}</span>
+                                    <span class="name">${chatter.name}</span>
+                                    <span class="count">${chatter.count} сообщ.</span>
+                                </div>
+                            `).join('');
+                        }
+                    }
+                    
+                    // Парсим топ эмоций (100% точные числа)
+                    const emotesMatch = html.match(/TOP TWITCH EMOTES[\s\S]*?<ol>([\s\S]*?)<\/ol>/i);
+                    if (emotesMatch) {
+                        const items = emotesMatch[1].match(/<li>([^<]+)<\/li>/g);
+                        if (items) {
+                            const top5 = items.slice(0, 5).map(item => {
+                                const clean = item.replace(/<[^>]*>/g, '').trim();
+                                const parts = clean.match(/(.+?)\s*–\s*(\d+)/);
+                                return parts ? { name: parts[1].trim(), count: parts[2] } : null;
+                            }).filter(Boolean);
+                            
+                            document.getElementById('topEmotes').innerHTML = top5.map((emote, i) => `
+                                <div class="leaderboard-item">
+                                    <span class="rank">${i+1}</span>
+                                    <span class="name">${emote.name}</span>
+                                    <span class="count">${emote.count} раз</span>
+                                </div>
+                            `).join('');
+                        }
+                    }
+                } catch (error) {
+                    console.error('Ошибка загрузки статистики:', error);
+                    document.getElementById('topChatters').innerHTML = '<div style="color: #ff6b6b;">Ошибка загрузки</div>';
+                    document.getElementById('topEmotes').innerHTML = '<div style="color: #ff6b6b;">Ошибка загрузки</div>';
+                }
+            }
+            
+            loadChatStats();
+            setInterval(loadChatStats, 3600000); // Обновление каждый час
         })();
     </script>
 </body>
