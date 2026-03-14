@@ -23,10 +23,11 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             width: 100%;
         }
 
+        /* Шапка */
         .header-card {
             background: rgba(75, 20, 120, 0.3);
             backdrop-filter: blur(8px);
@@ -46,15 +47,6 @@
             text-align: center;
         }
 
-        .title-box h1 {
-            font-size: 2.6rem;
-            font-weight: 900;
-            letter-spacing: 3px;
-            text-shadow: 0 0 10px #b05eff;
-            color: #f3e5ff;
-            line-height: 1;
-        }
-
         .title-box .nick {
             font-size: 1.8rem;
             background: linear-gradient(135deg, #ceadff, #a159ff);
@@ -62,6 +54,15 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             font-weight: bold;
+        }
+
+        .title-box h1 {
+            font-size: 2.6rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px #b05eff;
+            color: #f3e5ff;
+            line-height: 1;
         }
 
         .kalevan-box {
@@ -88,26 +89,39 @@
             gap: 8px;
         }
 
-        /* НОВЫЙ БЛОК - ЭКРАН СО СТРИМОМ */
-        .stream-screen {
+        /* Блок: Стрим + Чат */
+        .stream-chat-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stream-column {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .chat-column {
+            flex: 1;
+            min-width: 250px;
+            height: 400px;
             background: #1a0b28;
             border: 3px solid #a55be0;
             border-radius: 30px;
-            padding: 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 0 30px #8a43c0;
+            overflow: hidden;
         }
-        
+
         .twitch-embed {
             position: relative;
             width: 100%;
-            padding-bottom: 56.25%; /* Соотношение сторон 16:9 */
+            padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
             border-radius: 20px;
             border: 2px solid #c28eff;
         }
-        
+
         .twitch-embed iframe {
             position: absolute;
             top: 0;
@@ -117,34 +131,139 @@
             border: none;
             border-radius: 18px;
         }
-        
-        .stream-status-badge {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 10px 25px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.2rem;
+
+        .chat-column iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Таймер */
+        .timer-block {
             background: #281a33;
             border: 1px solid #ac6eff;
+            border-radius: 60px;
+            padding: 15px 30px;
+            text-align: center;
+            margin: 20px 0 30px;
+            font-size: 1.5rem;
+            font-weight: 600;
         }
-        
-        .online-badge {
-            color: #bf5aff;
+
+        /* Сетка для блоков: Календарь + Факт + Telegram */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
         }
-        
-        .offline-badge {
-            color: #7a4c9e;
+
+        .info-card {
+            background: rgba(42, 16, 63, 0.7);
+            backdrop-filter: blur(5px);
+            border: 1px solid #ac71e6;
+            border-radius: 30px;
+            padding: 20px;
         }
+
+        .info-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            border-bottom: 2px dashed #ad5bff;
+            padding-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Календарь */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .calendar-day {
+            background: #1e102b;
+            padding: 8px 0;
+            border-radius: 15px;
+            border: 1px solid #5a3c7a;
+        }
+
+        .calendar-day.stream-day {
+            background: #7d3eb0;
+            border-color: #bf7cff;
+            font-weight: bold;
+            box-shadow: 0 0 10px #b05eff;
+        }
+
+        .calendar-day.off {
+            opacity: 0.4;
+        }
+
+        .day-label {
+            font-size: 0.7rem;
+            color: #b59ec9;
+            margin-bottom: 4px;
+        }
+
+        /* Случайный факт */
+        .fact-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            background: #221530;
+            padding: 15px;
+            border-radius: 20px;
+            border-left: 5px solid #b47bf0;
+        }
+
+        /* Telegram Виджет (адаптивный) */
+        .telegram-widget-container {
+            background: #1a0e24;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .telegram-widget-container telegram-widget {
+            width: 100% !important;
+        }
+
+        /* Игры и соцсети */
+        .games-block {
+            margin: 30px 0;
+        }
+        .games-block h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            border-bottom: 3px dashed #ad5bff;
+            padding-bottom: 8px;
+        }
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+        }
+        .game-square {
+            background: #211030;
+            border: 3px solid #a25ef0;
+            border-radius: 30px;
+            padding: 18px 10px;
+            text-align: center;
+            box-shadow: 0 8px 0 #3c2357;
+        }
+        .game-icon { font-size: 3rem; }
+        .game-title { font-weight: 800; background: #30204b; padding: 5px; border-radius: 60px; }
+        .game-status { font-size: 0.9rem; background: #2c193b; padding: 5px; border-radius: 40px; margin-top: 5px; border: 1px solid #b26bf2; }
 
         .links-block {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 15px;
-            margin: 30px 0 20px;
+            margin: 30px 0;
         }
-
         .social-btn {
             background: #2e1d40;
             border: 2px solid #9a5fde;
@@ -156,148 +275,26 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            transition: 0.15s;
             box-shadow: 0 5px 0 #311f49;
-            font-size: 1.1rem;
         }
-
-        .social-btn:active {
-            transform: translateY(5px);
-            box-shadow: none;
-        }
-
-        .donate-btn {
-            background: #c43aff;
-            border-color: #f2a5ff;
-            box-shadow: 0 5px 0 #832da8;
-        }
-
-        .schedule-block {
-            background: rgba(42, 16, 63, 0.7);
-            border-radius: 40px;
-            padding: 24px 18px;
-            margin: 30px 0;
-            border: 1px solid #ac71e6;
-            backdrop-filter: blur(5px);
-        }
-
-        .schedule-block h2, .games-block h2 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-bottom: 3px dashed #ad5bff;
-            padding-bottom: 8px;
-        }
-
-        .schedule-table {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .schedule-row {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            background: #1e102b;
-            padding: 12px 16px;
-            border-radius: 50px;
-            align-items: center;
-            border: 1px solid #8a5ac9;
-            font-weight: 500;
-        }
-
-        .schedule-row .day {
-            color: #dbbaff;
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
-
-        .schedule-row .time {
-            font-family: monospace;
-            font-size: 1.2rem;
-            background: #312347;
-            padding: 4px 16px;
-            border-radius: 40px;
-            text-align: center;
-            justify-self: end;
-        }
-
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 16px;
-            margin: 20px 0 10px;
-        }
-
-        .game-square {
-            background: #211030;
-            border: 3px solid #a25ef0;
-            border-radius: 30px;
-            padding: 18px 10px 14px;
-            text-align: center;
-            transition: 0.1s ease;
-            box-shadow: 0 8px 0 #3c2357;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .game-square:active {
-            transform: translateY(8px);
-            box-shadow: none;
-        }
-
-        .game-icon {
-            font-size: 3rem;
-            line-height: 1;
-            margin-bottom: 5px;
-            filter: drop-shadow(0 4px 2px #1f092e);
-        }
-
-        .game-title {
-            font-weight: 800;
-            font-size: 1.2rem;
-            background: #30204b;
-            padding: 5px;
-            border-radius: 60px;
-        }
-
-        .game-status {
-            font-size: 0.95rem;
-            border-radius: 40px;
-            padding: 5px 12px;
-            background: #2c193b;
-            font-weight: 600;
-            color: #cfb5ff;
-            border: 1px solid #b26bf2;
-        }
+        .donate-btn { background: #c43aff; border-color: #f2a5ff; }
 
         .signature {
             margin-top: 50px;
             font-size: 1.4rem;
-            font-weight: 600;
             text-align: center;
-            color: #dcc1ff;
             background: #1d0b2c;
             padding: 14px 25px;
             border-radius: 60px;
             border: 2px solid #ac71e6;
             display: inline-block;
-            align-self: center;
-            box-shadow: 0 0 20px #9f67e0;
         }
-
-        .footer-note {
-            text-align: center;
-            width: 100%;
-        }
+        .footer-note { text-align: center; width: 100%; }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- ШАПКА -->
         <div class="header-card">
             <div class="title-box">
                 <div class="nick">Honesty113</div>
@@ -308,132 +305,132 @@
             </div>
         </div>
 
-        <!-- НОВЫЙ БЛОК - ЭКРАН СО СТРИМОМ -->
-        <div class="stream-screen">
-            <div class="twitch-embed">
-                <!-- Встроенный плеер Twitch -->
-                <iframe src="https://player.twitch.tv/?channel=honesty113&parent=bratanchik4252.github.io&parent=www.bratanchik4252.github.io&parent=localhost&parent=127.0.0.1" allowfullscreen="true" scrolling="no" allow="autoplay; fullscreen"></iframe>
+        <!-- СТРИМ + ЧАТ (Бок о бок) -->
+        <div class="stream-chat-row">
+            <div class="stream-column">
+                <div class="twitch-embed">
+                    <iframe src="https://player.twitch.tv/?channel=honesty113&parent=bratanchik4252.github.io&parent=localhost" allowfullscreen="true" scrolling="no" allow="autoplay; fullscreen"></iframe>
+                </div>
             </div>
-            <div class="stream-status-badge" id="streamStatusBadge">
-                🔴 Проверка статуса...
+            <div class="chat-column">
+                <iframe src="https://www.twitch.tv/embed/honesty113/chat?parent=bratanchik4252.github.io&parent=localhost"></iframe>
             </div>
         </div>
 
-        <div class="links-block">
-            <a href="https://t.me/hoststreet" target="_blank" class="social-btn" rel="noopener noreferrer">📱 Telegram-канал</a>
-            <a href="https://discord.gg/ynDWeAYB2" target="_blank" class="social-btn" rel="noopener noreferrer">💬 Discord</a>
-            <a href="https://dalink.to/honesty113" target="_blank" class="social-btn donate-btn" rel="noopener noreferrer">💰 DonationAlerts</a>
+        <!-- ТАЙМЕР ДО СТРИМА -->
+        <div class="timer-block" id="timer">
+            ⏳ До следующего стрима: ...
         </div>
 
-        <div class="schedule-block">
-            <h2>📅 Расписание стримов</h2>
-            <div class="schedule-table">
-                <div class="schedule-row">
-                    <span class="day">Понедельник</span>
-                    <span class="time">18:00 - по ситуации</span>
+        <!-- СЕТКА: КАЛЕНДАРЬ + ФАКТ + TELEGRAM -->
+        <div class="info-grid">
+            <!-- Календарь стримов -->
+            <div class="info-card">
+                <h2>📅 Календарь</h2>
+                <div class="calendar-grid" id="calendar">
+                    <!-- Заполняется скриптом -->
                 </div>
-                <div class="schedule-row">
-                    <span class="day">Вторник</span>
-                    <span class="time">18:00 - по ситуации</span>
+                <p style="margin-top: 10px; text-align: center; color: #bda0e6;">🌟 Прошедшие / будущие стримы</p>
+            </div>
+
+            <!-- Случайный факт -->
+            <div class="info-card">
+                <h2>🎲 Знаете ли вы?</h2>
+                <div class="fact-text" id="randomFact">
+                    Honesty113 обожает майнкрафт и Коллывана!
                 </div>
-                <div class="schedule-row">
-                    <span class="day">Среда</span>
-                    <span class="time">18:00 - по ситуации</span>
-                </div>
-                <div class="schedule-row">
-                    <span class="day">Четверг</span>
-                    <span class="time">18:00 - по ситуации</span>
-                </div>
-                <div class="schedule-row">
-                    <span class="day">Пятница</span>
-                    <span class="time">18:00 - по ситуации</span>
-                </div>
-                <div class="schedule-row">
-                    <span class="day">Суббота</span>
-                    <span class="time">18:00 - по ситуации</span>
-                </div>
-                <div class="schedule-row">
-                    <span class="day">Воскресенье</span>
-                    <span class="time">18:00 - по ситуации</span>
+            </div>
+
+            <!-- Telegram Виджет (Пост 977) -->
+            <div class="info-card">
+                <h2>📱 Последний пост</h2>
+                <div class="telegram-widget-container">
+                    <script async src="https://telegram.org/js/telegram-widget.js?23" data-telegram-post="hoststreet/977" data-width="100%"></script>
                 </div>
             </div>
         </div>
 
+        <!-- ИГРОВОЙ КОМПАС -->
         <div class="games-block">
             <h2>🎮 Игровой компас</h2>
             <div class="games-grid">
-                <div class="game-square">
-                    <div class="game-icon">⛏️</div>
-                    <div class="game-title">MINECRAFT</div>
-                    <div class="game-status">🔵 сейчас играет (Mcskill)</div>
-                </div>
-                <div class="game-square">
-                    <div class="game-icon">😱</div>
-                    <div class="game-title">OUTLAST 2</div>
-                    <div class="game-status">🔵 сейчас играет</div>
-                </div>
-                <div class="game-square">
-                    <div class="game-icon">🧛</div>
-                    <div class="game-title">RESIDENT EVIL 8</div>
-                    <div class="game-status">⚪ забросил</div>
-                </div>
-                <div class="game-square">
-                    <div class="game-icon">🌃</div>
-                    <div class="game-title">CYBERPUNK 2077</div>
-                    <div class="game-status">🔴 не начинал (но намекал)</div>
-                </div>
-                <div class="game-square">
-                    <div class="game-icon">🔫</div>
-                    <div class="game-title">VALORANT</div>
-                    <div class="game-status">💤 жду только я ((</div>
-                </div>
-                <div class="game-square">
-                    <div class="game-icon">🎲</div>
-                    <div class="game-title">...</div>
-                    <div class="game-status">скоро узнаем</div>
-                </div>
+                <div class="game-square"><div class="game-icon">⛏️</div><div class="game-title">MINECRAFT</div><div class="game-status">🔵 сейчас играет (Mcskill)</div></div>
+                <div class="game-square"><div class="game-icon">😱</div><div class="game-title">OUTLAST 2</div><div class="game-status">🔵 сейчас играет</div></div>
+                <div class="game-square"><div class="game-icon">🧛</div><div class="game-title">RESIDENT EVIL 8</div><div class="game-status">⚪ забросил</div></div>
+                <div class="game-square"><div class="game-icon">🌃</div><div class="game-title">CYBERPUNK 2077</div><div class="game-status">🔴 не начинал (но намекал)</div></div>
+                <div class="game-square"><div class="game-icon">🔫</div><div class="game-title">VALORANT</div><div class="game-status">💤 жду только я ((</div></div>
+                <div class="game-square"><div class="game-icon">🎲</div><div class="game-title">...</div><div class="game-status">скоро узнаем</div></div>
             </div>
         </div>
 
+        <!-- ССЫЛКИ -->
+        <div class="links-block">
+            <a href="https://t.me/hoststreet" target="_blank" class="social-btn">📱 Telegram-канал</a>
+            <a href="https://discord.gg/ynDWeAYB2" target="_blank" class="social-btn">💬 Discord</a>
+            <a href="https://dalink.to/honesty113" target="_blank" class="social-btn donate-btn">💰 DonationAlerts</a>
+        </div>
+
+        <!-- ПОДПИСЬ -->
         <div class="footer-note">
-            <div class="signature">
-                ✦ by BuShiZm ✦
-            </div>
-            <div style="margin-top: 16px; color: #bda0e6; font-size: 1rem;">
-                для самого честного стримера Honesty113
-            </div>
+            <div class="signature">✦ by BuShiZm ✦</div>
+            <div style="margin-top: 16px; color: #bda0e6;">для самого честного стримера Honesty113</div>
         </div>
     </div>
 
+    <!-- СКРИПТЫ: Таймер, Календарь, Факты -->
     <script>
         (function() {
-            const statusBadge = document.getElementById('streamStatusBadge');
-
-            function getStreamStatus() {
+            // === 1. ТАЙМЕР ДО СТРИМА ===
+            function updateTimer() {
                 const now = new Date();
                 const mskHour = (now.getUTCHours() + 3) % 24;
+                const mskDay = now.getUTCDay(); // 0 вс, 1 пн...
+
+                let nextStream = new Date(now);
+                nextStream.setUTCHours(18 - 3, 0, 0, 0); // 18:00 MSK = 15:00 UTC
+
+                // Если сегодня после 18:00 или день не стримовый (но у нас каждый день), то ищем завтра
+                if (mskHour >= 18) {
+                    nextStream.setDate(nextStream.getDate() + 1);
+                }
                 
-                // Каждый день с 18:00 до 23:00 (можно настроить под реальное расписание)
-                if (mskHour >= 18 && mskHour < 23) {
-                    return true;
-                }
-                return false;
+                const diff = nextStream - now;
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                document.getElementById('timer').innerHTML = `⏳ До стрима: ${hours} ч ${minutes} мин`;
             }
+            updateTimer();
+            setInterval(updateTimer, 60000);
 
-            function updateStreamStatus() {
-                const isOnline = getStreamStatus();
-
-                if (isOnline) {
-                    statusBadge.innerHTML = '🔴 Honesty113 СЕЙЧАС В ЭФИРЕ!';
-                    statusBadge.style.color = '#bf5aff';
-                } else {
-                    statusBadge.innerHTML = '⚫ Стрим офлайн. Заходи в другое время!';
-                    statusBadge.style.color = '#7a4c9e';
+            // === 2. КАЛЕНДАРЬ (ближайшие 7 дней) ===
+            function renderCalendar() {
+                const calendarDiv = document.getElementById('calendar');
+                const days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+                const today = new Date();
+                let html = '';
+                for (let i = 0; i < 7; i++) {
+                    const date = new Date(today);
+                    date.setDate(today.getDate() + i);
+                    const dayName = days[date.getDay()];
+                    const dayNumber = date.getDate();
+                    const isStreamDay = true; // стримы каждый день
+                    const isPast = date < new Date().setHours(0,0,0,0);
+                    html += `<div class="calendar-day ${isStreamDay ? 'stream-day' : ''} ${isPast ? 'off' : ''}"><span class="day-label">${dayName}</span> ${dayNumber}</div>`;
                 }
+                calendarDiv.innerHTML = html;
             }
+            renderCalendar();
 
-            updateStreamStatus();
-            setInterval(updateStreamStatus, 60000);
+            // === 3. СЛУЧАЙНЫЕ ФАКТЫ (массив) ===
+            const facts = [
+                "Honesty113 стримит майнкрафт чаще, чем ест!",
+                "Коллыван — его духовный наставник в стримах.",
+                "Однажды он стримил 12 часов подряд и не устал.",
+                "Любит Valorant, но там 'жду только я'.",
+                "Начинал с майнкрафта, а теперь пробует хорроры.",
+                "Его Telegram-канал — кладезь мемов."
+            ];
+            document.getElementById('randomFact').innerText = facts[Math.floor(Math.random() * facts.length)];
         })();
     </script>
 </body>
