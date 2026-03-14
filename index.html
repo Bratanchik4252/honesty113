@@ -551,53 +551,72 @@
     ];
     document.getElementById('randomFact').innerText = facts[Math.floor(Math.random() * facts.length)];
 
-    // === СТАТИСТИКА (АВТОМАТИЧЕСКАЯ) ===
+    // === СТАТИСТИКА (ЧЕРЕЗ НАДЁЖНЫЙ ПРОКСИ) ===
     async function loadChatStats() {
         try {
-            // Используем JSON-версию вместо HTML (быстрее и надёжнее)
-            const response = await fetch('https://stats.streamelements.com/api/channel/honesty113/statistics');
-            
-            if (!response.ok) {
-                throw new Error('Ошибка загрузки');
-            }
-            
+            // Используем rss2json как прокси (он очень стабильный)
+            const response = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('https://stats.streamelements.com/c/honesty113'));
             const data = await response.json();
             
-            // Топ чатеров
-            if (data.topChatters && data.topChatters.length > 0) {
-                const top5 = data.topChatters.slice(0, 5);
-                document.getElementById('topChatters').innerHTML = top5.map((chatter, i) => `
-                    <div class="leaderboard-item">
-                        <span class="rank">${i+1}</span>
-                        <span class="name">${chatter.name}</span>
-                        <span class="count">${chatter.count} сообщ.</span>
-                    </div>
-                `).join('');
+            if (data && data.items && data.items[0] && data.items[0].content) {
+                const html = data.items[0].content;
+                
+                // Парсим топ чатеров
+                const chattersMatch = html.match(/TOP CHATTERS[\s\S]*?<ol>([\s\S]*?)<\/ol>/i);
+                if (chattersMatch) {
+                    const items = chattersMatch[1].match(/<li>([^<]+)<\/li>/g);
+                    if (items) {
+                        const top5 = items.slice(0, 5).map(item => {
+                            const clean = item.replace(/<[^>]*>/g, '').trim();
+                            const parts = clean.match(/(\d+)\s+(.+)/);
+                            return parts ? { count: parts[1], name: parts[2] } : null;
+                        }).filter(Boolean);
+                        
+                        document.getElementById('topChatters').innerHTML = top5.map((chatter, i) => `
+                            <div class="leaderboard-item">
+                                <span class="rank">${i+1}</span>
+                                <span class="name">${chatter.name}</span>
+                                <span class="count">${chatter.count} сообщ.</span>
+                            </div>
+                        `).join('');
+                    }
+                }
+                
+                // Парсим топ эмоций
+                const emotesMatch = html.match(/TOP TWITCH EMOTES[\s\S]*?<ol>([\s\S]*?)<\/ol>/i);
+                if (emotesMatch) {
+                    const items = emotesMatch[1].match(/<li>([^<]+)<\/li>/g);
+                    if (items) {
+                        const top5 = items.slice(0, 5).map(item => {
+                            const clean = item.replace(/<[^>]*>/g, '').trim();
+                            const parts = clean.match(/(.+?)\s*–\s*(\d+)/);
+                            return parts ? { name: parts[1].trim(), count: parts[2] } : null;
+                        }).filter(Boolean);
+                        
+                        document.getElementById('topEmotes').innerHTML = top5.map((emote, i) => `
+                            <div class="leaderboard-item">
+                                <span class="rank">${i+1}</span>
+                                <span class="name">${emote.name}</span>
+                                <span class="count">${emote.count} раз</span>
+                            </div>
+                        `).join('');
+                    }
+                }
+            } else {
+                throw new Error('Нет данных');
             }
-            
-            // Топ эмоций
-            if (data.topEmotes && data.topEmotes.length > 0) {
-                const top5 = data.topEmotes.slice(0, 5);
-                document.getElementById('topEmotes').innerHTML = top5.map((emote, i) => `
-                    <div class="leaderboard-item">
-                        <span class="rank">${i+1}</span>
-                        <span class="name">${emote.name}</span>
-                        <span class="count">${emote.count} раз</span>
-                    </div>
-                `).join('');
-            }
-            
         } catch (error) {
-            console.error('Ошибка:', error);
-            // Если API не работает, показываем заглушку
-            document.getElementById('topChatters').innerHTML = '<div style="text-align: center; color: #bda0e6;">Статистика временно недоступна</div>';
-            document.getElementById('topEmotes').innerHTML = '<div style="text-align: center; color: #bda0e6;">Статистика временно недоступна</div>';
+            console.error('Ошибка загрузки статистики:', error);
+            // Если не получилось — показываем красивое сообщение
+            document.getElementById('topChatters').innerHTML = '<div style="text-align: center; color: #bda0e6; padding: 20px;">📊 Статистика скоро обновится</div>';
+            document.getElementById('topEmotes').innerHTML = '<div style="text-align: center; color: #bda0e6; padding: 20px;">😄 Скоро будут данные</div>';
         }
     }
     
-    // Загружаем сразу и обновляем каждый час
+    // Загружаем сразу
     loadChatStats();
-    setInterval(loadChatStats, 3600000);
+    // И пробуем обновлять каждые 30 минут (вдруг починится)
+    setInterval(loadChatStats, 1800000);
 })();
 </script>
 </body>
