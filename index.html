@@ -551,10 +551,9 @@
     ];
     document.getElementById('randomFact').innerText = facts[Math.floor(Math.random() * facts.length)];
 
-    // === СТАТИСТИКА (ЧЕРЕЗ НАДЁЖНЫЙ ПРОКСИ) ===
+    // === СТАТИСТИКА (ЧЕРЕЗ ПРОКСИ) ===
     async function loadChatStats() {
         try {
-            // Используем rss2json как прокси (он очень стабильный)
             const response = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('https://stats.streamelements.com/c/honesty113'));
             const data = await response.json();
             
@@ -607,7 +606,6 @@
             }
         } catch (error) {
             console.error('Ошибка загрузки статистики:', error);
-            // Если не получилось — показываем красивое сообщение
             document.getElementById('topChatters').innerHTML = '<div style="text-align: center; color: #bda0e6; padding: 20px;">📊 Статистика скоро обновится</div>';
             document.getElementById('topEmotes').innerHTML = '<div style="text-align: center; color: #bda0e6; padding: 20px;">😄 Скоро будут данные</div>';
         }
@@ -615,8 +613,8 @@
     
     // Загружаем сразу
     loadChatStats();
-    // И пробуем обновлять каждые 30 минут (вдруг починится)
-    setInterval(loadChatStats, 1800000);
+    // И обновляем КАЖДУЮ МИНУТУ (60000 миллисекунд)
+    setInterval(loadChatStats, 60000);
 })();
 </script>
 </body>
