@@ -22,6 +22,7 @@ export default async function handler(req, res) {
       res.status(200).json({ gameId: null, gameName: null });
     }
   } catch (error) {
+    console.error('Current game error:', error);
     res.status(500).json({ error: error.message });
   }
 }
