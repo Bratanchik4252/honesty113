@@ -39,6 +39,7 @@ export default async function handler(req, res) {
 
     res.status(200).json({ success: true, id: suggestionId });
   } catch (error) {
+    console.error('Add suggestion error:', error);
     res.status(500).json({ error: error.message });
   }
 }
