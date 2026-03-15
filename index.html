@@ -46,7 +46,6 @@
             gap: 20px;
         }
 
-        /* Левая колонка с кнопками */
         .header-left {
             display: flex;
             flex-direction: column;
@@ -56,7 +55,6 @@
             justify-content: center;
         }
 
-        /* Центр с ником */
         .title-box {
             text-align: center;
             flex: 2;
@@ -102,7 +100,6 @@
             box-shadow: 0 4px 0 #4a2b6e;
         }
 
-        /* Правая колонка с кнопками */
         .header-right {
             display: flex;
             flex-direction: column;
@@ -129,6 +126,8 @@
             transition: 0.15s;
             width: 100%;
             text-align: center;
+            cursor: pointer;
+            border: none;
         }
 
         .social-btn:active {
@@ -146,6 +145,12 @@
             background: #b84a8c;
             border-color: #ff99cc;
             box-shadow: 0 6px 0 #6a2d52;
+        }
+
+        .twitch-login-btn {
+            background: #9147ff;
+            border-color: #b79aff;
+            box-shadow: 0 6px 0 #5a2e9e;
         }
 
         /* ===== ПЛЕЕР ===== */
@@ -202,7 +207,6 @@
             gap: 12px;
         }
 
-        /* Календарь */
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -235,7 +239,6 @@
             margin-bottom: 5px;
         }
 
-        /* Факт */
         .fact-text {
             font-size: 1.3rem;
             font-style: italic;
@@ -301,6 +304,204 @@
             border: 1px solid #b26bf2;
         }
 
+        /* ===== ПРЕДЛОЖКИ ===== */
+        .suggestions-block {
+            margin: 50px 0;
+        }
+
+        .suggestions-block h2 {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            border-bottom: 4px dashed #ad5bff;
+            padding-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .suggestions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .suggestion-square {
+            background: #211030;
+            border: 3px solid #a25ef0;
+            border-radius: 35px;
+            padding: 20px;
+            box-shadow: 0 12px 0 #3c2357;
+            transition: 0.15s;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .suggestion-square:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 0 #3c2357;
+        }
+
+        .suggestion-category {
+            display: inline-block;
+            background: #7d3eb0;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            width: fit-content;
+        }
+
+        .suggestion-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #f0e6ff;
+            margin: 5px 0;
+        }
+
+        .suggestion-author {
+            color: #bda0e6;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .suggestion-link {
+            color: #bf7cff;
+            word-break: break-all;
+            font-size: 0.9rem;
+        }
+
+        .suggestion-comment {
+            background: #1a0e24;
+            padding: 10px;
+            border-radius: 15px;
+            font-style: italic;
+            color: #d4b5ff;
+            margin: 5px 0;
+        }
+
+        .suggestion-votes {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+            border-top: 1px solid #6a3e9e;
+            padding-top: 10px;
+        }
+
+        .vote-btn {
+            background: #4a2b6e;
+            border: none;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.15s;
+            border: 1px solid #b47bf0;
+        }
+
+        .vote-btn:hover {
+            background: #6a3e9e;
+        }
+
+        .vote-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .vote-count {
+            font-weight: 700;
+            color: #ffd966;
+            font-size: 1.2rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: #221530;
+            border: 3px solid #a55be0;
+            border-radius: 40px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-content h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #bf7cff;
+        }
+
+        .modal-content input,
+        .modal-content select,
+        .modal-content textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            background: #2c193b;
+            border: 2px solid #b47bf0;
+            border-radius: 30px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .modal-content button {
+            background: #c43aff;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 12px;
+            border-radius: 60px;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 6px 0 #832da8;
+        }
+
+        .close-btn {
+            float: right;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #bda0e6;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #2e1d40;
+            padding: 8px 15px;
+            border-radius: 40px;
+            border: 1px solid #b47bf0;
+        }
+
+        .user-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
         /* ===== ПОДПИСЬ ===== */
         .signature {
             margin-top: 60px;
@@ -328,16 +529,14 @@
 </head>
 <body>
     <div class="container">
-        <!-- ШАПКА С КНОПКАМИ ВЕРТИКАЛЬНО ПО БОКАМ -->
+        <!-- ШАПКА -->
         <div class="header-card">
             <div class="header-content">
-                <!-- Левая колонка: Telegram и Discord вертикально -->
                 <div class="header-left">
                     <a href="https://t.me/hoststreet" target="_blank" class="social-btn">📱 Telegram</a>
                     <a href="https://discord.gg/ynDWeAYB2" target="_blank" class="social-btn">💬 Discord</a>
                 </div>
 
-                <!-- Центр -->
                 <div class="title-box">
                     <div class="nick">Honesty113</div>
                     <h1>⚡TWITCH⚡</h1>
@@ -346,7 +545,6 @@
                     </div>
                 </div>
 
-                <!-- Правая колонка: Donate и Хуюстрики вертикально -->
                 <div class="header-right">
                     <a href="https://www.donationalerts.com/r/honesty113" target="_blank" class="social-btn donate-btn">💰 Donate</a>
                     <a href="https://memealerts.com/6602a0ee288f43c13c2293df" target="_blank" class="social-btn huyustriki-btn">🔞 Хуюстрики</a>
@@ -354,7 +552,7 @@
             </div>
         </div>
 
-        <!-- ПЛЕЕР НА ВСЮ ШИРИНУ -->
+        <!-- ПЛЕЕР -->
         <div class="stream-full">
             <div class="twitch-embed">
                 <iframe src="https://player.twitch.tv/?channel=honesty113&parent=bratanchik4252.github.io&parent=localhost" allowfullscreen="true" scrolling="no" allow="autoplay; fullscreen"></iframe>
@@ -368,8 +566,6 @@
                 <div class="calendar-grid" id="calendar"></div>
                 <p style="margin-top: 20px; text-align: center; color: #bda0e6;">🌟 Стримы каждый день в 18:00 МСК</p>
             </div>
-
-            <!-- Случайный факт -->
             <div class="info-card">
                 <h2>🎲 Знаете ли вы?</h2>
                 <div class="fact-text" id="randomFact">
@@ -391,15 +587,61 @@
             </div>
         </div>
 
-        <!-- ССЫЛКИ (уже в шапке, но можно оставить на всякий случай) -->
+        <!-- ПРЕДЛОЖКИ -->
+        <div class="suggestions-block">
+            <h2>
+                🎯 Предложки
+                <div style="display: flex; gap: 10px;">
+                    <button class="social-btn twitch-login-btn" id="loginBtn" style="padding: 12px 25px;">🔐 Войти через Twitch</button>
+                    <button class="social-btn donate-btn" id="suggestBtn" style="padding: 12px 25px;" disabled>➕ Предложить</button>
+                </div>
+            </h2>
+            <div id="userInfo" style="display: none; margin-bottom: 20px; justify-content: flex-end;"></div>
+            <div class="suggestions-grid" id="suggestionsGrid">
+                <div style="text-align: center; color: #bda0e6; grid-column: 1/-1; padding: 40px;">
+                    ⏳ Загрузка предложек...
+                </div>
+            </div>
+        </div>
+
+        <!-- ПОДПИСЬ -->
         <div class="footer-note">
             <div class="signature">✦ by BuShiZm ✦</div>
             <small>для самого честного стримера Honesty113</small>
         </div>
     </div>
 
+    <!-- МОДАЛКА ДЛЯ ПРЕДЛОЖКИ -->
+    <div class="modal" id="suggestionModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+            <h3>🎮 Предложить игру или видео</h3>
+            <input type="text" id="suggestionTitle" placeholder="Название" required>
+            <select id="suggestionCategory">
+                <option value="Хоррор">👻 Хоррор</option>
+                <option value="Выживание">🏕️ Выживание</option>
+                <option value="Инди">🎨 Инди</option>
+                <option value="Мультиплеер">👥 Мультиплеер</option>
+                <option value="Сюжетная">📖 Сюжетная</option>
+                <option value="Другое">✨ Другое</option>
+            </select>
+            <input type="url" id="suggestionLink" placeholder="Ссылка (необязательно)">
+            <textarea id="suggestionComment" placeholder="Комментарий" rows="3"></textarea>
+            <button id="submitSuggestion">🚀 Отправить</button>
+        </div>
+    </div>
+
     <script>
         (function() {
+            // === НАСТРОЙКИ TWITCH ===
+            const CLIENT_ID = 'oivt3xslzr0wi1b3eu4a59lntv5isk';
+            const REDIRECT_URI = 'https://bratanchik4252.github.io/honesty113/';
+            
+            // === СОСТОЯНИЕ ===
+            let currentUser = null;
+            let suggestions = [];
+            let userVotes = JSON.parse(localStorage.getItem('userVotes')) || [];
+
             // === КАЛЕНДАРЬ ===
             function renderCalendar() {
                 const calendarDiv = document.getElementById('calendar');
@@ -430,6 +672,170 @@
                 "Обожает, когда в чате пишут его эмоции."
             ];
             document.getElementById('randomFact').innerText = facts[Math.floor(Math.random() * facts.length)];
+
+            // === TWITCH АВТОРИЗАЦИЯ ===
+            function checkTwitchAuth() {
+                const hash = window.location.hash.substring(1);
+                const params = new URLSearchParams(hash);
+                const accessToken = params.get('access_token');
+                
+                if (accessToken) {
+                    fetch('https://api.twitch.tv/helix/users', {
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`,
+                            'Client-ID': CLIENT_ID
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.data && data.data[0]) {
+                            currentUser = data.data[0];
+                            updateUIForUser();
+                            window.location.hash = '';
+                        }
+                    });
+                }
+            }
+
+            function loginWithTwitch() {
+                const scopes = 'user:read:email';
+                const authUrl = `https://id.twitch.tv/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token&scope=${scopes}`;
+                window.location.href = authUrl;
+            }
+
+            function updateUIForUser() {
+                if (currentUser) {
+                    document.getElementById('loginBtn').style.display = 'none';
+                    document.getElementById('suggestBtn').disabled = false;
+                    
+                    const userInfoDiv = document.getElementById('userInfo');
+                    userInfoDiv.style.display = 'flex';
+                    userInfoDiv.innerHTML = `
+                        <div class="user-info">
+                            <img src="${currentUser.profile_image_url}" class="user-avatar">
+                            <span>${currentUser.display_name}</span>
+                        </div>
+                    `;
+                }
+            }
+
+            // === МОДАЛКА ===
+            const modal = document.getElementById('suggestionModal');
+            const suggestBtn = document.getElementById('suggestBtn');
+            const closeBtn = document.getElementById('closeModal');
+
+            suggestBtn.onclick = () => {
+                if (currentUser) {
+                    modal.style.display = 'flex';
+                }
+            };
+
+            closeBtn.onclick = () => {
+                modal.style.display = 'none';
+            };
+
+            window.onclick = (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            };
+
+            // === ОТПРАВКА ПРЕДЛОЖКИ ===
+            document.getElementById('submitSuggestion').onclick = () => {
+                if (!currentUser) return;
+
+                const title = document.getElementById('suggestionTitle').value;
+                if (!title) return;
+
+                const suggestion = {
+                    id: Date.now().toString(),
+                    userId: currentUser.id,
+                    userNick: currentUser.display_name,
+                    userAvatar: currentUser.profile_image_url,
+                    title: title,
+                    category: document.getElementById('suggestionCategory').value,
+                    link: document.getElementById('suggestionLink').value || null,
+                    comment: document.getElementById('suggestionComment').value || null,
+                    votes: 0,
+                    voters: [],
+                    date: new Date().toISOString()
+                };
+
+                // Сохраняем в localStorage (временное решение)
+                let saved = JSON.parse(localStorage.getItem('suggestions')) || [];
+                saved.unshift(suggestion);
+                localStorage.setItem('suggestions', JSON.stringify(saved));
+
+                modal.style.display = 'none';
+                document.getElementById('suggestionTitle').value = '';
+                document.getElementById('suggestionLink').value = '';
+                document.getElementById('suggestionComment').value = '';
+                
+                loadSuggestions();
+            };
+
+            // === ЗАГРУЗКА ПРЕДЛОЖЕК ===
+            function loadSuggestions() {
+                const saved = JSON.parse(localStorage.getItem('suggestions')) || [];
+                suggestions = saved;
+                renderSuggestions();
+            }
+
+            function renderSuggestions() {
+                const grid = document.getElementById('suggestionsGrid');
+                
+                if (suggestions.length === 0) {
+                    grid.innerHTML = '<div style="text-align: center; color: #bda0e6; grid-column: 1/-1; padding: 40px;">Пока нет предложек. Будь первым!</div>';
+                    return;
+                }
+
+                grid.innerHTML = suggestions.map(s => {
+                    const hasVoted = currentUser && s.voters && s.voters.includes(currentUser.id);
+                    return `
+                        <div class="suggestion-square">
+                            <span class="suggestion-category">${s.category}</span>
+                            <div class="suggestion-title">${s.title}</div>
+                            <div class="suggestion-author">
+                                <img src="${s.userAvatar}" style="width: 20px; height: 20px; border-radius: 50%;">
+                                ${s.userNick}
+                            </div>
+                            ${s.link ? `<div class="suggestion-link"><a href="${s.link}" target="_blank">🔗 ссылка</a></div>` : ''}
+                            ${s.comment ? `<div class="suggestion-comment">💬 ${s.comment}</div>` : ''}
+                            <div class="suggestion-votes">
+                                <span class="vote-count">👍 ${s.votes || 0}</span>
+                                ${currentUser ? `
+                                    <button class="vote-btn" onclick="vote('${s.id}')" ${hasVoted ? 'disabled' : ''}>
+                                        ${hasVoted ? 'Уже голосовал' : '+1'}
+                                    </button>
+                                ` : ''}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // === ГОЛОСОВАНИЕ ===
+            window.vote = function(suggestionId) {
+                if (!currentUser) return;
+
+                let saved = JSON.parse(localStorage.getItem('suggestions')) || [];
+                const index = saved.findIndex(s => s.id === suggestionId);
+                
+                if (index !== -1) {
+                    if (!saved[index].voters) saved[index].voters = [];
+                    if (!saved[index].voters.includes(currentUser.id)) {
+                        saved[index].voters.push(currentUser.id);
+                        saved[index].votes = (saved[index].votes || 0) + 1;
+                        localStorage.setItem('suggestions', JSON.stringify(saved));
+                        loadSuggestions();
+                    }
+                }
+            };
+
+            // === ИНИЦИАЛИЗАЦИЯ ===
+            checkTwitchAuth();
+            loadSuggestions();
+            document.getElementById('loginBtn').onclick = loginWithTwitch;
         })();
     </script>
 </body>
