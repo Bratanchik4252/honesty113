@@ -46,25 +46,12 @@
             100% { transform: scale(1); }
         }
 
-        @keyframes glow {
-            0% { box-shadow: 0 0 5px #b47bf0; }
-            50% { box-shadow: 0 0 25px #b47bf0, 0 0 40px #a25ef0; }
-            100% { box-shadow: 0 0 5px #b47bf0; }
-        }
-
-        @keyframes borderPulse {
-            0% { border-color: #a55be0; }
-            50% { border-color: #bf7cff; }
-            100% { border-color: #a55be0; }
-        }
-
         .container {
             max-width: 1400px;
             width: 100%;
             animation: slideUp 0.7s ease-out;
         }
 
-        /* ===== ШАПКА ===== */
         .header-card {
             background: rgba(75, 20, 120, 0.3);
             backdrop-filter: blur(12px);
@@ -72,14 +59,8 @@
             border-radius: 60px;
             padding: 20px 35px;
             margin-bottom: 40px;
-            box-shadow: 0 25px 35px -10px #2a0e3f, 0 0 30px rgba(165, 91, 224, 0.3);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            animation: slideUp 0.6s ease-out, borderPulse 4s infinite;
-        }
-
-        .header-card:hover {
-            transform: translateY(-8px) scale(1.01);
-            box-shadow: 0 35px 45px -10px #4a2b6e, 0 0 50px rgba(165, 91, 224, 0.5);
+            box-shadow: 0 25px 35px -10px #2a0e3f;
+            transition: all 0.4s ease;
         }
 
         .header-content {
@@ -106,24 +87,11 @@
 
         .title-box .nick {
             font-size: 2.8rem;
-            background: linear-gradient(135deg, #ceadff, #a159ff, #f0e6ff);
+            background: linear-gradient(135deg, #ceadff, #a159ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
             font-weight: 900;
-            letter-spacing: 2px;
-            line-height: 1.2;
             animation: pulse 3s infinite;
-            text-shadow: 0 0 20px rgba(161, 89, 255, 0.5);
-        }
-
-        .title-box h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            text-shadow: 0 0 15px #b05eff;
-            color: #f3e5ff;
-            margin: 5px 0 10px;
-            letter-spacing: 3px;
         }
 
         .kalevan-box span {
@@ -136,15 +104,7 @@
             align-items: center;
             gap: 12px;
             border: 2px solid #f0e6ff;
-            box-shadow: 0 6px 0 #4a2b6e, 0 0 20px #bf7cff;
-            transition: all 0.3s ease;
-            font-size: 1.2rem;
-        }
-
-        .kalevan-box span:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 0 #4a2b6e, 0 0 30px #d4a5ff;
-            background: linear-gradient(145deg, #bf7cff, #9a5fde);
+            box-shadow: 0 6px 0 #4a2b6e;
         }
 
         .social-btn {
@@ -160,70 +120,41 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            box-shadow: 0 6px 0 #311f49, 0 0 15px rgba(154, 95, 222, 0.3);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 6px 0 #311f49;
+            transition: all 0.3s ease;
             width: 100%;
             cursor: pointer;
             border: none;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .social-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .social-btn:hover::before {
-            left: 100%;
         }
 
         .social-btn:hover {
             transform: translateY(-4px) scale(1.02);
             box-shadow: 0 8px 0 #311f49, 0 0 25px #b47bf0;
-            filter: brightness(1.1);
-        }
-
-        .social-btn:active {
-            transform: translateY(3px);
-            box-shadow: 0 3px 0 #311f49;
         }
 
         .donate-btn {
             background: linear-gradient(145deg, #c43aff, #a12ad4);
-            box-shadow: 0 6px 0 #832da8, 0 0 15px #c43aff;
         }
 
         .huyustriki-btn {
             background: linear-gradient(145deg, #b84a8c, #9a3a72);
-            box-shadow: 0 6px 0 #6a2d52, 0 0 15px #b84a8c;
         }
 
         .twitch-login-btn {
             background: linear-gradient(145deg, #9147ff, #6e2bc7);
-            box-shadow: 0 6px 0 #5a2e9e, 0 0 15px #9147ff;
         }
 
-        /* ===== ПЛЕЕР ===== */
+        .logout-btn {
+            background: linear-gradient(145deg, #ff4d4d, #cc0000);
+            border-color: #ff9999;
+        }
+
         .stream-full {
             width: 100%;
             margin-bottom: 40px;
-            animation: slideUp 0.7s ease-out;
             border-radius: 30px;
             overflow: hidden;
-            box-shadow: 0 25px 35px -8px #000000, 0 0 40px rgba(165, 91, 224, 0.4);
-            transition: all 0.4s ease;
-        }
-
-        .stream-full:hover {
-            transform: scale(1.01);
-            box-shadow: 0 30px 45px -8px #000000, 0 0 60px #a55be0;
+            box-shadow: 0 25px 35px -8px #000;
         }
 
         .twitch-embed {
@@ -232,7 +163,6 @@
             padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
-            background: #000;
         }
 
         .twitch-embed iframe {
@@ -244,7 +174,6 @@
             border: none;
         }
 
-        /* ===== КАЛЕНДАРЬ + ФАКТ ===== */
         .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -258,26 +187,13 @@
             border: 2px solid #ac71e6;
             border-radius: 40px;
             padding: 28px;
-            box-shadow: 0 20px 30px -5px #000000b3, 0 0 30px rgba(172, 113, 230, 0.2);
+            box-shadow: 0 20px 30px -5px #000000b3;
             transition: all 0.4s ease;
-            animation: slideUp 0.8s ease-out;
         }
 
         .info-card:hover {
             transform: translateY(-10px);
             border-color: #bf7cff;
-            box-shadow: 0 30px 40px -5px #7d3eb0, 0 0 50px #ac71e6;
-        }
-
-        .info-card h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            border-bottom: 3px dashed #ad5bff;
-            padding-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-shadow: 0 0 10px #b47bf0;
         }
 
         .calendar-grid {
@@ -294,38 +210,17 @@
             border: 1px solid #6a3e9e;
             font-weight: 500;
             transition: all 0.3s ease;
-            cursor: default;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .calendar-day::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(180, 123, 240, 0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .calendar-day:hover::before {
-            left: 100%;
         }
 
         .calendar-day:hover {
             background: #3d2357;
             transform: scale(1.05);
-            border-color: #b47bf0;
-            box-shadow: 0 0 15px #b47bf0;
         }
 
         .calendar-day.stream-day {
             background: linear-gradient(145deg, #7d3eb0, #5a2e8a);
             border-color: #bf7cff;
             font-weight: 700;
-            animation: glow 2s infinite;
         }
 
         .fact-text {
@@ -335,30 +230,15 @@
             padding: 22px;
             border-radius: 25px;
             border-left: 6px solid #b47bf0;
-            line-height: 1.5;
             transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(180, 123, 240, 0.2);
         }
 
         .fact-text:hover {
-            background: #2f1b42;
-            border-left-width: 10px;
             transform: translateX(8px);
-            box-shadow: 0 0 30px #b47bf0;
         }
 
-        /* ===== ИГРЫ ===== */
         .games-block {
             margin: 50px 0;
-            animation: slideUp 0.9s ease-out;
-        }
-
-        .games-block h2 {
-            font-size: 2.5rem;
-            margin-bottom: 25px;
-            border-bottom: 4px dashed #ad5bff;
-            padding-bottom: 15px;
-            text-shadow: 0 0 15px #b47bf0;
         }
 
         .games-grid {
@@ -373,74 +253,24 @@
             border-radius: 35px;
             padding: 25px 15px;
             text-align: center;
-            box-shadow: 0 12px 0 #3c2357, 0 0 20px rgba(162, 94, 240, 0.3);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 12px 0 #3c2357;
+            transition: all 0.4s ease;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .game-square::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(180, 123, 240, 0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .game-square:hover::before {
-            left: 100%;
         }
 
         .game-square:hover {
             transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 22px 0 #3c2357, 0 0 35px #a25ef0;
             border-color: #bf7cff;
-        }
-
-        .game-square:active {
-            transform: translateY(4px);
-            box-shadow: 0 8px 0 #3c2357;
         }
 
         .game-square.active {
             border-color: #00ff88;
             box-shadow: 0 12px 0 #008f4c, 0 0 30px #00ff88;
             background: linear-gradient(145deg, #1a3a2a, #0e2a1a);
-            animation: pulse 2s infinite;
         }
 
-        .game-icon {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            filter: drop-shadow(0 0 10px currentColor);
-        }
-
-        .game-title {
-            font-weight: 800;
-            font-size: 1.3rem;
-            background: rgba(48, 32, 75, 0.7);
-            padding: 6px;
-            border-radius: 60px;
-            margin-bottom: 8px;
-            backdrop-filter: blur(4px);
-        }
-
-        .game-status {
-            font-size: 1rem;
-            background: #2c193b;
-            padding: 6px;
-            border-radius: 40px;
-            border: 1px solid #b26bf2;
-        }
-
-        /* ===== ПРЕДЛОЖКИ ===== */
         .suggestions-block {
             margin: 50px 0;
-            animation: slideUp 1s ease-out;
         }
 
         .suggestions-header {
@@ -455,13 +285,6 @@
 
         .suggestions-header h2 {
             font-size: 2.5rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 0;
-            border: none;
-            padding: 0;
-            text-shadow: 0 0 15px #b47bf0;
         }
 
         .login-bar {
@@ -474,62 +297,43 @@
         .user-info {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
             background: rgba(46, 29, 64, 0.8);
             backdrop-filter: blur(8px);
-            padding: 6px 15px 6px 8px;
+            padding: 8px 20px;
             border-radius: 40px;
             border: 2px solid #b47bf0;
-            box-shadow: 0 0 20px rgba(180, 123, 240, 0.3);
-            animation: glow 3s infinite;
         }
 
         .user-avatar {
-            width: 28px !important;
-            height: 28px !important;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             border: 2px solid #bf7cff;
-            box-shadow: 0 0 10px #bf7cff;
         }
 
         .filter-controls {
             display: flex;
             flex-wrap: wrap;
             gap: 15px;
-            align-items: center;
             margin-bottom: 25px;
         }
 
         .filter-select {
             background: rgba(46, 29, 64, 0.9);
-            backdrop-filter: blur(8px);
             border: 2px solid #9a5fde;
             border-radius: 40px;
             padding: 12px 25px;
             color: white;
             font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(154, 95, 222, 0.3);
             min-width: 200px;
-        }
-
-        .filter-select:hover {
-            background: #3d2357;
-            border-color: #bf7cff;
-            transform: scale(1.02);
-            box-shadow: 0 0 25px #bf7cff;
-        }
-
-        .filter-select option {
-            background: #2e1d40;
         }
 
         .suggestions-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 25px;
-            margin-top: 25px;
         }
 
         .suggestion-square {
@@ -537,35 +341,17 @@
             border: 3px solid #a25ef0;
             border-radius: 35px;
             padding: 22px;
-            box-shadow: 0 12px 0 #3c2357, 0 0 20px rgba(162, 94, 240, 0.3);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 12px 0 #3c2357;
+            transition: all 0.4s ease;
             display: flex;
             flex-direction: column;
             gap: 12px;
             opacity: 0;
             animation: slideUp 0.5s ease-out forwards;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .suggestion-square::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(180, 123, 240, 0.15), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .suggestion-square:hover::before {
-            left: 100%;
         }
 
         .suggestion-square:hover {
             transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 22px 0 #3c2357, 0 0 35px #a25ef0;
             border-color: #bf7cff;
         }
 
@@ -575,18 +361,14 @@
             color: white;
             padding: 6px 18px;
             border-radius: 30px;
-            font-size: 0.9rem;
             font-weight: 700;
             width: fit-content;
-            box-shadow: 0 0 15px #7d3eb0;
         }
 
         .suggestion-title {
             font-size: 1.5rem;
             font-weight: 800;
             color: #f0e6ff;
-            margin: 5px 0;
-            text-shadow: 0 0 10px #b47bf0;
         }
 
         .suggestion-author {
@@ -595,31 +377,6 @@
             display: flex;
             align-items: center;
             gap: 6px;
-        }
-
-        .suggestion-link a {
-            color: #bf7cff;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border-bottom: 1px dashed #bf7cff;
-        }
-
-        .suggestion-link a:hover {
-            color: #f0e6ff;
-            border-bottom-color: #f0e6ff;
-            text-shadow: 0 0 10px #bf7cff;
-        }
-
-        .suggestion-comment {
-            background: rgba(26, 14, 36, 0.7);
-            backdrop-filter: blur(4px);
-            padding: 12px;
-            border-radius: 20px;
-            font-style: italic;
-            color: #d4b5ff;
-            margin: 5px 0;
-            border-left: 4px solid #b47bf0;
         }
 
         .suggestion-votes {
@@ -633,45 +390,33 @@
 
         .vote-btn {
             background: linear-gradient(145deg, #4a2b6e, #321d4a);
-            border: none;
+            border: 1px solid #b47bf0;
             color: white;
             padding: 10px 25px;
             border-radius: 40px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
-            border: 1px solid #b47bf0;
-            box-shadow: 0 0 15px rgba(180, 123, 240, 0.3);
-            font-size: 1rem;
         }
 
         .vote-btn:hover {
             background: #6a3e9e;
             transform: scale(1.05);
-            box-shadow: 0 0 25px #b47bf0;
         }
 
-        .vote-btn:active {
-            transform: scale(0.95);
-        }
-
-        .vote-btn:disabled {
-            background: #4a3b57;
-            border-color: #8f79a3;
-            box-shadow: none;
-            transform: none;
+        .vote-btn.voted {
+            background: #00aa88;
+            border-color: #00ffaa;
+            opacity: 0.8;
             cursor: not-allowed;
-            opacity: 0.5;
         }
 
         .vote-count {
             font-weight: 800;
             color: #ffd966;
             font-size: 1.4rem;
-            text-shadow: 0 0 15px #ffd966;
         }
 
-        /* ===== МОДАЛКА ===== */
         .modal {
             display: none;
             position: fixed;
@@ -684,7 +429,6 @@
             z-index: 1000;
             align-items: center;
             justify-content: center;
-            animation: fadeIn 0.3s ease;
         }
 
         .modal-content {
@@ -694,26 +438,6 @@
             padding: 40px;
             max-width: 600px;
             width: 95%;
-            max-height: 85vh;
-            overflow-y: auto;
-            box-shadow: 0 30px 50px -10px #000, 0 0 60px #a55be0;
-            transform: scale(0.9);
-            animation: slideUp 0.4s ease forwards;
-            position: relative;
-        }
-
-        .modal-content::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(145deg, #a55be0, #bf7cff, #a55be0);
-            border-radius: 52px;
-            z-index: -1;
-            opacity: 0.5;
-            animation: borderPulse 3s infinite;
         }
 
         .modal-content h3 {
@@ -721,9 +445,6 @@
             margin-bottom: 30px;
             color: #bf7cff;
             text-align: center;
-            text-shadow: 0 0 20px #bf7cff;
-            font-weight: 900;
-            letter-spacing: 2px;
         }
 
         .modal-content input,
@@ -733,36 +454,10 @@
             padding: 15px 20px;
             margin-bottom: 20px;
             background: rgba(44, 25, 59, 0.9);
-            backdrop-filter: blur(5px);
             border: 2px solid #b47bf0;
             border-radius: 40px;
             color: white;
             font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(180, 123, 240, 0.2);
-        }
-
-        .modal-content input:focus,
-        .modal-content select:focus,
-        .modal-content textarea:focus {
-            outline: none;
-            border-color: #f0e6ff;
-            box-shadow: 0 0 30px #bf7cff;
-            transform: scale(1.02);
-            background: rgba(54, 31, 72, 0.95);
-        }
-
-        .modal-content input:hover,
-        .modal-content select:hover,
-        .modal-content textarea:hover {
-            border-color: #bf7cff;
-            box-shadow: 0 0 25px #bf7cff;
-        }
-
-        .modal-content textarea {
-            min-height: 120px;
-            resize: vertical;
-            border-radius: 30px;
         }
 
         .modal-content button {
@@ -775,37 +470,13 @@
             border-radius: 60px;
             cursor: pointer;
             width: 100%;
-            box-shadow: 0 8px 0 #832da8, 0 0 30px #c43aff;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            letter-spacing: 2px;
-            margin-top: 10px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .modal-content button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .modal-content button:hover::before {
-            left: 100%;
+            box-shadow: 0 8px 0 #832da8;
+            transition: all 0.3s ease;
         }
 
         .modal-content button:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 12px 0 #832da8, 0 0 50px #c43aff;
-        }
-
-        .modal-content button:active {
-            transform: translateY(4px);
-            box-shadow: 0 4px 0 #832da8;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 0 #832da8;
         }
 
         .close-btn {
@@ -816,20 +487,11 @@
             cursor: pointer;
             color: #bda0e6;
             transition: all 0.3s ease;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
         }
 
         .close-btn:hover {
             color: #f0e6ff;
-            transform: rotate(90deg) scale(1.1);
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 30px #bf7cff;
+            transform: rotate(90deg);
         }
 
         .message {
@@ -839,9 +501,7 @@
             color: #bda0e6;
             text-align: center;
             margin: 15px 0;
-            font-size: 1.1rem;
             border-left: 6px solid #bf7cff;
-            animation: glow 2s infinite;
         }
 
         .loading {
@@ -850,7 +510,6 @@
             grid-column: 1/-1;
             padding: 50px;
             font-size: 1.3rem;
-            animation: pulse 2s infinite;
         }
 
         .signature {
@@ -864,15 +523,11 @@
             display: inline-block;
             box-shadow: 0 0 40px #9f67e0;
             transition: all 0.4s ease;
-            animation: pulse 3s infinite;
             font-weight: 700;
-            letter-spacing: 2px;
         }
 
         .signature:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 70px #bf7cff;
-            border-color: #f0e6ff;
         }
 
         .footer-note {
@@ -880,31 +535,13 @@
             width: 100%;
         }
 
-        .footer-note small {
-            font-size: 1rem;
-            color: #bda0e6;
-            display: block;
-            margin-top: 15px;
-        }
-
         .social-btn:disabled {
             background: #4a3b57;
             border-color: #8f79a3;
-            box-shadow: 0 6px 0 #2f2540, 0 0 10px #8f79a3;
+            box-shadow: 0 6px 0 #2f2540;
             opacity: 0.6;
             cursor: not-allowed;
-            transform: none;
-            filter: grayscale(0.5);
             pointer-events: none;
-        }
-
-        .social-btn:disabled:hover {
-            transform: none;
-            box-shadow: 0 6px 0 #2f2540;
-        }
-
-        .social-btn:disabled::before {
-            display: none;
         }
     </style>
 </head>
@@ -961,6 +598,7 @@
                 <div class="login-bar">
                     <button class="social-btn twitch-login-btn" id="loginBtn">🔐 Войти через Twitch</button>
                     <button class="social-btn donate-btn" id="suggestBtn" disabled>➕ Предложить</button>
+                    <button class="social-btn logout-btn" id="logoutBtn" style="display: none;">🚪 Выйти</button>
                     <div id="userInfo" style="display: none;"></div>
                 </div>
             </div>
@@ -1011,6 +649,21 @@
         let filteredSuggestions = [];
         let currentCategory = 'all';
         let currentSort = 'date_desc';
+        let userVotes = [];
+
+        // Загружаем пользователя из localStorage при старте
+        function loadUserFromStorage() {
+            const savedUser = localStorage.getItem('twitchUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                updateUIForUser();
+            }
+            
+            const savedVotes = localStorage.getItem('userVotes');
+            if (savedVotes) {
+                userVotes = JSON.parse(savedVotes);
+            }
+        }
 
         function renderCalendar() {
             const calendarDiv = document.getElementById('calendar');
@@ -1070,6 +723,8 @@
                 .then(data => {
                     if (data.data && data.data[0]) {
                         currentUser = data.data[0];
+                        // Сохраняем в localStorage
+                        localStorage.setItem('twitchUser', JSON.stringify(currentUser));
                         updateUIForUser();
                         saveUserToDB(currentUser);
                         window.location.hash = '';
@@ -1098,10 +753,20 @@
             window.location.href = authUrl;
         }
 
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('twitchUser');
+            document.getElementById('loginBtn').style.display = 'block';
+            document.getElementById('suggestBtn').disabled = true;
+            document.getElementById('userInfo').style.display = 'none';
+            document.getElementById('logoutBtn').style.display = 'none';
+        }
+
         function updateUIForUser() {
             if (currentUser) {
                 document.getElementById('loginBtn').style.display = 'none';
                 document.getElementById('suggestBtn').disabled = false;
+                document.getElementById('logoutBtn').style.display = 'block';
                 
                 const userInfoDiv = document.getElementById('userInfo');
                 userInfoDiv.style.display = 'flex';
@@ -1123,6 +788,35 @@
             } catch (error) {
                 console.error('Ошибка:', error);
                 document.getElementById('suggestionsGrid').innerHTML = '<div class="loading">❌ Ошибка загрузки</div>';
+            }
+        }
+
+        async function vote(suggestionId) {
+            if (!currentUser) return;
+            
+            // Проверяем, голосовал ли уже
+            if (userVotes.includes(suggestionId)) {
+                alert('Ты уже голосовал за эту предложку!');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/vote-suggestion`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        suggestionId: suggestionId,
+                        userId: currentUser.id
+                    })
+                });
+
+                if (response.ok) {
+                    userVotes.push(suggestionId);
+                    localStorage.setItem('userVotes', JSON.stringify(userVotes));
+                    loadSuggestions(); // Перезагружаем список
+                }
+            } catch (error) {
+                console.error('Ошибка голосования:', error);
             }
         }
 
@@ -1159,18 +853,28 @@
                 return;
             }
 
-            grid.innerHTML = filteredSuggestions.map(s => `
-                <div class="suggestion-square">
-                    <span class="suggestion-category">${s.category}</span>
-                    <div class="suggestion-title">${s.title}</div>
-                    <div class="suggestion-author">👤 ${s.nick}</div>
-                    ${s.link && s.link !== '-' ? `<div class="suggestion-link"><a href="${s.link}" target="_blank">🔗 ссылка</a></div>` : ''}
-                    ${s.comment && s.comment !== '-' ? `<div class="suggestion-comment">💬 ${s.comment}</div>` : ''}
-                    <div class="suggestion-votes">
-                        <span class="vote-count">👍 ${s.votes}</span>
+            grid.innerHTML = filteredSuggestions.map(s => {
+                const hasVoted = userVotes.includes(s.id);
+                return `
+                    <div class="suggestion-square">
+                        <span class="suggestion-category">${s.category}</span>
+                        <div class="suggestion-title">${s.title}</div>
+                        <div class="suggestion-author">👤 ${s.nick}</div>
+                        ${s.link && s.link !== '-' ? `<div class="suggestion-link"><a href="${s.link}" target="_blank">🔗 ссылка</a></div>` : ''}
+                        ${s.comment && s.comment !== '-' ? `<div class="suggestion-comment">💬 ${s.comment}</div>` : ''}
+                        <div class="suggestion-votes">
+                            <span class="vote-count">👍 ${s.votes}</span>
+                            ${currentUser ? `
+                                <button class="vote-btn ${hasVoted ? 'voted' : ''}" 
+                                        onclick="vote('${s.id}')" 
+                                        ${hasVoted ? 'disabled' : ''}>
+                                    ${hasVoted ? '✓ Голос учтен' : '+1'}
+                                </button>
+                            ` : ''}
+                        </div>
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         async function loadCategories() {
@@ -1195,6 +899,7 @@
         const modal = document.getElementById('suggestionModal');
         const suggestBtn = document.getElementById('suggestBtn');
         const closeBtn = document.getElementById('closeModal');
+        const logoutBtn = document.getElementById('logoutBtn');
 
         suggestBtn.onclick = () => {
             if (currentUser) {
@@ -1205,6 +910,8 @@
         closeBtn.onclick = () => {
             modal.style.display = 'none';
         };
+
+        logoutBtn.onclick = logout;
 
         window.onclick = (e) => {
             if (e.target === modal) {
@@ -1260,6 +967,9 @@
             applyFilters();
         });
 
+        // Инициализация
+        window.vote = vote; // делаем функцию глобальной для onclick
+        loadUserFromStorage();
         checkTwitchAuth();
         loadSuggestions();
         loadCategories();
