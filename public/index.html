@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Honesty113 | Творчество стримера</title>
+    <link rel="icon" href="/IkonkaTOXA" type="image/png">
     <style>
         * {
             margin: 0;
@@ -33,6 +34,17 @@
             from {
                 opacity: 0;
                 transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
             }
             to {
                 opacity: 1;
@@ -333,6 +345,11 @@
             animation: glow 2s infinite;
         }
 
+        .fact-container {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
         .fact-text {
             font-size: 1.3rem;
             font-style: italic;
@@ -343,6 +360,7 @@
             line-height: 1.5;
             transition: all 0.3s ease;
             box-shadow: 0 0 20px rgba(180, 123, 240, 0.2);
+            animation: slideDown 0.3s ease-out;
         }
 
         .fact-text:hover {
@@ -350,6 +368,10 @@
             border-left-width: 10px;
             transform: translateX(8px);
             box-shadow: 0 0 30px #b47bf0;
+        }
+
+        .fact-text.changing {
+            animation: slideDown 0.3s ease-out;
         }
 
         /* ===== ИГРЫ ===== */
@@ -636,6 +658,7 @@
             margin-top: 10px;
             border-top: 2px solid #6a3e9e;
             padding-top: 12px;
+            gap: 10px;
         }
 
         .vote-btn {
@@ -650,6 +673,7 @@
             border: 1px solid #b47bf0;
             box-shadow: 0 0 15px rgba(180, 123, 240, 0.3);
             font-size: 1rem;
+            flex: 1;
         }
 
         .vote-btn:hover {
@@ -665,8 +689,11 @@
         .vote-btn.voted {
             background: #00aa88;
             border-color: #00ffaa;
-            opacity: 0.8;
-            cursor: not-allowed;
+        }
+
+        .vote-btn.withdraw {
+            background: #ff4d4d;
+            border-color: #ff9999;
         }
 
         .vote-btn:disabled {
@@ -968,7 +995,9 @@
             </div>
             <div class="info-card">
                 <h2>🎲 Знаете ли вы?</h2>
-                <div class="fact-text" id="randomFact"></div>
+                <div class="fact-container" id="factContainer">
+                    <div class="fact-text" id="randomFact">Honesty113 стримит каждый день без выходных!</div>
+                </div>
             </div>
         </div>
 
@@ -1073,6 +1102,7 @@
         }
         renderCalendar();
 
+        // Массив фактов
         const facts = [
             "Honesty113 стримит каждый день без выходных!",
             "Коллыван — его главный зритель и вдохновитель.",
@@ -1081,9 +1111,26 @@
             "Однажды стримил 24 часа подряд.",
             "Его Telegram-канал живёт своей жизнью.",
             "Честность — главное качество стримера.",
-            "Обожает, когда в чате пишут его эмоции."
+            "Обожает, когда в чате пишут его эмоции.",
+            "У него есть свой Discord-сервер с фанатами.",
+            "Любит хорроры, но сам боится их проходить."
         ];
-        document.getElementById('randomFact').innerText = facts[Math.floor(Math.random() * facts.length)];
+
+        let currentFactIndex = 0;
+        const factElement = document.getElementById('randomFact');
+        factElement.innerText = facts[currentFactIndex];
+
+        // Клик по факту для смены
+        document.getElementById('factContainer').addEventListener('click', function() {
+            currentFactIndex = (currentFactIndex + 1) % facts.length;
+            
+            // Анимация исчезновения/появления
+            factElement.style.animation = 'none';
+            factElement.offsetHeight; // форсируем reflow
+            factElement.style.animation = 'slideDown 0.3s ease-out';
+            
+            factElement.innerText = facts[currentFactIndex];
+        });
 
         function renderGames() {
             const gamesGrid = document.getElementById('gamesGrid');
@@ -1186,13 +1233,10 @@
             if (!currentUser) return;
             
             // Проверяем, голосовал ли уже
-            if (userVotes.includes(suggestionId)) {
-                alert('Ты уже голосовал за эту предложку!');
-                return;
-            }
-
+            const hasVoted = userVotes.includes(suggestionId);
+            
             try {
-                const response = await fetch(`${API_BASE}/vote-suggestion`, {
+                const response = await fetch(`${API_BASE}/${hasVoted ? 'unvote' : 'vote'}-suggestion`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -1204,7 +1248,14 @@
                 const data = await response.json();
                 
                 if (response.ok) {
-                    userVotes.push(suggestionId);
+                    if (hasVoted) {
+                        // Убираем голос
+                        userVotes = userVotes.filter(id => id !== suggestionId);
+                    } else {
+                        // Добавляем голос
+                        userVotes.push(suggestionId);
+                    }
+                    
                     localStorage.setItem('userVotes', JSON.stringify(userVotes));
                     
                     // Обновляем счетчик в интерфейсе
@@ -1215,7 +1266,7 @@
                     
                     applyFilters(); // Перерисовываем список
                 } else {
-                    alert('Ошибка голосования: ' + data.error);
+                    alert('Ошибка: ' + data.error);
                 }
             } catch (error) {
                 console.error('Ошибка голосования:', error);
@@ -1269,9 +1320,8 @@
                             <span class="vote-count">👍 ${s.votes}</span>
                             ${currentUser ? `
                                 <button class="vote-btn ${hasVoted ? 'voted' : ''}" 
-                                        onclick="vote('${s.id}')" 
-                                        ${hasVoted ? 'disabled' : ''}>
-                                    ${hasVoted ? '✓ Голос учтен' : '+1'}
+                                        onclick="vote('${s.id}')">
+                                    ${hasVoted ? '✓ Отозвать голос' : '+1'}
                                 </button>
                             ` : ''}
                         </div>
