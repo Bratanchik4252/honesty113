@@ -1,0 +1,8 @@
+{
+  "name": "honesty113",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "googleapis": "^126.0.1"
+  }
+}
