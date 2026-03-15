@@ -147,6 +147,12 @@
             box-shadow: 0 6px 0 #6a2d52;
         }
 
+        .twitch-login-btn {
+            background: #9147ff;
+            border-color: #b79aff;
+            box-shadow: 0 6px 0 #5a2e9e;
+        }
+
         /* ===== ПЛЕЕР ===== */
         .stream-full {
             width: 100%;
@@ -451,6 +457,102 @@
             font-size: 1.2rem;
         }
 
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: #221530;
+            border: 3px solid #a55be0;
+            border-radius: 40px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-content h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #bf7cff;
+        }
+
+        .modal-content input,
+        .modal-content select,
+        .modal-content textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            background: #2c193b;
+            border: 2px solid #b47bf0;
+            border-radius: 30px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .modal-content button {
+            background: #c43aff;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 12px;
+            border-radius: 60px;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 6px 0 #832da8;
+        }
+
+        .close-btn {
+            float: right;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #bda0e6;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #2e1d40;
+            padding: 8px 15px;
+            border-radius: 40px;
+            border: 1px solid #b47bf0;
+        }
+
+        .user-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .login-bar {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .message {
+            padding: 10px;
+            border-radius: 30px;
+            background: #2c193b;
+            color: #bda0e6;
+            text-align: center;
+            margin: 10px 0;
+        }
+
         /* ===== ПОДПИСЬ ===== */
         .signature {
             margin-top: 60px;
@@ -543,28 +645,35 @@
             </div>
         </div>
 
-        <!-- ПРЕДЛОЖКИ С ФИЛЬТРАМИ -->
+        <!-- ПРЕДЛОЖКИ -->
         <div class="suggestions-block">
             <div class="suggestions-header">
                 <h2>🎯 Предложки</h2>
-                <div class="filter-controls">
-                    <select id="categoryFilter" class="filter-select">
-                        <option value="all">Все категории</option>
-                        <option value="Хоррор">👻 Хоррор</option>
-                        <option value="Выживание">🏕️ Выживание</option>
-                        <option value="Инди">🎨 Инди</option>
-                        <option value="Мультиплеер">👥 Мультиплеер</option>
-                        <option value="Сюжетная">📖 Сюжетная</option>
-                        <option value="Другое">✨ Другое</option>
-                    </select>
-                    <select id="sortFilter" class="filter-select">
-                        <option value="date_desc">📅 Сначала новые</option>
-                        <option value="date_asc">📅 Сначала старые</option>
-                        <option value="votes_desc">👍 По голосам (сначала больше)</option>
-                        <option value="votes_asc">👍 По голосам (сначала меньше)</option>
-                    </select>
+                <div class="login-bar">
+                    <button class="social-btn twitch-login-btn" id="loginBtn">🔐 Войти через Twitch</button>
+                    <button class="social-btn donate-btn" id="suggestBtn" disabled>➕ Предложить</button>
+                    <div id="userInfo" style="display: none;"></div>
                 </div>
             </div>
+            
+            <div class="filter-controls" style="margin-bottom: 20px;">
+                <select id="categoryFilter" class="filter-select">
+                    <option value="all">Все категории</option>
+                    <option value="Хоррор">👻 Хоррор</option>
+                    <option value="Выживание">🏕️ Выживание</option>
+                    <option value="Инди">🎨 Инди</option>
+                    <option value="Мультиплеер">👥 Мультиплеер</option>
+                    <option value="Сюжетная">📖 Сюжетная</option>
+                    <option value="Другое">✨ Другое</option>
+                </select>
+                <select id="sortFilter" class="filter-select">
+                    <option value="date_desc">📅 Сначала новые</option>
+                    <option value="date_asc">📅 Сначала старые</option>
+                    <option value="votes_desc">👍 По голосам (сначала больше)</option>
+                    <option value="votes_asc">👍 По голосам (сначала меньше)</option>
+                </select>
+            </div>
+
             <div class="suggestions-grid" id="suggestionsGrid">
                 <div class="loading">⏳ Загрузка предложек...</div>
             </div>
@@ -577,16 +686,41 @@
         </div>
     </div>
 
+    <!-- МОДАЛКА ДЛЯ ПРЕДЛОЖКИ -->
+    <div class="modal" id="suggestionModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+            <h3>🎮 Предложить игру или видео</h3>
+            <div id="modalMessage" class="message" style="display: none;"></div>
+            <input type="text" id="suggestionTitle" placeholder="Название" required>
+            <select id="suggestionCategory">
+                <option value="Хоррор">👻 Хоррор</option>
+                <option value="Выживание">🏕️ Выживание</option>
+                <option value="Инди">🎨 Инди</option>
+                <option value="Мультиплеер">👥 Мультиплеер</option>
+                <option value="Сюжетная">📖 Сюжетная</option>
+                <option value="Другое">✨ Другое</option>
+            </select>
+            <input type="url" id="suggestionLink" placeholder="Ссылка (необязательно)">
+            <textarea id="suggestionComment" placeholder="Комментарий" rows="3"></textarea>
+            <button id="submitSuggestion">🚀 Отправить</button>
+        </div>
+    </div>
+
     <script>
         (function() {
             // === НАСТРОЙКИ ===
-            const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRZcUVHefjwvfaZDj_kb_ONOdFoiwQ0u_ZC3o-E1TMC8-nU0JwlkZkJHVUl8Uqa4g43W9NDGDigw3NZ/pub?output=csv';
+            const CLIENT_ID = 'oivt3xslzr0wi1b3eu4a59lntv5isk';
+            const REDIRECT_URI = 'https://bratanchik4252.github.io/honesty113/';
+            const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR5fE3DwTc_oozIelDeDynTAoSk1sWWy5v7__AN1_65neYd8nxDI8_yKTWKhx1_40XiSKcL5y1hZs2x/pub?output=csv';
             
             // === СОСТОЯНИЕ ===
+            let currentUser = null;
             let allSuggestions = [];
             let filteredSuggestions = [];
             let currentCategory = 'all';
             let currentSort = 'date_desc';
+            let userLastSuggestion = null;
 
             // === КАЛЕНДАРЬ ===
             function renderCalendar() {
@@ -619,6 +753,67 @@
             ];
             document.getElementById('randomFact').innerText = facts[Math.floor(Math.random() * facts.length)];
 
+            // === TWITCH АВТОРИЗАЦИЯ ===
+            function checkTwitchAuth() {
+                const hash = window.location.hash.substring(1);
+                const params = new URLSearchParams(hash);
+                const accessToken = params.get('access_token');
+                
+                if (accessToken) {
+                    fetch('https://api.twitch.tv/helix/users', {
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`,
+                            'Client-ID': CLIENT_ID
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.data && data.data[0]) {
+                            currentUser = data.data[0];
+                            updateUIForUser();
+                            checkUserDailyLimit();
+                            window.location.hash = '';
+                        }
+                    });
+                }
+            }
+
+            function loginWithTwitch() {
+                const scopes = 'user:read:email';
+                const authUrl = `https://id.twitch.tv/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token&scope=${scopes}`;
+                window.location.href = authUrl;
+            }
+
+            function updateUIForUser() {
+                if (currentUser) {
+                    document.getElementById('loginBtn').style.display = 'none';
+                    
+                    const userInfoDiv = document.getElementById('userInfo');
+                    userInfoDiv.style.display = 'flex';
+                    userInfoDiv.innerHTML = `
+                        <div class="user-info">
+                            <img src="${currentUser.profile_image_url}" class="user-avatar">
+                            <span>${currentUser.display_name}</span>
+                        </div>
+                    `;
+                }
+            }
+
+            // === ПРОВЕРКА ДНЕВНОГО ЛИМИТА ===
+            function checkUserDailyLimit() {
+                if (!currentUser) return;
+                
+                const today = new Date().toDateString();
+                const lastSuggestion = localStorage.getItem(`lastSuggestion_${currentUser.id}`);
+                
+                if (lastSuggestion === today) {
+                    document.getElementById('suggestBtn').disabled = true;
+                    document.getElementById('suggestBtn').title = 'Ты уже предлагал сегодня';
+                } else {
+                    document.getElementById('suggestBtn').disabled = false;
+                }
+            }
+
             // === ЗАГРУЗКА ИЗ GOOGLE ТАБЛИЦЫ ===
             async function loadSuggestions() {
                 try {
@@ -642,7 +837,8 @@
                             category: clean(row[3]),
                             link: clean(row[4]),
                             comment: clean(row[5]),
-                            votes: 0
+                            votes: parseInt(clean(row[6])) || 0,
+                            id: clean(row[7])
                         };
                     }).filter(s => s && s.title);
                     
@@ -655,14 +851,12 @@
 
             // === ФИЛЬТРАЦИЯ И СОРТИРОВКА ===
             function applyFilters() {
-                // Фильтр по категории
                 filteredSuggestions = [...allSuggestions];
                 
                 if (currentCategory !== 'all') {
                     filteredSuggestions = filteredSuggestions.filter(s => s.category === currentCategory);
                 }
                 
-                // Сортировка
                 switch(currentSort) {
                     case 'date_desc':
                         filteredSuggestions.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -704,6 +898,88 @@
                 `).join('');
             }
 
+            // === МОДАЛКА ===
+            const modal = document.getElementById('suggestionModal');
+            const suggestBtn = document.getElementById('suggestBtn');
+            const closeBtn = document.getElementById('closeModal');
+            const modalMessage = document.getElementById('modalMessage');
+
+            suggestBtn.onclick = () => {
+                if (currentUser) {
+                    checkUserDailyLimit();
+                    if (!document.getElementById('suggestBtn').disabled) {
+                        modal.style.display = 'flex';
+                        modalMessage.style.display = 'none';
+                    } else {
+                        modalMessage.style.display = 'block';
+                        modalMessage.innerText = '❌ Ты уже предлагал сегодня. Попробуй завтра!';
+                    }
+                }
+            };
+
+            closeBtn.onclick = () => {
+                modal.style.display = 'none';
+            };
+
+            window.onclick = (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            };
+
+            // === ОТПРАВКА ПРЕДЛОЖКИ ===
+            document.getElementById('submitSuggestion').onclick = async () => {
+                if (!currentUser) return;
+
+                const title = document.getElementById('suggestionTitle').value;
+                if (!title) {
+                    modalMessage.style.display = 'block';
+                    modalMessage.innerText = '❌ Введите название';
+                    return;
+                }
+
+                const today = new Date().toDateString();
+                const lastSuggestion = localStorage.getItem(`lastSuggestion_${currentUser.id}`);
+                
+                if (lastSuggestion === today) {
+                    modalMessage.style.display = 'block';
+                    modalMessage.innerText = '❌ Ты уже предлагал сегодня';
+                    return;
+                }
+
+                // Здесь будет отправка в Google Sheets через API
+                // Пока сохраняем в localStorage для теста
+                
+                const newSuggestion = {
+                    date: new Date().toLocaleString('ru-RU'),
+                    nick: currentUser.display_name,
+                    title: title,
+                    category: document.getElementById('suggestionCategory').value,
+                    link: document.getElementById('suggestionLink').value || '-',
+                    comment: document.getElementById('suggestionComment').value || '-',
+                    votes: 0,
+                    id: Date.now().toString()
+                };
+
+                // Сохраняем в localStorage (временное решение)
+                let saved = JSON.parse(localStorage.getItem('suggestions')) || [];
+                saved.unshift(newSuggestion);
+                localStorage.setItem('suggestions', JSON.stringify(saved));
+                
+                // Запоминаем, что сегодня уже предлагал
+                localStorage.setItem(`lastSuggestion_${currentUser.id}`, today);
+                
+                modal.style.display = 'none';
+                document.getElementById('suggestionTitle').value = '';
+                document.getElementById('suggestionLink').value = '';
+                document.getElementById('suggestionComment').value = '';
+                
+                document.getElementById('suggestBtn').disabled = true;
+                document.getElementById('suggestBtn').title = 'Ты уже предлагал сегодня';
+                
+                loadSuggestions();
+            };
+
             // === СЛУШАТЕЛИ ФИЛЬТРОВ ===
             document.getElementById('categoryFilter').addEventListener('change', (e) => {
                 currentCategory = e.target.value;
@@ -715,8 +991,11 @@
                 applyFilters();
             });
 
-            // === ЗАПУСК ===
+            // === ИНИЦИАЛИЗАЦИЯ ===
+            checkTwitchAuth();
             loadSuggestions();
+            document.getElementById('loginBtn').onclick = loginWithTwitch;
+            
             // Обновляем каждые 5 минут
             setInterval(loadSuggestions, 300000);
         })();
