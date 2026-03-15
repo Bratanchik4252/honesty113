@@ -16,7 +16,7 @@ export default async function handler(req, res) {
     if (data.data && data.data[0]) {
       res.status(200).json({ 
         gameId: data.data[0].game_id,
-        gameName: data.data[0].game_name 
+        gameName: data.data[0].game_name
       });
     } else {
       res.status(200).json({ gameId: null, gameName: null });
