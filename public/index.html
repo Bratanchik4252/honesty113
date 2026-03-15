@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Honesty113 | Творчество стримера</title>
-    <link rel="icon" type="image/png" href="https://i.pinimg.com/474x/ee/8f/8f/ee8f8fafbd85a25a98c1cc9b17290a11.jpg">
+    <link rel="icon" href="/IkonkaTOXA" type="image/png">
     <style>
         * {
             margin: 0;
@@ -311,7 +311,7 @@
             border: 1px solid #6a3e9e;
             font-weight: 500;
             transition: all 0.3s ease;
-            cursor: default;
+            cursor: pointer;
             position: relative;
             overflow: hidden;
         }
@@ -338,11 +338,34 @@
             box-shadow: 0 0 15px #b47bf0;
         }
 
-        .calendar-day.stream-day {
+        .calendar-day.today {
             background: linear-gradient(145deg, #7d3eb0, #5a2e8a);
             border-color: #bf7cff;
             font-weight: 700;
             animation: glow 2s infinite;
+        }
+
+        .calendar-day.has-vod {
+            position: relative;
+        }
+
+        .calendar-day.has-vod::after {
+            content: '🎬';
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            font-size: 0.8rem;
+            filter: drop-shadow(0 0 5px #ffd966);
+        }
+
+        .calendar-day.past {
+            opacity: 0.5;
+        }
+
+        .day-label {
+            font-size: 0.85rem;
+            color: #b59ec9;
+            margin-bottom: 5px;
         }
 
         .fact-container {
@@ -433,7 +456,7 @@
             box-shadow: 0 8px 0 #3c2357;
         }
 
-        .game-square.active {
+        .game-square.live {
             border-color: #00ff88;
             box-shadow: 0 12px 0 #008f4c, 0 0 30px #00ff88;
             background: linear-gradient(145deg, #1a3a2a, #0e2a1a);
@@ -991,7 +1014,7 @@
             <div class="info-card">
                 <h2>📅 Календарь стримов</h2>
                 <div class="calendar-grid" id="calendar"></div>
-                <p style="margin-top: 20px; text-align: center; color: #bda0e6;">🌟 Стримы каждый день в 18:00 МСК</p>
+                <p style="margin-top: 20px; text-align: center; color: #bda0e6;">🌟 Стримы каждый день с 17:00 МСК</p>
             </div>
             <div class="info-card">
                 <h2>🎲 Знаете ли вы?</h2>
@@ -1065,8 +1088,10 @@
         let currentCategory = 'all';
         let currentSort = 'date_desc';
         let userVotes = [];
+        let vods = [];
+        let games = [];
 
-        // Загружаем пользователя из localStorage при старте
+        // Загружаем пользователя из localStorage
         function loadUserFromStorage() {
             const savedUser = localStorage.getItem('twitchUser');
             if (savedUser) {
@@ -1085,24 +1110,61 @@
             document.getElementById('charCount').textContent = this.value.length;
         });
 
+        // ===== КАЛЕНДАРЬ =====
+        async function loadVods() {
+            try {
+                const response = await fetch(`${API_BASE}/get-vods`);
+                vods = await response.json();
+                renderCalendar();
+            } catch (error) {
+                console.error('Ошибка загрузки VOD:', error);
+            }
+        }
+
         function renderCalendar() {
             const calendarDiv = document.getElementById('calendar');
             const days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
             const today = new Date();
+            
+            const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+            const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+            
             let html = '';
-            for (let i = 0; i < 7; i++) {
-                const date = new Date(today);
-                date.setDate(today.getDate() + i);
-                const dayName = days[date.getDay()];
-                const dayNumber = date.getDate();
-                const isPast = date.setHours(0,0,0,0) < new Date().setHours(0,0,0,0);
-                html += `<div class="calendar-day stream-day ${isPast ? 'off' : ''}"><span class="day-label">${dayName}</span> ${dayNumber}</div>`;
+            
+            // Пустые ячейки для дней предыдущего месяца
+            for (let i = 0; i < (firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1); i++) {
+                html += '<div class="calendar-day off"></div>';
             }
+            
+            // Дни текущего месяца
+            for (let d = 1; d <= lastDay.getDate(); d++) {
+                const date = new Date(today.getFullYear(), today.getMonth(), d);
+                const dayName = days[date.getDay()];
+                const isToday = d === today.getDate() && today.getMonth() === new Date().getMonth();
+                const isPast = date < new Date(today.setHours(0,0,0,0));
+                
+                // Форматируем дату для поиска VOD
+                const dateStr = `${String(d).padStart(2, '0')}.${String(today.getMonth() + 1).padStart(2, '0')}.${today.getFullYear()}`;
+                const hasVod = vods.some(v => v.date === dateStr);
+                
+                let classes = 'calendar-day';
+                if (isToday) classes += ' today';
+                if (isPast) classes += ' past';
+                if (hasVod) classes += ' has-vod';
+                
+                // Ссылка на VOD или стрим
+                const vod = vods.find(v => v.date === dateStr);
+                const link = vod ? vod.url : `https://twitch.tv/honesty113`;
+                
+                html += `<div class="${classes}" onclick="window.open('${link}', '_blank')" title="${vod ? 'Запись стрима' : 'Текущий стрим'}">
+                    <span class="day-label">${dayName}</span> ${d}
+                </div>`;
+            }
+            
             calendarDiv.innerHTML = html;
         }
-        renderCalendar();
 
-        // Массив фактов
+        // ===== ФАКТЫ =====
         const facts = [
             "Honesty113 стримит каждый день без выходных!",
             "Коллыван — его главный зритель и вдохновитель.",
@@ -1113,38 +1175,116 @@
             "Честность — главное качество стримера.",
             "Обожает, когда в чате пишут его эмоции.",
             "У него есть свой Discord-сервер с фанатами.",
-            "Любит хорроры, но сам боится их проходить."
+            "Любит хорроры, но сам боится их проходить.",
+            "Начинал стримить в 2022 году с майнкрафта.",
+            "Каждый стрим начинается с 17:00.",
+            "У него более 500 часов стримов.",
+            "Самая популярная игра — Minecraft.",
+            "Однажды в стриме участвовало 500 зрителей."
         ];
 
         let currentFactIndex = 0;
         const factElement = document.getElementById('randomFact');
         factElement.innerText = facts[currentFactIndex];
 
-        // Клик по факту для смены
         document.getElementById('factContainer').addEventListener('click', function() {
             currentFactIndex = (currentFactIndex + 1) % facts.length;
-            
-            // Анимация исчезновения/появления
             factElement.style.animation = 'none';
-            factElement.offsetHeight; // форсируем reflow
+            factElement.offsetHeight;
             factElement.style.animation = 'slideDown 0.3s ease-out';
-            
             factElement.innerText = facts[currentFactIndex];
         });
 
+        // ===== ИГРОВОЙ КОМПАС =====
+        async function loadGames() {
+            try {
+                const response = await fetch(`${API_BASE}/get-games`);
+                games = await response.json();
+                renderGames();
+            } catch (error) {
+                console.error('Ошибка загрузки игр:', error);
+            }
+        }
+
+        async function fetchCurrentGame() {
+            try {
+                const response = await fetch(`${API_BASE}/current-game`);
+                const data = await response.json();
+                
+                if (data.gameName) {
+                    // Проверяем, есть ли игра в списке
+                    const gameExists = games.some(g => g.name.toLowerCase() === data.gameName.toLowerCase());
+                    
+                    if (!gameExists) {
+                        // Добавляем новую игру
+                        await fetch(`${API_BASE}/add-game`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                name: data.gameName,
+                                category: 'Другое',
+                                firstSeen: new Date().toLocaleDateString('ru-RU')
+                            })
+                        });
+                        // Перезагружаем список игр
+                        await loadGames();
+                    }
+                    
+                    // Подсвечиваем активную игру
+                    highlightLiveGame(data.gameName);
+                }
+            } catch (error) {
+                console.error('Ошибка получения игры:', error);
+            }
+        }
+
+        function highlightLiveGame(gameName) {
+            const squares = document.querySelectorAll('.game-square');
+            squares.forEach(sq => {
+                sq.classList.remove('live');
+                const title = sq.querySelector('.game-title').textContent;
+                if (title.toLowerCase() === gameName.toLowerCase()) {
+                    sq.classList.add('live');
+                    sq.querySelector('.game-status').textContent = '🟢 LIVE';
+                }
+            });
+        }
+
         function renderGames() {
             const gamesGrid = document.getElementById('gamesGrid');
-            gamesGrid.innerHTML = `
-                <div class="game-square"><div class="game-icon">⛏️</div><div class="game-title">MINECRAFT</div><div class="game-status">⚪ не в игре</div></div>
-                <div class="game-square"><div class="game-icon">😱</div><div class="game-title">OUTLAST 2</div><div class="game-status">⚪ не в игре</div></div>
-                <div class="game-square"><div class="game-icon">🧛</div><div class="game-title">RESIDENT EVIL 8</div><div class="game-status">⚪ забросил</div></div>
-                <div class="game-square"><div class="game-icon">🌃</div><div class="game-title">CYBERPUNK 2077</div><div class="game-status">🔴 не начинал</div></div>
-                <div class="game-square"><div class="game-icon">🔫</div><div class="game-title">VALORANT</div><div class="game-status">💤 жду только я</div></div>
-                <div class="game-square"><div class="game-icon">🎲</div><div class="game-title">...</div><div class="game-status">скоро узнаем</div></div>
-            `;
-        }
-        renderGames();
+            
+            if (games.length === 0) {
+                gamesGrid.innerHTML = '<div class="loading">Загрузка игр...</div>';
+                return;
+            }
 
+            gamesGrid.innerHTML = games.map(game => `
+                <div class="game-square">
+                    <div class="game-icon">${getGameIcon(game.name)}</div>
+                    <div class="game-title">${game.name.toUpperCase()}</div>
+                    <div class="game-status">⚪ не в игре</div>
+                </div>
+            `).join('');
+        }
+
+        function getGameIcon(gameName) {
+            const icons = {
+                'minecraft': '⛏️',
+                'outlast': '😱',
+                'resident evil': '🧛',
+                'cyberpunk': '🌃',
+                'valorant': '🔫',
+                'default': '🎮'
+            };
+            
+            const lower = gameName.toLowerCase();
+            for (let [key, icon] of Object.entries(icons)) {
+                if (lower.includes(key)) return icon;
+            }
+            return icons.default;
+        }
+
+        // ===== TWITCH АВТОРИЗАЦИЯ =====
         function checkTwitchAuth() {
             const hash = window.location.hash.substring(1);
             const params = new URLSearchParams(hash);
@@ -1161,7 +1301,6 @@
                 .then(data => {
                     if (data.data && data.data[0]) {
                         currentUser = data.data[0];
-                        // Сохраняем в localStorage
                         localStorage.setItem('twitchUser', JSON.stringify(currentUser));
                         updateUIForUser();
                         saveUserToDB(currentUser);
@@ -1217,6 +1356,7 @@
             }
         }
 
+        // ===== ПРЕДЛОЖКИ =====
         async function loadSuggestions() {
             try {
                 const response = await fetch(`${API_BASE}/get-suggestions`);
@@ -1232,7 +1372,6 @@
         async function vote(suggestionId) {
             if (!currentUser) return;
             
-            // Проверяем, голосовал ли уже
             const hasVoted = userVotes.includes(suggestionId);
             
             try {
@@ -1249,22 +1388,19 @@
                 
                 if (response.ok) {
                     if (hasVoted) {
-                        // Убираем голос
                         userVotes = userVotes.filter(id => id !== suggestionId);
                     } else {
-                        // Добавляем голос
                         userVotes.push(suggestionId);
                     }
                     
                     localStorage.setItem('userVotes', JSON.stringify(userVotes));
                     
-                    // Обновляем счетчик в интерфейсе
                     const suggestion = allSuggestions.find(s => s.id === suggestionId);
                     if (suggestion) {
                         suggestion.votes = data.newVotes;
                     }
                     
-                    applyFilters(); // Перерисовываем список
+                    applyFilters();
                 } else {
                     alert('Ошибка: ' + data.error);
                 }
@@ -1349,6 +1485,7 @@
             }
         }
 
+        // ===== МОДАЛКА =====
         const modal = document.getElementById('suggestionModal');
         const suggestBtn = document.getElementById('suggestBtn');
         const closeBtn = document.getElementById('closeModal');
@@ -1421,13 +1558,21 @@
             applyFilters();
         });
 
-        // Инициализация
-        window.vote = vote; // делаем функцию глобальной для onclick
+        // ===== ИНИЦИАЛИЗАЦИЯ =====
+        window.vote = vote;
         loadUserFromStorage();
         checkTwitchAuth();
         loadSuggestions();
         loadCategories();
+        loadVods();
+        loadGames();
+        fetchCurrentGame();
+        
         document.getElementById('loginBtn').onclick = loginWithTwitch;
+        
+        // Обновление каждые 30 секунд
+        setInterval(fetchCurrentGame, 30000);
+        setInterval(loadVods, 300000); // VOD раз в 5 минут
         setInterval(loadSuggestions, 300000);
     </script>
 </body>
