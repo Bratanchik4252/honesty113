@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Honesty113 | Творчество стримера</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #0d0015 0%, #1e0a2b 70%, #2d1040 100%);
+            color: #f0e6ff;
+            min-height: 100vh;
+            padding: 30px 20px 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px #b47bf0; }
+            50% { box-shadow: 0 0 25px #b47bf0, 0 0 40px #a25ef0; }
+            100% { box-shadow: 0 0 5px #b47bf0; }
+        }
+
+        @keyframes borderPulse {
+            0% { border-color: #a55be0; }
+            50% { border-color: #bf7cff; }
+            100% { border-color: #a55be0; }
+        }
+
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            animation: slideUp 0.7s ease-out;
+        }
+
+        /* ===== ШАПКА ===== */
+        .header-card {
+            background: rgba(75, 20, 120, 0.3);
+            backdrop-filter: blur(12px);
+            border: 2px solid #a55be0;
+            border-radius: 60px;
+            padding: 20px 35px;
+            margin-bottom: 40px;
+            box-shadow: 0 25px 35px -10px #2a0e3f, 0 0 30px rgba(165, 91, 224, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: slideUp 0.6s ease-out, borderPulse 4s infinite;
+        }
+
+        .header-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 35px 45px -10px #4a2b6e, 0 0 50px rgba(165, 91, 224, 0.5);
+        }
+
+        .header-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .header-left, .header-right {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .title-box {
+            text-align: center;
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .title-box .nick {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #ceadff, #a159ff, #f0e6ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+            letter-spacing: 2px;
+            line-height: 1.2;
+            animation: pulse 3s infinite;
+            text-shadow: 0 0 20px rgba(161, 89, 255, 0.5);
+        }
+
+        .title-box h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-shadow: 0 0 15px #b05eff;
+            color: #f3e5ff;
+            margin: 5px 0 10px;
+            letter-spacing: 3px;
+        }
+
+        .kalevan-box span {
+            background: linear-gradient(145deg, #ab73ff, #8a4fd9);
+            color: #140021;
+            padding: 8px 30px;
+            border-radius: 60px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            border: 2px solid #f0e6ff;
+            box-shadow: 0 6px 0 #4a2b6e, 0 0 20px #bf7cff;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .kalevan-box span:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 0 #4a2b6e, 0 0 30px #d4a5ff;
+            background: linear-gradient(145deg, #bf7cff, #9a5fde);
+        }
+
+        .social-btn {
+            background: linear-gradient(145deg, #2e1d40, #1a0e28);
+            border: 2px solid #9a5fde;
+            border-radius: 50px;
+            padding: 14px 18px;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 6px 0 #311f49, 0 0 15px rgba(154, 95, 222, 0.3);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 100%;
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .social-btn:hover::before {
+            left: 100%;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 0 #311f49, 0 0 25px #b47bf0;
+            filter: brightness(1.1);
+        }
+
+        .social-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 3px 0 #311f49;
+        }
+
+        .donate-btn {
+            background: linear-gradient(145deg, #c43aff, #a12ad4);
+            box-shadow: 0 6px 0 #832da8, 0 0 15px #c43aff;
+        }
+
+        .huyustriki-btn {
+            background: linear-gradient(145deg, #b84a8c, #9a3a72);
+            box-shadow: 0 6px 0 #6a2d52, 0 0 15px #b84a8c;
+        }
+
+        .twitch-login-btn {
+            background: linear-gradient(145deg, #9147ff, #6e2bc7);
+            box-shadow: 0 6px 0 #5a2e9e, 0 0 15px #9147ff;
+        }
+
+        /* ===== ПЛЕЕР ===== */
+        .stream-full {
+            width: 100%;
+            margin-bottom: 40px;
+            animation: slideUp 0.7s ease-out;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 25px 35px -8px #000000, 0 0 40px rgba(165, 91, 224, 0.4);
+            transition: all 0.4s ease;
+        }
+
+        .stream-full:hover {
+            transform: scale(1.01);
+            box-shadow: 0 30px 45px -8px #000000, 0 0 60px #a55be0;
+        }
+
+        .twitch-embed {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .twitch-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* ===== КАЛЕНДАРЬ + ФАКТ ===== */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .info-card {
+            background: rgba(42, 16, 63, 0.8);
+            backdrop-filter: blur(10px);
+            border: 2px solid #ac71e6;
+            border-radius: 40px;
+            padding: 28px;
+            box-shadow: 0 20px 30px -5px #000000b3, 0 0 30px rgba(172, 113, 230, 0.2);
+            transition: all 0.4s ease;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px);
+            border-color: #bf7cff;
+            box-shadow: 0 30px 40px -5px #7d3eb0, 0 0 50px #ac71e6;
+        }
+
+        .info-card h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            border-bottom: 3px dashed #ad5bff;
+            padding-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-shadow: 0 0 10px #b47bf0;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            text-align: center;
+        }
+
+        .calendar-day {
+            background: #1e102b;
+            padding: 12px 0;
+            border-radius: 20px;
+            border: 1px solid #6a3e9e;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calendar-day::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(180, 123, 240, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .calendar-day:hover::before {
+            left: 100%;
+        }
+
+        .calendar-day:hover {
+            background: #3d2357;
+            transform: scale(1.05);
+            border-color: #b47bf0;
+            box-shadow: 0 0 15px #b47bf0;
+        }
+
+        .calendar-day.stream-day {
+            background: linear-gradient(145deg, #7d3eb0, #5a2e8a);
+            border-color: #bf7cff;
+            font-weight: 700;
+            animation: glow 2s infinite;
+        }
+
+        .fact-text {
+            font-size: 1.3rem;
+            font-style: italic;
+            background: linear-gradient(145deg, #221530, #1a0e24);
+            padding: 22px;
+            border-radius: 25px;
+            border-left: 6px solid #b47bf0;
+            line-height: 1.5;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(180, 123, 240, 0.2);
+        }
+
+        .fact-text:hover {
+            background: #2f1b42;
+            border-left-width: 10px;
+            transform: translateX(8px);
+            box-shadow: 0 0 30px #b47bf0;
+        }
+
+        /* ===== ИГРЫ ===== */
+        .games-block {
+            margin: 50px 0;
+            animation: slideUp 0.9s ease-out;
+        }
+
+        .games-block h2 {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            border-bottom: 4px dashed #ad5bff;
+            padding-bottom: 15px;
+            text-shadow: 0 0 15px #b47bf0;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .game-square {
+            background: linear-gradient(145deg, #211030, #180d24);
+            border: 3px solid #a25ef0;
+            border-radius: 35px;
+            padding: 25px 15px;
+            text-align: center;
+            box-shadow: 0 12px 0 #3c2357, 0 0 20px rgba(162, 94, 240, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-square::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(180, 123, 240, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .game-square:hover::before {
+            left: 100%;
+        }
+
+        .game-square:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 22px 0 #3c2357, 0 0 35px #a25ef0;
+            border-color: #bf7cff;
+        }
+
+        .game-square:active {
+            transform: translateY(4px);
+            box-shadow: 0 8px 0 #3c2357;
+        }
+
+        .game-square.active {
+            border-color: #00ff88;
+            box-shadow: 0 12px 0 #008f4c, 0 0 30px #00ff88;
+            background: linear-gradient(145deg, #1a3a2a, #0e2a1a);
+            animation: pulse 2s infinite;
+        }
+
+        .game-icon {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+
+        .game-title {
+            font-weight: 800;
+            font-size: 1.3rem;
+            background: rgba(48, 32, 75, 0.7);
+            padding: 6px;
+            border-radius: 60px;
+            margin-bottom: 8px;
+            backdrop-filter: blur(4px);
+        }
+
+        .game-status {
+            font-size: 1rem;
+            background: #2c193b;
+            padding: 6px;
+            border-radius: 40px;
+            border: 1px solid #b26bf2;
+        }
+
+        /* ===== ПРЕДЛОЖКИ ===== */
+        .suggestions-block {
+            margin: 50px 0;
+            animation: slideUp 1s ease-out;
+        }
+
+        .suggestions-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            border-bottom: 4px dashed #ad5bff;
+            padding-bottom: 15px;
+        }
+
+        .suggestions-header h2 {
+            font-size: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0;
+            border: none;
+            padding: 0;
+            text-shadow: 0 0 15px #b47bf0;
+        }
+
+        .login-bar {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(46, 29, 64, 0.8);
+            backdrop-filter: blur(8px);
+            padding: 6px 15px 6px 8px;
+            border-radius: 40px;
+            border: 2px solid #b47bf0;
+            box-shadow: 0 0 20px rgba(180, 123, 240, 0.3);
+            animation: glow 3s infinite;
+        }
+
+        .user-avatar {
+            width: 28px !important;
+            height: 28px !important;
+            border-radius: 50%;
+            border: 2px solid #bf7cff;
+            box-shadow: 0 0 10px #bf7cff;
+        }
+
+        .filter-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .filter-select {
+            background: rgba(46, 29, 64, 0.9);
+            backdrop-filter: blur(8px);
+            border: 2px solid #9a5fde;
+            border-radius: 40px;
+            padding: 12px 25px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(154, 95, 222, 0.3);
+            min-width: 200px;
+        }
+
+        .filter-select:hover {
+            background: #3d2357;
+            border-color: #bf7cff;
+            transform: scale(1.02);
+            box-shadow: 0 0 25px #bf7cff;
+        }
+
+        .filter-select option {
+            background: #2e1d40;
+        }
+
+        .suggestions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .suggestion-square {
+            background: linear-gradient(145deg, #211030, #180d24);
+            border: 3px solid #a25ef0;
+            border-radius: 35px;
+            padding: 22px;
+            box-shadow: 0 12px 0 #3c2357, 0 0 20px rgba(162, 94, 240, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            opacity: 0;
+            animation: slideUp 0.5s ease-out forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .suggestion-square::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(180, 123, 240, 0.15), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .suggestion-square:hover::before {
+            left: 100%;
+        }
+
+        .suggestion-square:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 22px 0 #3c2357, 0 0 35px #a25ef0;
+            border-color: #bf7cff;
+        }
+
+        .suggestion-category {
+            display: inline-block;
+            background: linear-gradient(145deg, #7d3eb0, #5a2e8a);
+            color: white;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            width: fit-content;
+            box-shadow: 0 0 15px #7d3eb0;
+        }
+
+        .suggestion-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #f0e6ff;
+            margin: 5px 0;
+            text-shadow: 0 0 10px #b47bf0;
+        }
+
+        .suggestion-author {
+            color: #bda0e6;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .suggestion-link a {
+            color: #bf7cff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-bottom: 1px dashed #bf7cff;
+        }
+
+        .suggestion-link a:hover {
+            color: #f0e6ff;
+            border-bottom-color: #f0e6ff;
+            text-shadow: 0 0 10px #bf7cff;
+        }
+
+        .suggestion-comment {
+            background: rgba(26, 14, 36, 0.7);
+            backdrop-filter: blur(4px);
+            padding: 12px;
+            border-radius: 20px;
+            font-style: italic;
+            color: #d4b5ff;
+            margin: 5px 0;
+            border-left: 4px solid #b47bf0;
+        }
+
+        .suggestion-votes {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+            border-top: 2px solid #6a3e9e;
+            padding-top: 12px;
+        }
+
+        .vote-btn {
+            background: linear-gradient(145deg, #4a2b6e, #321d4a);
+            border: none;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 40px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid #b47bf0;
+            box-shadow: 0 0 15px rgba(180, 123, 240, 0.3);
+            font-size: 1rem;
+        }
+
+        .vote-btn:hover {
+            background: #6a3e9e;
+            transform: scale(1.05);
+            box-shadow: 0 0 25px #b47bf0;
+        }
+
+        .vote-btn:active {
+            transform: scale(0.95);
+        }
+
+        .vote-btn:disabled {
+            background: #4a3b57;
+            border-color: #8f79a3;
+            box-shadow: none;
+            transform: none;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .vote-count {
+            font-weight: 800;
+            color: #ffd966;
+            font-size: 1.4rem;
+            text-shadow: 0 0 15px #ffd966;
+        }
+
+        /* ===== МОДАЛКА ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, #221530, #1a0e28);
+            border: 3px solid #a55be0;
+            border-radius: 50px;
+            padding: 40px;
+            max-width: 600px;
+            width: 95%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 30px 50px -10px #000, 0 0 60px #a55be0;
+            transform: scale(0.9);
+            animation: slideUp 0.4s ease forwards;
+            position: relative;
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(145deg, #a55be0, #bf7cff, #a55be0);
+            border-radius: 52px;
+            z-index: -1;
+            opacity: 0.5;
+            animation: borderPulse 3s infinite;
+        }
+
+        .modal-content h3 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #bf7cff;
+            text-align: center;
+            text-shadow: 0 0 20px #bf7cff;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        .modal-content input,
+        .modal-content select,
+        .modal-content textarea {
+            width: 100%;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            background: rgba(44, 25, 59, 0.9);
+            backdrop-filter: blur(5px);
+            border: 2px solid #b47bf0;
+            border-radius: 40px;
+            color: white;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(180, 123, 240, 0.2);
+        }
+
+        .modal-content input:focus,
+        .modal-content select:focus,
+        .modal-content textarea:focus {
+            outline: none;
+            border-color: #f0e6ff;
+            box-shadow: 0 0 30px #bf7cff;
+            transform: scale(1.02);
+            background: rgba(54, 31, 72, 0.95);
+        }
+
+        .modal-content input:hover,
+        .modal-content select:hover,
+        .modal-content textarea:hover {
+            border-color: #bf7cff;
+            box-shadow: 0 0 25px #bf7cff;
+        }
+
+        .modal-content textarea {
+            min-height: 120px;
+            resize: vertical;
+            border-radius: 30px;
+        }
+
+        .modal-content button {
+            background: linear-gradient(145deg, #c43aff, #a12ad4);
+            border: none;
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 800;
+            padding: 16px;
+            border-radius: 60px;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 8px 0 #832da8, 0 0 30px #c43aff;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            letter-spacing: 2px;
+            margin-top: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-content button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .modal-content button:hover::before {
+            left: 100%;
+        }
+
+        .modal-content button:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 0 #832da8, 0 0 50px #c43aff;
+        }
+
+        .modal-content button:active {
+            transform: translateY(4px);
+            box-shadow: 0 4px 0 #832da8;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: #bda0e6;
+            transition: all 0.3s ease;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .close-btn:hover {
+            color: #f0e6ff;
+            transform: rotate(90deg) scale(1.1);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 30px #bf7cff;
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 40px;
+            background: rgba(44, 25, 59, 0.9);
+            color: #bda0e6;
+            text-align: center;
+            margin: 15px 0;
+            font-size: 1.1rem;
+            border-left: 6px solid #bf7cff;
+            animation: glow 2s infinite;
+        }
+
+        .loading {
+            text-align: center;
+            color: #bda0e6;
+            grid-column: 1/-1;
+            padding: 50px;
+            font-size: 1.3rem;
+            animation: pulse 2s infinite;
+        }
+
+        .signature {
+            margin-top: 70px;
+            font-size: 2rem;
+            text-align: center;
+            background: linear-gradient(145deg, #1d0b2c, #13071e);
+            padding: 20px 40px;
+            border-radius: 70px;
+            border: 3px solid #ac71e6;
+            display: inline-block;
+            box-shadow: 0 0 40px #9f67e0;
+            transition: all 0.4s ease;
+            animation: pulse 3s infinite;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .signature:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 70px #bf7cff;
+            border-color: #f0e6ff;
+        }
+
+        .footer-note {
+            text-align: center;
+            width: 100%;
+        }
+
+        .footer-note small {
+            font-size: 1rem;
+            color: #bda0e6;
+            display: block;
+            margin-top: 15px;
+        }
+
+        .social-btn:disabled {
+            background: #4a3b57;
+            border-color: #8f79a3;
+            box-shadow: 0 6px 0 #2f2540, 0 0 10px #8f79a3;
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            filter: grayscale(0.5);
+            pointer-events: none;
+        }
+
+        .social-btn:disabled:hover {
+            transform: none;
+            box-shadow: 0 6px 0 #2f2540;
+        }
+
+        .social-btn:disabled::before {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-card">
+            <div class="header-content">
+                <div class="header-left">
+                    <a href="https://t.me/hoststreet" target="_blank" class="social-btn">📱 Telegram</a>
+                    <a href="https://discord.gg/ynDWeAYB2" target="_blank" class="social-btn">💬 Discord</a>
+                </div>
+
+                <div class="title-box">
+                    <div class="nick">Honesty113</div>
+                    <h1>⚡TWITCH⚡</h1>
+                    <div class="kalevan-box">
+                        <span>🐻 Коллыван ⚔️</span>
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <a href="https://www.donationalerts.com/r/honesty113" target="_blank" class="social-btn donate-btn">💰 Donate</a>
+                    <a href="https://memealerts.com/6602a0ee288f43c13c2293df" target="_blank" class="social-btn huyustriki-btn">🔞 Хуюстрики</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="stream-full">
+            <div class="twitch-embed">
+                <iframe src="https://player.twitch.tv/?channel=honesty113&parent=localhost&parent=honesty113.vercel.app" allowfullscreen="true" scrolling="no" allow="autoplay; fullscreen"></iframe>
+            </div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <h2>📅 Календарь стримов</h2>
+                <div class="calendar-grid" id="calendar"></div>
+                <p style="margin-top: 20px; text-align: center; color: #bda0e6;">🌟 Стримы каждый день в 18:00 МСК</p>
+            </div>
+            <div class="info-card">
+                <h2>🎲 Знаете ли вы?</h2>
+                <div class="fact-text" id="randomFact"></div>
+            </div>
+        </div>
+
+        <div class="games-block">
+            <h2>🎮 Игровой компас</h2>
+            <div class="games-grid" id="gamesGrid"></div>
+        </div>
+
+        <div class="suggestions-block">
+            <div class="suggestions-header">
+                <h2>🎯 Предложки</h2>
+                <div class="login-bar">
+                    <button class="social-btn twitch-login-btn" id="loginBtn">🔐 Войти через Twitch</button>
+                    <button class="social-btn donate-btn" id="suggestBtn" disabled>➕ Предложить</button>
+                    <div id="userInfo" style="display: none;"></div>
+                </div>
+            </div>
+            
+            <div class="filter-controls">
+                <select id="categoryFilter" class="filter-select">
+                    <option value="all">Все категории</option>
+                </select>
+                <select id="sortFilter" class="filter-select">
+                    <option value="date_desc">📅 Сначала новые</option>
+                    <option value="date_asc">📅 Сначала старые</option>
+                    <option value="votes_desc">👍 По голосам (сначала больше)</option>
+                    <option value="votes_asc">👍 По голосам (сначала меньше)</option>
+                </select>
+            </div>
+
+            <div class="suggestions-grid" id="suggestionsGrid">
+                <div class="loading">⏳ Загрузка предложек...</div>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <div class="signature">✦ by BuShiZm ✦</div>
+            <small>для самого честного стримера Honesty113</small>
+        </div>
+    </div>
+
+    <div class="modal" id="suggestionModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+            <h3>🎮 Предложить игру или видео</h3>
+            <div id="modalMessage" class="message" style="display: none;"></div>
+            <input type="text" id="suggestionTitle" placeholder="Название" required>
+            <select id="suggestionCategory"></select>
+            <input type="url" id="suggestionLink" placeholder="Ссылка (необязательно)">
+            <textarea id="suggestionComment" placeholder="Комментарий" rows="3"></textarea>
+            <button id="submitSuggestion">🚀 Отправить</button>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = '/api';
+        const CLIENT_ID = 'oivt3xslzr0wi1b3eu4a59lntv5isk';
+        const REDIRECT_URI = window.location.origin;
+
+        let currentUser = null;
+        let allSuggestions = [];
+        let filteredSuggestions = [];
+        let currentCategory = 'all';
+        let currentSort = 'date_desc';
+
+        function renderCalendar() {
+            const calendarDiv = document.getElementById('calendar');
+            const days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+            const today = new Date();
+            let html = '';
+            for (let i = 0; i < 7; i++) {
+                const date = new Date(today);
+                date.setDate(today.getDate() + i);
+                const dayName = days[date.getDay()];
+                const dayNumber = date.getDate();
+                const isPast = date.setHours(0,0,0,0) < new Date().setHours(0,0,0,0);
+                html += `<div class="calendar-day stream-day ${isPast ? 'off' : ''}"><span class="day-label">${dayName}</span> ${dayNumber}</div>`;
+            }
+            calendarDiv.innerHTML = html;
+        }
+        renderCalendar();
+
+        const facts = [
+            "Honesty113 стримит каждый день без выходных!",
+            "Коллыван — его главный зритель и вдохновитель.",
+            "Любимая игра — Minecraft, но пробует всё подряд.",
+            "В Valorant 'жду только я' — это уже мем.",
+            "Однажды стримил 24 часа подряд.",
+            "Его Telegram-канал живёт своей жизнью.",
+            "Честность — главное качество стримера.",
+            "Обожает, когда в чате пишут его эмоции."
+        ];
+        document.getElementById('randomFact').innerText = facts[Math.floor(Math.random() * facts.length)];
+
+        function renderGames() {
+            const gamesGrid = document.getElementById('gamesGrid');
+            gamesGrid.innerHTML = `
+                <div class="game-square"><div class="game-icon">⛏️</div><div class="game-title">MINECRAFT</div><div class="game-status">⚪ не в игре</div></div>
+                <div class="game-square"><div class="game-icon">😱</div><div class="game-title">OUTLAST 2</div><div class="game-status">⚪ не в игре</div></div>
+                <div class="game-square"><div class="game-icon">🧛</div><div class="game-title">RESIDENT EVIL 8</div><div class="game-status">⚪ забросил</div></div>
+                <div class="game-square"><div class="game-icon">🌃</div><div class="game-title">CYBERPUNK 2077</div><div class="game-status">🔴 не начинал</div></div>
+                <div class="game-square"><div class="game-icon">🔫</div><div class="game-title">VALORANT</div><div class="game-status">💤 жду только я</div></div>
+                <div class="game-square"><div class="game-icon">🎲</div><div class="game-title">...</div><div class="game-status">скоро узнаем</div></div>
+            `;
+        }
+        renderGames();
+
+        function checkTwitchAuth() {
+            const hash = window.location.hash.substring(1);
+            const params = new URLSearchParams(hash);
+            const accessToken = params.get('access_token');
+            
+            if (accessToken) {
+                fetch('https://api.twitch.tv/helix/users', {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`,
+                        'Client-ID': CLIENT_ID
+                    }
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.data && data.data[0]) {
+                        currentUser = data.data[0];
+                        updateUIForUser();
+                        saveUserToDB(currentUser);
+                        window.location.hash = '';
+                    }
+                });
+            }
+        }
+
+        function saveUserToDB(user) {
+            fetch(`${API_BASE}/save-user`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    id: user.id,
+                    login: user.login,
+                    display_name: user.display_name,
+                    email: user.email || '',
+                    profile_image_url: user.profile_image_url
+                })
+            }).catch(err => console.error('Error saving user:', err));
+        }
+
+        function loginWithTwitch() {
+            const scopes = 'user:read:email';
+            const authUrl = `https://id.twitch.tv/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token&scope=${scopes}`;
+            window.location.href = authUrl;
+        }
+
+        function updateUIForUser() {
+            if (currentUser) {
+                document.getElementById('loginBtn').style.display = 'none';
+                document.getElementById('suggestBtn').disabled = false;
+                
+                const userInfoDiv = document.getElementById('userInfo');
+                userInfoDiv.style.display = 'flex';
+                userInfoDiv.innerHTML = `
+                    <div class="user-info">
+                        <img src="${currentUser.profile_image_url}" class="user-avatar">
+                        <span>${currentUser.display_name}</span>
+                    </div>
+                `;
+            }
+        }
+
+        async function loadSuggestions() {
+            try {
+                const response = await fetch(`${API_BASE}/get-suggestions`);
+                const data = await response.json();
+                allSuggestions = data;
+                applyFilters();
+            } catch (error) {
+                console.error('Ошибка:', error);
+                document.getElementById('suggestionsGrid').innerHTML = '<div class="loading">❌ Ошибка загрузки</div>';
+            }
+        }
+
+        function applyFilters() {
+            filteredSuggestions = [...allSuggestions];
+            
+            if (currentCategory !== 'all') {
+                filteredSuggestions = filteredSuggestions.filter(s => s.category === currentCategory);
+            }
+            
+            switch(currentSort) {
+                case 'date_desc':
+                    filteredSuggestions.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    break;
+                case 'date_asc':
+                    filteredSuggestions.sort((a, b) => new Date(a.date) - new Date(b.date));
+                    break;
+                case 'votes_desc':
+                    filteredSuggestions.sort((a, b) => b.votes - a.votes);
+                    break;
+                case 'votes_asc':
+                    filteredSuggestions.sort((a, b) => a.votes - b.votes);
+                    break;
+            }
+            
+            renderSuggestions();
+        }
+
+        function renderSuggestions() {
+            const grid = document.getElementById('suggestionsGrid');
+            
+            if (filteredSuggestions.length === 0) {
+                grid.innerHTML = '<div class="loading">📭 Нет предложек</div>';
+                return;
+            }
+
+            grid.innerHTML = filteredSuggestions.map(s => `
+                <div class="suggestion-square">
+                    <span class="suggestion-category">${s.category}</span>
+                    <div class="suggestion-title">${s.title}</div>
+                    <div class="suggestion-author">👤 ${s.nick}</div>
+                    ${s.link && s.link !== '-' ? `<div class="suggestion-link"><a href="${s.link}" target="_blank">🔗 ссылка</a></div>` : ''}
+                    ${s.comment && s.comment !== '-' ? `<div class="suggestion-comment">💬 ${s.comment}</div>` : ''}
+                    <div class="suggestion-votes">
+                        <span class="vote-count">👍 ${s.votes}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function loadCategories() {
+            try {
+                const response = await fetch(`${API_BASE}/get-categories`);
+                const categories = await response.json();
+                const select = document.getElementById('suggestionCategory');
+                const filterSelect = document.getElementById('categoryFilter');
+                
+                select.innerHTML = categories.map(c => `<option value="${c}">${c}</option>`).join('');
+                
+                let filterOptions = '<option value="all">Все категории</option>';
+                categories.forEach(c => {
+                    filterOptions += `<option value="${c}">${c}</option>`;
+                });
+                filterSelect.innerHTML = filterOptions;
+            } catch (error) {
+                console.error('Ошибка загрузки категорий:', error);
+            }
+        }
+
+        const modal = document.getElementById('suggestionModal');
+        const suggestBtn = document.getElementById('suggestBtn');
+        const closeBtn = document.getElementById('closeModal');
+
+        suggestBtn.onclick = () => {
+            if (currentUser) {
+                modal.style.display = 'flex';
+            }
+        };
+
+        closeBtn.onclick = () => {
+            modal.style.display = 'none';
+        };
+
+        window.onclick = (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+
+        document.getElementById('submitSuggestion').onclick = async () => {
+            if (!currentUser) return;
+
+            const title = document.getElementById('suggestionTitle').value;
+            if (!title) {
+                document.getElementById('modalMessage').style.display = 'block';
+                document.getElementById('modalMessage').innerText = '❌ Введите название';
+                return;
+            }
+
+            const suggestion = {
+                nick: currentUser.display_name,
+                title: title,
+                category: document.getElementById('suggestionCategory').value,
+                link: document.getElementById('suggestionLink').value || '-',
+                comment: document.getElementById('suggestionComment').value || '-',
+                userId: currentUser.id
+            };
+
+            try {
+                const response = await fetch(`${API_BASE}/add-suggestion`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(suggestion)
+                });
+                
+                if (response.ok) {
+                    modal.style.display = 'none';
+                    document.getElementById('suggestionTitle').value = '';
+                    document.getElementById('suggestionLink').value = '';
+                    document.getElementById('suggestionComment').value = '';
+                    loadSuggestions();
+                }
+            } catch (error) {
+                console.error('Ошибка:', error);
+            }
+        };
+
+        document.getElementById('categoryFilter').addEventListener('change', (e) => {
+            currentCategory = e.target.value;
+            applyFilters();
+        });
+
+        document.getElementById('sortFilter').addEventListener('change', (e) => {
+            currentSort = e.target.value;
+            applyFilters();
+        });
+
+        checkTwitchAuth();
+        loadSuggestions();
+        loadCategories();
+        document.getElementById('loginBtn').onclick = loginWithTwitch;
+        setInterval(loadSuggestions, 300000);
+    </script>
+</body>
+</html>
