@@ -20,11 +20,42 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px #b47bf0; }
+            50% { box-shadow: 0 0 20px #b47bf0, 0 0 30px #a25ef0; }
+            100% { box-shadow: 0 0 5px #b47bf0; }
         }
 
         .container {
             max-width: 1400px;
             width: 100%;
+            animation: slideUp 0.8s ease-out;
         }
 
         /* ===== ШАПКА ===== */
@@ -36,6 +67,13 @@
             padding: 25px 35px;
             margin-bottom: 40px;
             box-shadow: 0 25px 35px -10px #2a0e3f;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .header-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 40px -10px #4a2b6e;
         }
 
         .header-content {
@@ -46,7 +84,7 @@
             gap: 20px;
         }
 
-        .header-left {
+        .header-left, .header-right {
             display: flex;
             flex-direction: column;
             gap: 15px;
@@ -73,18 +111,7 @@
             font-weight: 900;
             letter-spacing: 2px;
             line-height: 1.2;
-        }
-
-        .title-box h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            text-shadow: 0 0 10px #b05eff;
-            color: #f3e5ff;
-            margin: 5px 0 10px;
-        }
-
-        .kalevan-box {
-            font-size: 1.3rem;
+            animation: pulse 3s infinite;
         }
 
         .kalevan-box span {
@@ -98,15 +125,13 @@
             gap: 10px;
             border: 2px solid #f0e6ff;
             box-shadow: 0 4px 0 #4a2b6e;
+            transition: all 0.3s ease;
         }
 
-        .header-right {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            flex: 1;
-            min-width: 160px;
-            justify-content: center;
+        .kalevan-box span:hover {
+            background: #bf7cff;
+            transform: scale(1.05);
+            box-shadow: 0 6px 0 #4a2b6e;
         }
 
         .social-btn {
@@ -123,40 +148,33 @@
             justify-content: center;
             gap: 12px;
             box-shadow: 0 6px 0 #311f49;
-            transition: 0.15s;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             width: 100%;
             text-align: center;
             cursor: pointer;
             border: none;
         }
 
+        .social-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 0 #311f49;
+            filter: brightness(1.2);
+        }
+
         .social-btn:active {
             transform: translateY(4px);
-            box-shadow: none;
+            box-shadow: 0 2px 0 #311f49;
         }
 
-        .donate-btn {
-            background: #c43aff;
-            border-color: #f2a5ff;
-            box-shadow: 0 6px 0 #832da8;
-        }
-
-        .huyustriki-btn {
-            background: #b84a8c;
-            border-color: #ff99cc;
-            box-shadow: 0 6px 0 #6a2d52;
-        }
-
-        .twitch-login-btn {
-            background: #9147ff;
-            border-color: #b79aff;
-            box-shadow: 0 6px 0 #5a2e9e;
-        }
+        .donate-btn { background: #c43aff; }
+        .huyustriki-btn { background: #b84a8c; }
+        .twitch-login-btn { background: #9147ff; }
 
         /* ===== ПЛЕЕР ===== */
         .stream-full {
             width: 100%;
             margin-bottom: 40px;
+            animation: slideUp 0.7s ease-out;
         }
 
         .twitch-embed {
@@ -168,16 +186,13 @@
             border-radius: 30px;
             border: 4px solid #c28eff;
             box-shadow: 0 20px 30px -8px #000000b3;
+            transition: all 0.4s ease;
         }
 
-        .twitch-embed iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 26px;
+        .twitch-embed:hover {
+            transform: scale(1.01);
+            border-color: #b47bf0;
+            box-shadow: 0 25px 35px -5px #a55be0;
         }
 
         /* ===== КАЛЕНДАРЬ + ФАКТ ===== */
@@ -195,23 +210,14 @@
             border-radius: 40px;
             padding: 25px;
             box-shadow: 0 15px 25px -5px #000000b3;
+            transition: all 0.4s ease;
+            animation: slideUp 0.8s ease-out;
         }
 
-        .info-card h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            border-bottom: 3px dashed #ad5bff;
-            padding-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 8px;
-            text-align: center;
+        .info-card:hover {
+            transform: translateY(-8px);
+            border-color: #bf7cff;
+            box-shadow: 0 20px 30px -5px #7d3eb0;
         }
 
         .calendar-day {
@@ -220,6 +226,14 @@
             border-radius: 20px;
             border: 1px solid #6a3e9e;
             font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .calendar-day:hover {
+            background: #3d2357;
+            transform: scale(1.05);
+            border-color: #b47bf0;
         }
 
         .calendar-day.stream-day {
@@ -227,16 +241,7 @@
             border-color: #bf7cff;
             font-weight: 700;
             box-shadow: 0 0 12px #b05eff;
-        }
-
-        .calendar-day.off {
-            opacity: 0.5;
-        }
-
-        .day-label {
-            font-size: 0.85rem;
-            color: #b59ec9;
-            margin-bottom: 5px;
+            animation: glow 2s infinite;
         }
 
         .fact-text {
@@ -247,18 +252,19 @@
             border-radius: 25px;
             border-left: 6px solid #b47bf0;
             line-height: 1.5;
+            transition: all 0.3s ease;
+        }
+
+        .fact-text:hover {
+            background: #2f1b42;
+            border-left-width: 10px;
+            transform: translateX(5px);
         }
 
         /* ===== ИГРЫ ===== */
         .games-block {
             margin: 50px 0;
-        }
-
-        .games-block h2 {
-            font-size: 2.5rem;
-            margin-bottom: 25px;
-            border-bottom: 4px dashed #ad5bff;
-            padding-bottom: 12px;
+            animation: slideUp 0.9s ease-out;
         }
 
         .games-grid {
@@ -274,87 +280,32 @@
             padding: 25px 15px;
             text-align: center;
             box-shadow: 0 12px 0 #3c2357;
-            transition: 0.15s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .game-square:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 0 #3c2357;
+            border-color: #bf7cff;
+        }
+
+        .game-square:active {
+            transform: translateY(4px);
+            box-shadow: 0 8px 0 #3c2357;
         }
 
         .game-square.active {
             border-color: #00ff88;
             box-shadow: 0 12px 0 #008f4c, 0 0 20px #00ff88;
             background: #1a3a2a;
-        }
-
-        .game-square:active {
-            transform: translateY(8px);
-            box-shadow: 0 4px 0 #3c2357;
-        }
-
-        .game-icon {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-        }
-
-        .game-title {
-            font-weight: 800;
-            font-size: 1.3rem;
-            background: #30204b;
-            padding: 6px;
-            border-radius: 60px;
-            margin-bottom: 8px;
-        }
-
-        .game-status {
-            font-size: 1rem;
-            background: #2c193b;
-            padding: 6px;
-            border-radius: 40px;
-            border: 1px solid #b26bf2;
+            animation: pulse 2s infinite;
         }
 
         /* ===== ПРЕДЛОЖКИ ===== */
         .suggestions-block {
             margin: 50px 0;
-        }
-
-        .suggestions-header {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 25px;
-            border-bottom: 4px dashed #ad5bff;
-            padding-bottom: 15px;
-        }
-
-        .suggestions-header h2 {
-            font-size: 2.5rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 0;
-            border: none;
-            padding: 0;
-        }
-
-        .filter-controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .filter-select {
-            background: #2e1d40;
-            border: 2px solid #9a5fde;
-            border-radius: 40px;
-            padding: 10px 20px;
-            color: white;
-            font-size: 1rem;
-            cursor: pointer;
-        }
-
-        .filter-select option {
-            background: #2e1d40;
+            animation: slideUp 1s ease-out;
         }
 
         .suggestions-grid {
@@ -370,74 +321,25 @@
             border-radius: 35px;
             padding: 20px;
             box-shadow: 0 12px 0 #3c2357;
-            transition: 0.15s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             flex-direction: column;
             gap: 10px;
+            opacity: 0;
+            animation: slideUp 0.5s ease-out forwards;
         }
+
+        .suggestion-square:nth-child(1) { animation-delay: 0.1s; }
+        .suggestion-square:nth-child(2) { animation-delay: 0.2s; }
+        .suggestion-square:nth-child(3) { animation-delay: 0.3s; }
+        .suggestion-square:nth-child(4) { animation-delay: 0.4s; }
+        .suggestion-square:nth-child(5) { animation-delay: 0.5s; }
+        .suggestion-square:nth-child(6) { animation-delay: 0.6s; }
 
         .suggestion-square:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 0 #3c2357;
-        }
-
-        .suggestion-category {
-            display: inline-block;
-            background: #7d3eb0;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            width: fit-content;
-        }
-
-        .suggestion-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #f0e6ff;
-            margin: 5px 0;
-        }
-
-        .suggestion-author {
-            color: #bda0e6;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .suggestion-link {
-            color: #bf7cff;
-            word-break: break-all;
-            font-size: 0.9rem;
-        }
-
-        .suggestion-link a {
-            color: #bf7cff;
-            text-decoration: none;
-        }
-
-        .suggestion-link a:hover {
-            text-decoration: underline;
-        }
-
-        .suggestion-comment {
-            background: #1a0e24;
-            padding: 10px;
-            border-radius: 15px;
-            font-style: italic;
-            color: #d4b5ff;
-            margin: 5px 0;
-        }
-
-        .suggestion-votes {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 10px;
-            border-top: 1px solid #6a3e9e;
-            padding-top: 10px;
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 0 #3c2357;
+            border-color: #bf7cff;
         }
 
         .vote-btn {
@@ -448,46 +350,35 @@
             border-radius: 30px;
             font-weight: 600;
             cursor: pointer;
-            transition: 0.15s;
+            transition: all 0.3s ease;
             border: 1px solid #b47bf0;
         }
 
         .vote-btn:hover {
             background: #6a3e9e;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #b47bf0;
         }
 
-        .vote-btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
+        .vote-btn:active {
+            transform: scale(0.95);
         }
 
-        .vote-count {
-            font-weight: 700;
-            color: #ffd966;
-            font-size: 1.2rem;
-        }
-
-        .login-bar {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .filter-select {
             background: #2e1d40;
-            padding: 8px 15px;
+            border: 2px solid #9a5fde;
             border-radius: 40px;
-            border: 1px solid #b47bf0;
+            padding: 10px 20px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .user-avatar {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
+        .filter-select:hover {
+            background: #3d2357;
+            border-color: #bf7cff;
+            transform: scale(1.02);
         }
 
         /* ===== МОДАЛКА ===== */
@@ -503,6 +394,7 @@
             z-index: 1000;
             align-items: center;
             justify-content: center;
+            animation: fadeIn 0.3s ease;
         }
 
         .modal-content {
@@ -514,65 +406,26 @@
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
+            transform: scale(0.9);
+            animation: slideUp 0.3s ease forwards;
         }
 
-        .modal-content h3 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: #bf7cff;
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #2e1d40;
+            padding: 8px 15px;
+            border-radius: 40px;
+            border: 1px solid #b47bf0;
+            transition: all 0.3s ease;
         }
 
-        .modal-content input,
-        .modal-content select,
-        .modal-content textarea {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            background: #2c193b;
-            border: 2px solid #b47bf0;
-            border-radius: 30px;
-            color: white;
-            font-size: 1rem;
+        .user-info:hover {
+            transform: scale(1.05);
+            border-color: #bf7cff;
         }
 
-        .modal-content button {
-            background: #c43aff;
-            border: none;
-            color: white;
-            font-size: 1.2rem;
-            font-weight: 700;
-            padding: 12px;
-            border-radius: 60px;
-            cursor: pointer;
-            width: 100%;
-            box-shadow: 0 6px 0 #832da8;
-        }
-
-        .close-btn {
-            float: right;
-            font-size: 2rem;
-            cursor: pointer;
-            color: #bda0e6;
-        }
-
-        .message {
-            padding: 10px;
-            border-radius: 30px;
-            background: #2c193b;
-            color: #bda0e6;
-            text-align: center;
-            margin: 10px 0;
-        }
-
-        .loading {
-            text-align: center;
-            color: #bda0e6;
-            grid-column: 1/-1;
-            padding: 40px;
-            font-size: 1.2rem;
-        }
-
-        /* ===== ПОДПИСЬ ===== */
         .signature {
             margin-top: 60px;
             font-size: 1.8rem;
@@ -583,17 +436,22 @@
             border: 3px solid #ac71e6;
             display: inline-block;
             box-shadow: 0 0 25px #9f67e0;
-            font-weight: 600;
+            transition: all 0.4s ease;
+            animation: pulse 3s infinite;
         }
 
-        .footer-note {
+        .signature:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px #bf7cff;
+        }
+
+        .loading {
             text-align: center;
-            width: 100%;
-        }
-
-        .footer-note small {
-            font-size: 1rem;
             color: #bda0e6;
+            grid-column: 1/-1;
+            padding: 40px;
+            font-size: 1.2rem;
+            animation: pulse 2s infinite;
         }
     </style>
 </head>
@@ -740,7 +598,7 @@
         ];
         document.getElementById('randomFact').innerText = facts[Math.floor(Math.random() * facts.length)];
 
-        // === ИГРЫ (временные, пока нет API) ===
+        // === ИГРЫ ===
         function renderGames() {
             const gamesGrid = document.getElementById('gamesGrid');
             gamesGrid.innerHTML = `
@@ -803,7 +661,7 @@
         // === ЗАГРУЗКА ПРЕДЛОЖЕК ===
         async function loadSuggestions() {
             try {
-                const response = await fetch(`${API_BASE}/get`);
+                const response = await fetch(`${API_BASE}/get_suggestions`);
                 const data = await response.json();
                 allSuggestions = data;
                 applyFilters();
@@ -863,7 +721,7 @@
         // === КАТЕГОРИИ ===
         async function loadCategories() {
             try {
-                const response = await fetch(`${API_BASE}/categories`);
+                const response = await fetch(`${API_BASE}/get_categories`);
                 const categories = await response.json();
                 const select = document.getElementById('suggestionCategory');
                 const filterSelect = document.getElementById('categoryFilter');
@@ -922,7 +780,7 @@
             };
 
             try {
-                const response = await fetch(`${API_BASE}/add`, {
+                const response = await fetch(`${API_BASE}/add_suggestion`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(suggestion)
