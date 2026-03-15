@@ -1,7 +1,16 @@
 {
   "name": "honesty113",
   "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "vercel build",
+    "deploy": "vercel --prod"
+  },
   "dependencies": {
     "googleapis": "^126.0.1"
+  },
+  "devDependencies": {
+    "vercel": "^32.0.0"
   }
 }
