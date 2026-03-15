@@ -938,7 +938,8 @@
         <!-- ПЛЕЕР (ИСПРАВЛЕН) -->
         <div class="stream-full">
             <div class="twitch-embed">
-                <iframe src="https://player.twitch.tv/?channel=honesty113&parent=localhost&parent=honesty113.vercel.app" allowfullscreen="true" scrolling="no" allow="autoplay; fullscreen"></iframe>
+                <iframe id="twitchIframe" src="https://player.twitch.tv/?channel=honesty113&parent=" + window.location.host + "&parent=honesty113.vercel.app" allowfullscreen="true" scrolling="no" allow="autoplay; fullscreen"></iframe>
+
             </div>
         </div>
 
@@ -1053,19 +1054,7 @@
         ];
         document.getElementById('randomFact').innerText = facts[Math.floor(Math.random() * facts.length)];
 
-        // === ИГРЫ ===
-        function renderGames() {
-            const gamesGrid = document.getElementById('gamesGrid');
-            gamesGrid.innerHTML = `
-                <div class="game-square active"><div class="game-icon">⛏️</div><div class="game-title">MINECRAFT</div><div class="game-status">🟢 сейчас играет</div></div>
-                <div class="game-square active"><div class="game-icon">😱</div><div class="game-title">OUTLAST 2</div><div class="game-status">🟢 сейчас играет</div></div>
-                <div class="game-square"><div class="game-icon">🧛</div><div class="game-title">RESIDENT EVIL 8</div><div class="game-status">⚪ забросил</div></div>
-                <div class="game-square"><div class="game-icon">🌃</div><div class="game-title">CYBERPUNK 2077</div><div class="game-status">🔴 не начинал</div></div>
-                <div class="game-square"><div class="game-icon">🔫</div><div class="game-title">VALORANT</div><div class="game-status">💤 жду только я</div></div>
-                <div class="game-square"><div class="game-icon">🎲</div><div class="game-title">...</div><div class="game-status">скоро узнаем</div></div>
-            `;
-        }
-        renderGames();
+// === ИГРЫ ===\n        let liveGameName = null;\n\n        async function fetchCurrentGame() {\n          try {\n            const res = await fetch(`${API_BASE}/current-game`);\n            const data = await res.json();\n            liveGameName = data.gameName;\n            highlightLiveGame();\n          } catch (e) {\n            console.log('No live stream');\n          }\n        }\n\n        function highlightLiveGame() {\n          if (!liveGameName) return;\n          const squares = document.querySelectorAll('.game-square');\n          squares.forEach(sq => {\n            const title = sq.querySelector('.game-title').textContent.toUpperCase();\n            if (title.includes(liveGameName.toUpperCase())) {\n              sq.classList.add('active');\n              sq.querySelector('.game-status').textContent = '🟢 LIVE!';\n            }\n          });\n        }\n\n        function renderGames() {\n            const gamesGrid = document.getElementById('gamesGrid');\n            gamesGrid.innerHTML = `\n                <div class="game-square" data-game="MINECRAFT"><div class="game-icon">⛏️</div><div class="game-title">MINECRAFT</div><div class="game-status">⚪ играл</div></div>\n                <div class="game-square" data-game="OUTLAST 2"><div class="game-icon">😱</div><div class="game-title">OUTLAST 2</div><div class="game-status">⚪ играл</div></div>\n                <div class="game-square" data-game="RESIDENT EVIL 8"><div class="game-icon">🧛</div><div class="game-title">RESIDENT EVIL 8</div><div class="game-status">⚪ забросил</div></div>\n                <div class="game-square" data-game="CYBERPUNK 2077"><div class="game-icon">🌃</div><div class="game-title">CYBERPUNK 2077</div><div class="game-status">🔴 не начинал</div></div>\n                <div class="game-square" data-game="VALORANT"><div class="game-icon">🔫</div><div class="game-title">VALORANT</div><div class="game-status">💤 жду только я</div></div>\n                <div class="game-square"><div class="game-icon">🎲</div><div class="game-title">?</div><div class="game-status">скоро узнаем</div></div>\n            `;\n        }\n        renderGames();
 
         // === TWITCH АВТОРИЗАЦИЯ ===
         function checkTwitchAuth() {
