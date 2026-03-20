@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     const sheets = google.sheets({ version: 'v4', auth });
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.SHEET_ID,
-      range: 'games!A:D',
+      range: 'games!A:F',
     });
 
     const rows = response.data.values || [];
@@ -20,7 +20,9 @@ export default async function handler(req, res) {
       id: row[0] || '',
       name: row[1] || '',
       category: row[2] || 'Другое',
-      firstSeen: row[3] || ''
+      firstStream: row[3] || '',
+      lastStream: row[4] || '',
+      totalMinutes: parseInt(row[5]) || 0
     }));
 
     res.status(200).json(games);
