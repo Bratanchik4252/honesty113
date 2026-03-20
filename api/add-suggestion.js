@@ -14,14 +14,14 @@ export default async function handler(req, res) {
     });
 
     const sheets = google.sheets({ version: 'v4', auth });
-    const { nick, title, category, link, comment } = req.body;
+    const { nick, title, category, link, comment, userId, avatar } = req.body;
 
     const now = new Date().toLocaleString('ru-RU');
     const suggestionId = Date.now().toString();
 
     await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.SHEET_ID,
-      range: 'Лист1!A:H',
+      range: 'Лист1!A:I',
       valueInputOption: 'USER_ENTERED',
       requestBody: {
         values: [[
@@ -32,7 +32,8 @@ export default async function handler(req, res) {
           link || '-',
           comment || '-',
           '0',
-          suggestionId
+          suggestionId,
+          avatar || ''
         ]]
       }
     });
