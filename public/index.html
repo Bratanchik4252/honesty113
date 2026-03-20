@@ -20,16 +20,9 @@
             overflow-x: hidden;
         }
 
-        /* ===== АНИМАЦИИ ===== */
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes glowPulse {
@@ -39,23 +32,15 @@
         }
 
         @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
-        /* ===== ЛАЙАУТ С САЙДБАРОМ ===== */
         .app {
             display: flex;
             min-height: 100vh;
         }
 
-        /* ===== САЙДБАР (как в Telegram) ===== */
         .sidebar {
             width: 280px;
             background: rgba(18, 12, 28, 0.7);
@@ -74,28 +59,10 @@
             justify-content: space-between;
         }
 
-        .sidebar-top {
-            flex: 1;
-        }
-
-        .sidebar-header {
-            margin-bottom: 40px;
-            text-align: center;
-        }
-
-        .sidebar-header h1 {
-            font-size: 1.8rem;
-            background: linear-gradient(135deg, #ceadff, #a159ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
-        }
-
-        .sidebar-header p {
-            font-size: 0.8rem;
-            color: #bda0e6;
-            margin-top: 5px;
-        }
+        .sidebar-top { flex: 1; }
+        .sidebar-header { margin-bottom: 40px; text-align: center; }
+        .sidebar-header h1 { font-size: 1.8rem; background: linear-gradient(135deg, #ceadff, #a159ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
+        .sidebar-header p { font-size: 0.8rem; color: #bda0e6; margin-top: 5px; }
 
         .nav-item {
             display: flex;
@@ -109,37 +76,12 @@
             cursor: pointer;
             font-weight: 500;
         }
+        .nav-item:hover { background: rgba(165, 91, 224, 0.2); color: white; transform: translateX(5px); }
+        .nav-item.active { background: linear-gradient(145deg, #9147ff, #6e2bc7); color: white; box-shadow: 0 4px 15px rgba(145, 71, 255, 0.3); }
+        .nav-item .icon { font-size: 1.4rem; width: 32px; text-align: center; }
+        .nav-divider { height: 1px; background: rgba(165, 91, 224, 0.2); margin: 15px 0; }
+        .sidebar-bottom { margin-top: auto; padding-top: 20px; }
 
-        .nav-item:hover {
-            background: rgba(165, 91, 224, 0.2);
-            color: white;
-            transform: translateX(5px);
-        }
-
-        .nav-item.active {
-            background: linear-gradient(145deg, #9147ff, #6e2bc7);
-            color: white;
-            box-shadow: 0 4px 15px rgba(145, 71, 255, 0.3);
-        }
-
-        .nav-item .icon {
-            font-size: 1.4rem;
-            width: 32px;
-            text-align: center;
-        }
-
-        .nav-divider {
-            height: 1px;
-            background: rgba(165, 91, 224, 0.2);
-            margin: 15px 0;
-        }
-
-        .sidebar-bottom {
-            margin-top: auto;
-            padding-top: 20px;
-        }
-
-        /* ===== ОСНОВНОЙ КОНТЕНТ ===== */
         .main-content {
             flex: 1;
             margin-left: 280px;
@@ -147,7 +89,6 @@
             transition: all 0.3s ease;
         }
 
-        /* ===== КАРТОЧКИ ===== */
         .card {
             background: rgba(26, 16, 40, 0.6);
             backdrop-filter: blur(12px);
@@ -158,104 +99,27 @@
             transition: all 0.3s ease;
             animation: fadeInUp 0.5s ease;
         }
+        .card:hover { border-color: #bf7cff; transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
 
-        .card:hover {
-            border-color: #bf7cff;
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-        }
+        .post-header { display: flex; gap: 15px; margin-bottom: 15px; }
+        .post-avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #bf7cff; }
+        .post-author { font-weight: 700; font-size: 1.1rem; }
+        .post-time { font-size: 0.75rem; color: #9b86b3; }
+        .post-content { margin: 15px 0; line-height: 1.5; white-space: pre-wrap; }
+        .post-tag { display: inline-block; background: rgba(145, 71, 255, 0.2); padding: 4px 12px; border-radius: 30px; font-size: 0.75rem; margin-right: 10px; margin-bottom: 5px; }
+        .post-stats { display: flex; gap: 20px; margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(165, 91, 224, 0.2); }
+        .stat-btn { display: flex; align-items: center; gap: 6px; background: none; border: none; color: #bda0e6; cursor: pointer; font-size: 0.9rem; transition: all 0.2s; }
+        .stat-btn:hover { color: #bf7cff; transform: scale(1.05); }
+        .stat-btn.active { color: #ffd966; }
 
-        /* ===== ПОСТЫ ===== */
-        .post-header {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
+        .comment-section { margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(165, 91, 224, 0.2); }
+        .comment { display: flex; gap: 12px; margin-bottom: 15px; }
+        .comment-avatar { width: 32px; height: 32px; border-radius: 50%; }
+        .comment-bubble { background: rgba(0,0,0,0.3); border-radius: 20px; padding: 10px 15px; flex: 1; }
+        .comment-meta { font-size: 0.7rem; color: #9b86b3; margin-bottom: 5px; }
+        .comment-stats { display: flex; gap: 12px; margin-top: 5px; font-size: 0.7rem; }
+        .comment-stats button { background: none; border: none; color: #bda0e6; cursor: pointer; }
 
-        .post-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #bf7cff;
-        }
-
-        .post-author {
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-
-        .post-time {
-            font-size: 0.75rem;
-            color: #9b86b3;
-        }
-
-        .post-content {
-            margin: 15px 0;
-            line-height: 1.5;
-        }
-
-        .post-tag {
-            display: inline-block;
-            background: rgba(145, 71, 255, 0.2);
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            margin-right: 10px;
-        }
-
-        .post-stats {
-            display: flex;
-            gap: 20px;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(165, 91, 224, 0.2);
-        }
-
-        .stat-btn {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: none;
-            border: none;
-            color: #bda0e6;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.2s;
-        }
-
-        .stat-btn:hover {
-            color: #bf7cff;
-            transform: scale(1.05);
-        }
-
-        /* ===== КОММЕНТАРИИ ===== */
-        .comment-section {
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(165, 91, 224, 0.2);
-        }
-
-        .comment {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 15px;
-        }
-
-        .comment-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-        }
-
-        .comment-bubble {
-            background: rgba(0,0,0,0.3);
-            border-radius: 20px;
-            padding: 10px 15px;
-            flex: 1;
-        }
-
-        /* ===== ФОРМЫ ===== */
         .input-modern {
             background: rgba(0,0,0,0.3);
             border: 1px solid rgba(165, 91, 224, 0.5);
@@ -265,12 +129,8 @@
             width: 100%;
             transition: all 0.2s;
         }
-
-        .input-modern:focus {
-            outline: none;
-            border-color: #bf7cff;
-            box-shadow: 0 0 10px #bf7cff;
-        }
+        .input-modern:focus { outline: none; border-color: #bf7cff; box-shadow: 0 0 10px #bf7cff; }
+        textarea.input-modern { border-radius: 24px; resize: vertical; }
 
         .btn-primary {
             background: linear-gradient(145deg, #9147ff, #6e2bc7);
@@ -282,53 +142,43 @@
             cursor: pointer;
             transition: all 0.2s;
         }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(145, 71, 255, 0.4); }
+        .btn-secondary { background: rgba(145, 71, 255, 0.2); border: 1px solid #9147ff; }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(145, 71, 255, 0.4);
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: #1a1028;
+            border-radius: 32px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid #bf7cff;
         }
 
-        /* ===== КАЛЕНДАРЬ ===== */
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 8px;
-            text-align: center;
-        }
-        .calendar-day {
-            background: rgba(0,0,0,0.3);
-            padding: 12px;
-            border-radius: 16px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center; }
+        .calendar-day { background: rgba(0,0,0,0.3); padding: 12px; border-radius: 16px; cursor: pointer; transition: all 0.2s; }
         .calendar-day.has-vod { background: #9147ff; color: white; }
         .calendar-day.live { background: #ff4444; animation: glowPulse 1s infinite; }
 
-        /* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
+        .loading { text-align: center; padding: 50px; color: #bda0e6; }
+
         @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-                width: 260px;
-            }
-            .sidebar.open {
-                transform: translateX(0);
-            }
-            .main-content {
-                margin-left: 0;
-                padding: 20px;
-            }
-            .menu-toggle {
-                display: block;
-                position: fixed;
-                top: 20px;
-                left: 20px;
-                z-index: 200;
-                background: #9147ff;
-                padding: 10px;
-                border-radius: 50%;
-                cursor: pointer;
-            }
+            .sidebar { transform: translateX(-100%); width: 260px; }
+            .sidebar.open { transform: translateX(0); }
+            .main-content { margin-left: 0; padding: 20px; }
+            .menu-toggle { display: block; position: fixed; top: 20px; left: 20px; z-index: 200; background: #9147ff; padding: 10px; border-radius: 50%; cursor: pointer; }
         }
         .menu-toggle { display: none; }
     </style>
@@ -366,95 +216,365 @@
     </div>
 
     <div class="main-content" id="mainContent">
-        <!-- Контент будет загружаться сюда динамически -->
-        <div style="text-align: center; padding: 50px;">Загрузка...</div>
+        <div class="loading">Загрузка...</div>
+    </div>
+</div>
+
+<!-- Модалка нового поста -->
+<div class="modal" id="postModal">
+    <div class="modal-content">
+        <h3 style="margin-bottom:20px;">✨ Новый пост</h3>
+        <input type="text" id="postTitle" class="input-modern" placeholder="Заголовок / что предлагаешь?" style="margin-bottom:15px;">
+        <textarea id="postText" class="input-modern" rows="4" placeholder="Описание..."></textarea>
+        <select id="postCategory" class="input-modern" style="margin-top:15px;">
+            <option value="Видео">🎬 Видео</option>
+            <option value="Фильм">🎥 Фильм</option>
+            <option value="Аниме">🍥 Аниме</option>
+            <option value="Сериал">📺 Сериал</option>
+            <option value="Игра">🎮 Игра</option>
+            <option value="Другое">✨ Другое</option>
+        </select>
+        <input type="text" id="postGame" class="input-modern" placeholder="Название игры/фильма/аниме" style="margin-top:15px;">
+        <input type="url" id="postLink" class="input-modern" placeholder="Ссылка (YouTube, Twitch...)" style="margin-top:15px;">
+        <div style="display:flex; gap:10px; margin-top:20px;">
+            <button class="btn-primary" id="submitPostBtn">Опубликовать</button>
+            <button class="btn-primary btn-secondary" onclick="closePostModal()">Отмена</button>
+        </div>
     </div>
 </div>
 
 <script>
-    // === ГЛОБАЛЬНЫЕ ДАННЫЕ ===
+    const API_BASE = '/api';
+    const CLIENT_ID = 'oivt3xslzr0wi1b3eu4a59lntv5isk';
+    const REDIRECT_URI = window.location.origin;
+
     let currentUser = null;
-    let posts = [];
-    let vods = [];
+    let allPosts = [];
+    let allComments = {};
+    let userVotes = JSON.parse(localStorage.getItem('userVotes')) || {};
 
-    // === ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ ===
-    function loadPage(page) {
-        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-        document.querySelector(`[data-page="${page}"]`).classList.add('active');
-
-        const content = document.getElementById('mainContent');
-        if (page === 'feed') renderFeed(content);
-        else if (page === 'calendar') renderCalendar(content);
-        else if (page === 'suggestions') renderSuggestions(content);
-        else if (page === 'links') renderLinks(content);
-        else if (page === 'settings') renderSettings(content);
-        else if (page === 'profile') renderProfile(content);
+    // ========== АВТОРИЗАЦИЯ ==========
+    function loadUserFromStorage() {
+        const saved = localStorage.getItem('twitchUser');
+        if (saved) {
+            currentUser = JSON.parse(saved);
+            updateUIForUser();
+        }
     }
 
-    // === ЛЕНТА (ПОСТЫ + КОММЕНТАРИИ) ===
-    async function renderFeed(container) {
-        container.innerHTML = `<div class="card">🔥 Лента загружается...</div>`;
+    function checkTwitchAuth() {
+        const hash = window.location.hash.substring(1);
+        const params = new URLSearchParams(hash);
+        const token = params.get('access_token');
+        if (token) {
+            fetch('https://api.twitch.tv/helix/users', {
+                headers: { 'Authorization': `Bearer ${token}`, 'Client-ID': CLIENT_ID }
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.data && data.data[0]) {
+                    currentUser = data.data[0];
+                    localStorage.setItem('twitchUser', JSON.stringify(currentUser));
+                    updateUIForUser();
+                    window.location.hash = '';
+                }
+            });
+        }
+    }
+
+    function loginWithTwitch() {
+        const scopes = 'user:read:email';
+        window.location.href = `https://id.twitch.tv/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token&scope=${scopes}`;
+    }
+
+    function logout() {
+        currentUser = null;
+        localStorage.removeItem('twitchUser');
+        updateUIForUser();
+        loadPage(document.querySelector('.nav-item.active').dataset.page);
+    }
+
+    function updateUIForUser() {
+        const loginBtn = document.getElementById('loginBtn');
+        const userInfo = document.getElementById('userInfo');
+        if (currentUser) {
+            if (loginBtn) loginBtn.style.display = 'none';
+            if (userInfo) userInfo.innerHTML = `<div class="user-info"><img src="${currentUser.profile_image_url}" class="post-avatar" style="width:32px;height:32px;"> ${currentUser.display_name}</div>`;
+        } else {
+            if (loginBtn) loginBtn.style.display = 'block';
+            if (userInfo) userInfo.innerHTML = '';
+        }
+    }
+
+    // ========== API ВЫЗОВЫ ==========
+    async function fetchPosts() {
+        const res = await fetch(`${API_BASE}?action=posts`);
+        allPosts = await res.json();
+    }
+
+    async function fetchComments(postId) {
+        const res = await fetch(`${API_BASE}?action=comments&postId=${postId}`);
+        allComments[postId] = await res.json();
+    }
+
+    async function createPost(postData) {
+        const res = await fetch(`${API_BASE}?action=create`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(postData)
+        });
+        return await res.json();
+    }
+
+    async function addComment(postId, text) {
+        const res = await fetch(`${API_BASE}?action=addComment`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ postId, text, userId: currentUser?.id, nick: currentUser?.display_name, avatar: currentUser?.profile_image_url })
+        });
+        return await res.json();
+    }
+
+    async function vote(postId, type) {
+        const res = await fetch(`${API_BASE}?action=vote`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ postId, type, userId: currentUser?.id })
+        });
+        return await res.json();
+    }
+
+    // ========== ОТРИСОВКА СТРАНИЦ ==========
+    async function renderFeed() {
+        const container = document.getElementById('mainContent');
+        container.innerHTML = '<div class="loading">Загрузка постов...</div>';
+        await fetchPosts();
+        await Promise.all(allPosts.map(p => fetchComments(p.id)));
         container.innerHTML = `
-            <div class="card">
-                <div class="post-header">
-                    <img class="post-avatar" src="https://static-cdn.jtvnw.net/user-default-pictures-uv/13e5d884-3c7e-4c9a-9c6c-6f3c6d5f8e6a-profile_image-70x70.png">
-                    <div><div class="post-author">xX_HonestyFan</div><div class="post-time">2 часа назад</div></div>
-                </div>
-                <div class="post-content">🔥 ПРЕДЛАГАЮ ЗАСТРИМИТЬ НОВЫЙ ХАРДКОРНЫЙ СИД В МАЙНКРАФТЕ! УЖЕ НАШЕЛ СУПЕР-СЛОЖНЫЙ</div>
-                <div><span class="post-tag">Игра</span><span class="post-tag">Minecraft</span></div>
-                <div class="post-stats">
-                    <button class="stat-btn">👍 156</button>
-                    <button class="stat-btn">👎 12</button>
-                    <button class="stat-btn">💬 34</button>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                <h2>📰 Лента</h2>
+                <div>
+                    ${!currentUser ? `<button class="btn-primary" id="loginBtnHeader" style="margin-right:10px;">🔐 Войти через Twitch</button>` : ''}
+                    <button class="btn-primary" id="newPostBtn">➕ Новый пост</button>
                 </div>
             </div>
-            <div class="card">
+            <div id="feedPosts"></div>
+        `;
+        if (!currentUser) document.getElementById('loginBtnHeader')?.addEventListener('click', loginWithTwitch);
+        document.getElementById('newPostBtn').addEventListener('click', () => openPostModal());
+        const feedDiv = document.getElementById('feedPosts');
+        feedDiv.innerHTML = allPosts.map(post => renderPostCard(post)).join('');
+        attachPostEventListeners();
+    }
+
+    function renderPostCard(post) {
+        const comments = allComments[post.id] || [];
+        const userVote = userVotes[post.id] || 0;
+        return `
+            <div class="card" data-post-id="${post.id}">
                 <div class="post-header">
-                    <img class="post-avatar" src="https://static-cdn.jtvnw.net/user-default-pictures-uv/13e5d884-3c7e-4c9a-9c6c-6f3c6d5f8e6a-profile_image-70x70.png">
-                    <div><div class="post-author">gamer123</div><div class="post-time">5 часов назад</div></div>
+                    <img class="post-avatar" src="${post.avatar || 'https://static-cdn.jtvnw.net/user-default-pictures-uv/13e5d884-3c7e-4c9a-9c6c-6f3c6d5f8e6a-profile_image-70x70.png'}">
+                    <div>
+                        <div class="post-author">${post.nick}</div>
+                        <div class="post-time">${post.date}</div>
+                    </div>
                 </div>
-                <div class="post-content">OUTLAST 2 НА МАКСИМАЛКЕ С КАМЕРОЙ НА ЛИЦО! ЭТО БУДЕТ ЖЕСТКО!</div>
-                <div><span class="post-tag">Хоррор</span></div>
+                <div class="post-content"><strong>${post.title || ''}</strong><br>${post.text}</div>
+                <div>
+                    <span class="post-tag">${getCategoryEmoji(post.category)} ${post.category}</span>
+                    ${post.game ? `<span class="post-tag">🎮 ${post.game}</span>` : ''}
+                    ${post.link ? `<span class="post-tag"><a href="${post.link}" target="_blank" style="color:#bf7cff;">🔗 ссылка</a></span>` : ''}
+                </div>
                 <div class="post-stats">
-                    <button class="stat-btn">👍 89</button>
-                    <button class="stat-btn">👎 4</button>
-                    <button class="stat-btn">💬 12</button>
+                    <button class="stat-btn ${userVote === 1 ? 'active' : ''}" data-action="up" data-post="${post.id}">👍 ${post.rating || 0}</button>
+                    <button class="stat-btn ${userVote === -1 ? 'active' : ''}" data-action="down" data-post="${post.id}">👎 ${post.ratingDown || 0}</button>
+                    <button class="stat-btn" data-action="toggleComments" data-post="${post.id}">💬 ${comments.length}</button>
+                </div>
+                <div class="comment-section" id="comments-${post.id}" style="display:none;">
+                    <div id="comments-list-${post.id}">${comments.map(c => renderComment(c)).join('')}</div>
+                    ${currentUser ? `
+                        <div style="display:flex; gap:10px; margin-top:10px;">
+                            <input type="text" id="comment-input-${post.id}" class="input-modern" placeholder="Написать комментарий..." style="flex:1;">
+                            <button class="btn-primary" onclick="submitComment('${post.id}')">➡️</button>
+                        </div>
+                    ` : '<p style="color:#bda0e6;">Войдите, чтобы комментировать</p>'}
                 </div>
             </div>
-            <div style="margin-top:20px;"><button class="btn-primary" onclick="alert('Модалка создания поста будет здесь')">➕ Новый пост</button></div>
         `;
     }
 
-    function renderCalendar(container) {
-        container.innerHTML = `<div class="card">📅 Календарь стримов (будет тут)</div>`;
-    }
-    function renderSuggestions(container) {
-        container.innerHTML = `<div class="card">🎯 Предложки (голосование + комменты)</div>`;
-    }
-    function renderLinks(container) {
-        container.innerHTML = `<div class="card">
-            <h3>🔗 Полезные ссылки</h3>
-            <div style="display:flex; gap:20px; flex-wrap:wrap; margin-top:20px;">
-                <a href="https://twitch.tv/honesty113" target="_blank" class="btn-primary" style="display:inline-block;">📺 Twitch</a>
-                <a href="https://t.me/hoststreet" target="_blank" class="btn-primary" style="display:inline-block;">📱 Telegram</a>
-                <a href="https://discord.gg/ynDWeAYB2" target="_blank" class="btn-primary" style="display:inline-block;">💬 Discord</a>
-                <a href="https://www.donationalerts.com/r/honesty113" target="_blank" class="btn-primary" style="display:inline-block;">💰 Donate</a>
-                <a href="https://memealerts.com/6602a0ee288f43c13c2293df" target="_blank" class="btn-primary" style="display:inline-block;">🔞 Хуюстрики</a>
+    function renderComment(comment) {
+        return `
+            <div class="comment">
+                <img class="comment-avatar" src="${comment.avatar || 'https://static-cdn.jtvnw.net/user-default-pictures-uv/13e5d884-3c7e-4c9a-9c6c-6f3c6d5f8e6a-profile_image-70x70.png'}">
+                <div class="comment-bubble">
+                    <div class="comment-meta"><strong>${comment.nick}</strong> · ${comment.date}</div>
+                    <div>${comment.text}</div>
+                    <div class="comment-stats">
+                        <button data-comment="${comment.id}" data-action="commentUp">👍 ${comment.likes || 0}</button>
+                        <button data-comment="${comment.id}" data-action="commentDown">👎 ${comment.dislikes || 0}</button>
+                    </div>
+                </div>
             </div>
-        </div>`;
-    }
-    function renderSettings(container) {
-        container.innerHTML = `<div class="card">⚙️ Настройки: тема, шрифты и уведомления (будет)</div>`;
-    }
-    function renderProfile(container) {
-        container.innerHTML = `<div class="card">👤 Профиль: аватарка, статистика, мои посты (будет)</div>`;
+        `;
     }
 
-    // === ИНИЦИАЛИЗАЦИЯ ===
+    function getCategoryEmoji(cat) {
+        const map = { 'Видео':'🎬', 'Фильм':'🎥', 'Аниме':'🍥', 'Сериал':'📺', 'Игра':'🎮', 'Другое':'✨' };
+        return map[cat] || '📌';
+    }
+
+    function attachPostEventListeners() {
+        document.querySelectorAll('.stat-btn[data-action="up"]').forEach(btn => {
+            btn.onclick = async () => {
+                if (!currentUser) { alert('Войдите через Twitch'); return; }
+                const postId = btn.dataset.post;
+                const res = await vote(postId, 'up');
+                if (res.success) {
+                    userVotes[postId] = 1;
+                    localStorage.setItem('userVotes', JSON.stringify(userVotes));
+                    await renderFeed();
+                }
+            };
+        });
+        document.querySelectorAll('.stat-btn[data-action="down"]').forEach(btn => {
+            btn.onclick = async () => {
+                if (!currentUser) { alert('Войдите через Twitch'); return; }
+                const postId = btn.dataset.post;
+                const res = await vote(postId, 'down');
+                if (res.success) {
+                    userVotes[postId] = -1;
+                    localStorage.setItem('userVotes', JSON.stringify(userVotes));
+                    await renderFeed();
+                }
+            };
+        });
+        document.querySelectorAll('.stat-btn[data-action="toggleComments"]').forEach(btn => {
+            btn.onclick = () => {
+                const postId = btn.dataset.post;
+                const section = document.getElementById(`comments-${postId}`);
+                section.style.display = section.style.display === 'none' ? 'block' : 'none';
+            };
+        });
+    }
+
+    window.submitComment = async function(postId) {
+        const input = document.getElementById(`comment-input-${postId}`);
+        if (!input.value.trim()) return;
+        await addComment(postId, input.value);
+        input.value = '';
+        await renderFeed();
+    };
+
+    function openPostModal() {
+        if (!currentUser) { alert('Войдите через Twitch'); return; }
+        document.getElementById('postModal').style.display = 'flex';
+    }
+    function closePostModal() {
+        document.getElementById('postModal').style.display = 'none';
+        document.getElementById('postTitle').value = '';
+        document.getElementById('postText').value = '';
+        document.getElementById('postGame').value = '';
+        document.getElementById('postLink').value = '';
+    }
+    document.getElementById('submitPostBtn').onclick = async () => {
+        const title = document.getElementById('postTitle').value;
+        const text = document.getElementById('postText').value;
+        if (!text.trim()) { alert('Напишите текст'); return; }
+        const postData = {
+            title, text,
+            category: document.getElementById('postCategory').value,
+            game: document.getElementById('postGame').value,
+            link: document.getElementById('postLink').value,
+            nick: currentUser.display_name,
+            avatar: currentUser.profile_image_url,
+            userId: currentUser.id
+        };
+        await createPost(postData);
+        closePostModal();
+        await renderFeed();
+    };
+
+    async function renderCalendar() {
+        const container = document.getElementById('mainContent');
+        container.innerHTML = '<div class="loading">Загрузка календаря...</div>';
+        const res = await fetch(`${API_BASE}?action=vods`);
+        const vods = await res.json();
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = today.getMonth();
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        let html = '<div class="card"><h2>📅 Календарь стримов</h2><div class="calendar-grid">';
+        for (let i = 0; i < firstDay; i++) html += '<div></div>';
+        for (let d = 1; d <= daysInMonth; d++) {
+            const dateStr = `${d}.${month+1}.${year}`;
+            const hasVod = vods.some(v => v.date === dateStr);
+            const isLive = false; // можно подтянуть из API
+            html += `<div class="calendar-day ${hasVod ? 'has-vod' : ''} ${isLive ? 'live' : ''}" onclick="window.open('${hasVod ? vods.find(v=>v.date===dateStr).url : 'https://twitch.tv/honesty113'}', '_blank')">${d}</div>`;
+        }
+        html += '</div></div>';
+        container.innerHTML = html;
+    }
+
+    function renderSuggestions() { document.getElementById('mainContent').innerHTML = '<div class="card">🎯 Предложки (голосование + комменты) — в разработке</div>'; }
+    function renderLinks() {
+        document.getElementById('mainContent').innerHTML = `
+            <div class="card">
+                <h3>🔗 Полезные ссылки</h3>
+                <div style="display:flex; gap:20px; flex-wrap:wrap; margin-top:20px;">
+                    <a href="https://twitch.tv/honesty113" target="_blank" class="btn-primary">📺 Twitch</a>
+                    <a href="https://t.me/hoststreet" target="_blank" class="btn-primary">📱 Telegram</a>
+                    <a href="https://discord.gg/ynDWeAYB2" target="_blank" class="btn-primary">💬 Discord</a>
+                    <a href="https://www.donationalerts.com/r/honesty113" target="_blank" class="btn-primary">💰 Donate</a>
+                    <a href="https://memealerts.com/6602a0ee288f43c13c2293df" target="_blank" class="btn-primary">🔞 Хуюстрики</a>
+                </div>
+            </div>
+        `;
+    }
+    function renderSettings() { document.getElementById('mainContent').innerHTML = '<div class="card">⚙️ Настройки (тема, уведомления) — в разработке</div>'; }
+    async function renderProfile() {
+        if (!currentUser) { document.getElementById('mainContent').innerHTML = '<div class="card">👤 Войдите через Twitch, чтобы увидеть профиль</div>'; return; }
+        const myPosts = allPosts.filter(p => p.authorId === currentUser.id);
+        document.getElementById('mainContent').innerHTML = `
+            <div class="card">
+                <div style="display:flex; gap:20px; align-items:center;">
+                    <img src="${currentUser.profile_image_url}" class="post-avatar" style="width:80px;height:80px;">
+                    <div><h2>${currentUser.display_name}</h2><p>Twitch ID: ${currentUser.id}</p></div>
+                </div>
+                <div class="post-stats" style="margin-top:20px;">
+                    <div>📊 Постов: ${myPosts.length}</div>
+                    <div>👍 Рейтинг: ${myPosts.reduce((sum,p)=>sum+(p.rating||0),0)}</div>
+                </div>
+                <h3 style="margin-top:20px;">Мои посты</h3>
+                ${myPosts.map(p => `<div class="post-content" style="margin-top:10px;">📌 ${p.title || p.text.substring(0,50)}</div>`).join('') || '<p>Нет постов</p>'}
+                <button class="btn-primary" style="margin-top:20px;" onclick="logout()">🚪 Выйти</button>
+            </div>
+        `;
+    }
+
+    function loadPage(page) {
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        document.querySelector(`[data-page="${page}"]`).classList.add('active');
+        if (page === 'feed') renderFeed();
+        else if (page === 'calendar') renderCalendar();
+        else if (page === 'suggestions') renderSuggestions();
+        else if (page === 'links') renderLinks();
+        else if (page === 'settings') renderSettings();
+        else if (page === 'profile') renderProfile();
+    }
+
     document.querySelectorAll('.nav-item').forEach(item => {
         item.addEventListener('click', () => loadPage(item.dataset.page));
     });
+
+    loadUserFromStorage();
+    checkTwitchAuth();
     loadPage('feed');
+    window.closePostModal = closePostModal;
+    window.openPostModal = openPostModal;
+    window.loginWithTwitch = loginWithTwitch;
+    window.logout = logout;
 </script>
 </body>
 </html>
