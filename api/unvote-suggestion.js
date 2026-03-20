@@ -16,17 +16,15 @@ export default async function handler(req, res) {
     const sheets = google.sheets({ version: 'v4', auth });
     const { suggestionId, userId } = req.body;
 
-    // Получаем текущие данные
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.SHEET_ID,
-      range: 'Лист1!A:H',
+      range: 'Лист1!A:I',
     });
 
     const rows = response.data.values || [];
     let foundRow = -1;
     let currentVotes = 0;
 
-    // Ищем строку с нужным ID
     for (let i = 1; i < rows.length; i++) {
       if (rows[i][7] === suggestionId) {
         foundRow = i + 1;
@@ -43,7 +41,6 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Нет голосов для отзыва' });
     }
 
-    // Уменьшаем счетчик голосов
     await sheets.spreadsheets.values.update({
       spreadsheetId: process.env.SHEET_ID,
       range: `Лист1!G${foundRow}`,
