@@ -69,6 +69,13 @@
             transition: all 0.3s ease;
             z-index: 100;
             animation: slideIn 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .sidebar-top {
+            flex: 1;
         }
 
         .sidebar-header {
@@ -125,6 +132,11 @@
             height: 1px;
             background: rgba(165, 91, 224, 0.2);
             margin: 15px 0;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+            padding-top: 20px;
         }
 
         /* ===== ОСНОВНОЙ КОНТЕНТ ===== */
@@ -324,28 +336,32 @@
 <body>
 <div class="app">
     <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <h1>HONESTY113</h1>
-            <p>фан-портал</p>
+        <div class="sidebar-top">
+            <div class="sidebar-header">
+                <h1>HONESTY113</h1>
+                <p>фан-портал</p>
+            </div>
+            <div class="nav-item active" data-page="feed">
+                <span class="icon">📰</span> <span>Лента</span>
+            </div>
+            <div class="nav-item" data-page="calendar">
+                <span class="icon">📅</span> <span>Календарь</span>
+            </div>
+            <div class="nav-item" data-page="suggestions">
+                <span class="icon">🎯</span> <span>Предложки</span>
+            </div>
+            <div class="nav-item" data-page="links">
+                <span class="icon">🔗</span> <span>Ссылки</span>
+            </div>
         </div>
-        <div class="nav-item active" data-page="feed">
-            <span class="icon">📰</span> <span>Лента</span>
-        </div>
-        <div class="nav-item" data-page="calendar">
-            <span class="icon">📅</span> <span>Календарь</span>
-        </div>
-        <div class="nav-item" data-page="suggestions">
-            <span class="icon">🎯</span> <span>Предложки</span>
-        </div>
-        <div class="nav-item" data-page="links">
-            <span class="icon">🔗</span> <span>Ссылки</span>
-        </div>
-        <div class="nav-divider"></div>
-        <div class="nav-item" data-page="settings">
-            <span class="icon">⚙️</span> <span>Настройки</span>
-        </div>
-        <div class="nav-item" data-page="profile">
-            <span class="icon">👤</span> <span>Профиль</span>
+        <div class="sidebar-bottom">
+            <div class="nav-divider"></div>
+            <div class="nav-item" data-page="settings">
+                <span class="icon">⚙️</span> <span>Настройки</span>
+            </div>
+            <div class="nav-item" data-page="profile">
+                <span class="icon">👤</span> <span>Профиль</span>
+            </div>
         </div>
     </div>
 
@@ -377,9 +393,7 @@
 
     // === ЛЕНТА (ПОСТЫ + КОММЕНТАРИИ) ===
     async function renderFeed(container) {
-        // тут будет загрузка постов с API
         container.innerHTML = `<div class="card">🔥 Лента загружается...</div>`;
-        // заглушка для демо
         container.innerHTML = `
             <div class="card">
                 <div class="post-header">
