@@ -16,7 +16,6 @@ export default async function handler(req, res) {
     const sheets = google.sheets({ version: 'v4', auth });
     const { name, category, firstSeen } = req.body;
 
-    // Проверяем, есть ли уже такая игра
     const existingResponse = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.SHEET_ID,
       range: 'games!B:B',
@@ -28,17 +27,18 @@ export default async function handler(req, res) {
       return res.status(200).json({ success: true, message: 'Game already exists' });
     }
 
-    // Добавляем новую игру
     await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.SHEET_ID,
-      range: 'games!A:D',
+      range: 'games!A:F',
       valueInputOption: 'USER_ENTERED',
       requestBody: {
         values: [[
           Date.now().toString(),
           name,
           category,
-          firstSeen
+          firstSeen,
+          '',
+          '0'
         ]]
       }
     });
