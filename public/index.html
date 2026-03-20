@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Honesty113 | Творчество стримера</title>
     <link rel="icon" href="/IkonkaTOXA" type="image/png">
     <style>
@@ -262,39 +262,41 @@
         }
 
         /* ===== КАЛЕНДАРЬ + ФАКТ ===== */
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin: 50px 0;
-        }
-
-        .info-card {
-            background: rgba(42, 16, 63, 0.8);
-            backdrop-filter: blur(10px);
-            border: 2px solid #ac71e6;
-            border-radius: 40px;
-            padding: 28px;
-            box-shadow: 0 20px 30px -5px #000000b3, 0 0 30px rgba(172, 113, 230, 0.2);
-            transition: all 0.4s ease;
-            animation: slideUp 0.8s ease-out;
-        }
-
-        .info-card:hover {
-            transform: translateY(-10px);
-            border-color: #bf7cff;
-            box-shadow: 0 30px 40px -5px #7d3eb0, 0 0 50px #ac71e6;
-        }
-
-        .info-card h2 {
-            font-size: 2rem;
+        .calendar-wrapper {
             margin-bottom: 20px;
-            border-bottom: 3px dashed #ad5bff;
-            padding-bottom: 12px;
+        }
+
+        .calendar-nav {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 12px;
-            text-shadow: 0 0 10px #b47bf0;
+            margin-bottom: 20px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .calendar-nav button {
+            background: linear-gradient(145deg, #2e1d40, #1a0e28);
+            border: 2px solid #9a5fde;
+            border-radius: 40px;
+            padding: 8px 20px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-nav button:hover {
+            background: #3d2357;
+            transform: scale(1.02);
+        }
+
+        .calendar-nav span {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: rgba(0,0,0,0.3);
+            padding: 5px 20px;
+            border-radius: 40px;
         }
 
         .calendar-grid {
@@ -338,34 +340,79 @@
             box-shadow: 0 0 15px #b47bf0;
         }
 
-        .calendar-day.today {
-            background: linear-gradient(145deg, #7d3eb0, #5a2e8a);
-            border-color: #bf7cff;
-            font-weight: 700;
-            animation: glow 2s infinite;
-        }
-
         .calendar-day.has-vod {
-            position: relative;
+            background: linear-gradient(145deg, #2a6e3a, #1a4a2a);
+            border-color: #00ff88;
         }
 
-        .calendar-day.has-vod::after {
-            content: '🎬';
-            position: absolute;
-            top: 2px;
-            right: 2px;
-            font-size: 0.8rem;
-            filter: drop-shadow(0 0 5px #ffd966);
+        .calendar-day.live {
+            background: linear-gradient(145deg, #aa3333, #771111);
+            border-color: #ff4444;
+            animation: pulse 1s infinite;
+        }
+
+        .calendar-day.today-stream {
+            background: linear-gradient(145deg, #2a6e8a, #1a4a6a);
+            border-color: #44aaff;
         }
 
         .calendar-day.past {
-            opacity: 0.5;
+            opacity: 0.6;
         }
 
-        .day-label {
-            font-size: 0.85rem;
+        .calendar-day.future {
+            background: #2e1d40;
+        }
+
+        .calendar-day .day-number {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .calendar-day .day-label {
+            font-size: 0.7rem;
             color: #b59ec9;
-            margin-bottom: 5px;
+        }
+
+        .calendar-day.has-vod .day-label,
+        .calendar-day.live .day-label,
+        .calendar-day.today-stream .day-label {
+            color: #f0e6ff;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .info-card {
+            background: rgba(42, 16, 63, 0.8);
+            backdrop-filter: blur(10px);
+            border: 2px solid #ac71e6;
+            border-radius: 40px;
+            padding: 28px;
+            box-shadow: 0 20px 30px -5px #000000b3, 0 0 30px rgba(172, 113, 230, 0.2);
+            transition: all 0.4s ease;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px);
+            border-color: #bf7cff;
+            box-shadow: 0 30px 40px -5px #7d3eb0, 0 0 50px #ac71e6;
+        }
+
+        .info-card h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            border-bottom: 3px dashed #ad5bff;
+            padding-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-shadow: 0 0 10px #b47bf0;
         }
 
         .fact-container {
@@ -383,7 +430,6 @@
             line-height: 1.5;
             transition: all 0.3s ease;
             box-shadow: 0 0 20px rgba(180, 123, 240, 0.2);
-            animation: slideDown 0.3s ease-out;
         }
 
         .fact-text:hover {
@@ -393,104 +439,127 @@
             box-shadow: 0 0 30px #b47bf0;
         }
 
-        .fact-text.changing {
-            animation: slideDown 0.3s ease-out;
-        }
-
-        /* ===== ИГРЫ ===== */
+        /* ===== ИГРОВОЙ КОМПАС ===== */
         .games-block {
             margin: 50px 0;
-            animation: slideUp 0.9s ease-out;
         }
 
-        .games-block h2 {
-            font-size: 2.5rem;
+        .games-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 25px;
+            gap: 15px;
+        }
+
+        .games-header h2 {
+            font-size: 2.5rem;
             border-bottom: 4px dashed #ad5bff;
-            padding-bottom: 15px;
-            text-shadow: 0 0 15px #b47bf0;
+            padding-bottom: 12px;
+            margin: 0;
+        }
+
+        .games-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .games-search {
+            background: #2e1d40;
+            border: 2px solid #9a5fde;
+            border-radius: 40px;
+            padding: 8px 15px;
+            color: white;
+            font-size: 1rem;
+            min-width: 180px;
+        }
+
+        .games-filter {
+            background: #2e1d40;
+            border: 2px solid #9a5fde;
+            border-radius: 40px;
+            padding: 8px 15px;
+            color: white;
+            cursor: pointer;
         }
 
         .games-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
         }
 
-        .game-square {
+        .game-card {
             background: linear-gradient(145deg, #211030, #180d24);
-            border: 3px solid #a25ef0;
-            border-radius: 35px;
-            padding: 25px 15px;
-            text-align: center;
-            box-shadow: 0 12px 0 #3c2357, 0 0 20px rgba(162, 94, 240, 0.3);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid #a25ef0;
+            border-radius: 25px;
+            padding: 12px;
+            transition: all 0.3s ease;
             cursor: pointer;
             position: relative;
-            overflow: hidden;
         }
 
-        .game-square::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(180, 123, 240, 0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .game-square:hover::before {
-            left: 100%;
-        }
-
-        .game-square:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 22px 0 #3c2357, 0 0 35px #a25ef0;
+        .game-card:hover {
+            transform: translateY(-3px);
             border-color: #bf7cff;
+            box-shadow: 0 0 20px #a25ef0;
         }
 
-        .game-square:active {
-            transform: translateY(4px);
-            box-shadow: 0 8px 0 #3c2357;
-        }
-
-        .game-square.live {
+        .game-card.live {
             border-color: #00ff88;
-            box-shadow: 0 12px 0 #008f4c, 0 0 30px #00ff88;
+            box-shadow: 0 0 20px #00ff88;
             background: linear-gradient(145deg, #1a3a2a, #0e2a1a);
-            animation: pulse 2s infinite;
         }
 
-        .game-icon {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            filter: drop-shadow(0 0 10px currentColor);
-        }
-
-        .game-title {
+        .game-name {
             font-weight: 800;
-            font-size: 1.3rem;
-            background: rgba(48, 32, 75, 0.7);
-            padding: 6px;
-            border-radius: 60px;
-            margin-bottom: 8px;
-            backdrop-filter: blur(4px);
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .game-status {
-            font-size: 1rem;
+        .game-badge {
+            font-size: 0.8rem;
+            background: #7d3eb0;
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+
+        .game-stats {
+            font-size: 0.85rem;
+            color: #bda0e6;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+        }
+
+        .game-category {
+            font-size: 0.75rem;
             background: #2c193b;
-            padding: 6px;
-            border-radius: 40px;
-            border: 1px solid #b26bf2;
+            padding: 2px 8px;
+            border-radius: 20px;
+            display: inline-block;
         }
 
-        /* ===== ПРЕДЛОЖКИ ===== */
+        .show-more-btn {
+            background: #2e1d40;
+            border: 2px solid #9a5fde;
+            border-radius: 40px;
+            padding: 10px 20px;
+            color: white;
+            cursor: pointer;
+            width: fit-content;
+            margin: 20px auto 0;
+            text-align: center;
+        }
+
+        /* ===== ПРЕДЛОЖКИ (ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ) ===== */
         .suggestions-block {
             margin: 50px 0;
-            animation: slideUp 1s ease-out;
         }
 
         .suggestions-header {
@@ -527,11 +596,10 @@
             gap: 15px;
             background: rgba(46, 29, 64, 0.8);
             backdrop-filter: blur(8px);
-            padding: 8px 20px;
+            padding: 6px 15px;
             border-radius: 40px;
             border: 2px solid #b47bf0;
             box-shadow: 0 0 20px rgba(180, 123, 240, 0.3);
-            animation: glow 3s infinite;
         }
 
         .user-avatar {
@@ -539,7 +607,6 @@
             height: 32px;
             border-radius: 50%;
             border: 2px solid #bf7cff;
-            box-shadow: 0 0 10px #bf7cff;
         }
 
         .filter-controls {
@@ -547,166 +614,141 @@
             flex-wrap: wrap;
             gap: 15px;
             align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .filter-select {
             background: rgba(46, 29, 64, 0.9);
-            backdrop-filter: blur(8px);
             border: 2px solid #9a5fde;
             border-radius: 40px;
-            padding: 12px 25px;
+            padding: 10px 20px;
             color: white;
             font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(154, 95, 222, 0.3);
-            min-width: 200px;
+            min-width: 150px;
         }
 
-        .filter-select:hover {
-            background: #3d2357;
-            border-color: #bf7cff;
-            transform: scale(1.02);
-            box-shadow: 0 0 25px #bf7cff;
+        /* Горизонтальный скролл предложек */
+        .suggestions-scroll {
+            overflow-x: auto;
+            overflow-y: visible;
+            white-space: nowrap;
+            padding: 10px 5px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
         }
 
-        .filter-select option {
-            background: #2e1d40;
+        .suggestions-scroll::-webkit-scrollbar {
+            height: 6px;
         }
 
-        .suggestions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 25px;
+        .suggestions-scroll::-webkit-scrollbar-track {
+            background: #1e102b;
+            border-radius: 10px;
         }
 
-        .suggestion-square {
+        .suggestions-scroll::-webkit-scrollbar-thumb {
+            background: #b47bf0;
+            border-radius: 10px;
+        }
+
+        .suggestions-row {
+            display: inline-flex;
+            gap: 15px;
+            white-space: normal;
+        }
+
+        .suggestion-card {
             background: linear-gradient(145deg, #211030, #180d24);
-            border: 3px solid #a25ef0;
-            border-radius: 35px;
-            padding: 22px;
-            box-shadow: 0 12px 0 #3c2357, 0 0 20px rgba(162, 94, 240, 0.3);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            opacity: 0;
-            animation: slideUp 0.5s ease-out forwards;
-            position: relative;
-            overflow: hidden;
+            border: 2px solid #a25ef0;
+            border-radius: 25px;
+            padding: 12px;
+            width: 220px;
+            display: inline-block;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            white-space: normal;
         }
 
-        .suggestion-square::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(180, 123, 240, 0.15), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .suggestion-square:hover::before {
-            left: 100%;
-        }
-
-        .suggestion-square:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 22px 0 #3c2357, 0 0 35px #a25ef0;
+        .suggestion-card:hover {
+            transform: translateY(-3px);
             border-color: #bf7cff;
+            box-shadow: 0 0 20px #a25ef0;
+        }
+
+        .suggestion-card.expanded {
+            width: 280px;
+            position: relative;
+            z-index: 10;
+            background: linear-gradient(145deg, #2a1a40, #201030);
+            border-color: #bf7cff;
+        }
+
+        .suggestion-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .suggestion-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid #bf7cff;
+        }
+
+        .suggestion-nick {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #bda0e6;
+        }
+
+        .suggestion-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin: 5px 0;
+            white-space: normal;
+            word-break: break-word;
         }
 
         .suggestion-category {
             display: inline-block;
-            background: linear-gradient(145deg, #7d3eb0, #5a2e8a);
+            background: #7d3eb0;
             color: white;
-            padding: 6px 18px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            width: fit-content;
-            box-shadow: 0 0 15px #7d3eb0;
-        }
-
-        .suggestion-title {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #f0e6ff;
-            margin: 5px 0;
-            text-shadow: 0 0 10px #b47bf0;
-        }
-
-        .suggestion-author {
-            color: #bda0e6;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .suggestion-link a {
-            color: #bf7cff;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border-bottom: 1px dashed #bf7cff;
-        }
-
-        .suggestion-link a:hover {
-            color: #f0e6ff;
-            border-bottom-color: #f0e6ff;
-            text-shadow: 0 0 10px #bf7cff;
-        }
-
-        .suggestion-comment {
-            background: rgba(26, 14, 36, 0.7);
-            backdrop-filter: blur(4px);
-            padding: 12px;
+            padding: 2px 10px;
             border-radius: 20px;
-            font-style: italic;
-            color: #d4b5ff;
-            margin: 5px 0;
-            border-left: 4px solid #b47bf0;
-            word-wrap: break-word;
-            max-width: 100%;
+            font-size: 0.7rem;
+            margin-top: 5px;
+        }
+
+        .suggestion-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
         }
 
         .suggestion-votes {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 10px;
-            border-top: 2px solid #6a3e9e;
-            padding-top: 12px;
-            gap: 10px;
+            font-weight: 700;
+            color: #ffd966;
+            font-size: 1rem;
         }
 
         .vote-btn {
-            background: linear-gradient(145deg, #4a2b6e, #321d4a);
-            border: none;
-            color: white;
-            padding: 10px 25px;
-            border-radius: 40px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            background: #4a2b6e;
             border: 1px solid #b47bf0;
-            box-shadow: 0 0 15px rgba(180, 123, 240, 0.3);
-            font-size: 1rem;
-            flex: 1;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
         .vote-btn:hover {
             background: #6a3e9e;
             transform: scale(1.05);
-            box-shadow: 0 0 25px #b47bf0;
-        }
-
-        .vote-btn:active {
-            transform: scale(0.95);
         }
 
         .vote-btn.voted {
@@ -714,25 +756,30 @@
             border-color: #00ffaa;
         }
 
-        .vote-btn.withdraw {
-            background: #ff4d4d;
-            border-color: #ff9999;
+        .suggestion-details {
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px solid #6a3e9e;
+            display: none;
         }
 
-        .vote-btn:disabled {
-            background: #4a3b57;
-            border-color: #8f79a3;
-            box-shadow: none;
-            transform: none;
-            cursor: not-allowed;
-            opacity: 0.5;
+        .suggestion-card.expanded .suggestion-details {
+            display: block;
         }
 
-        .vote-count {
-            font-weight: 800;
-            color: #ffd966;
-            font-size: 1.4rem;
-            text-shadow: 0 0 15px #ffd966;
+        .suggestion-link a {
+            color: #bf7cff;
+            text-decoration: none;
+            font-size: 0.8rem;
+            word-break: break-all;
+        }
+
+        .suggestion-comment {
+            font-size: 0.8rem;
+            font-style: italic;
+            color: #d4b5ff;
+            margin: 5px 0;
+            word-break: break-word;
         }
 
         /* ===== МОДАЛКА ===== */
@@ -748,203 +795,106 @@
             z-index: 1000;
             align-items: center;
             justify-content: center;
-            animation: fadeIn 0.3s ease;
         }
 
         .modal-content {
             background: linear-gradient(145deg, #221530, #1a0e28);
             border: 3px solid #a55be0;
             border-radius: 50px;
-            padding: 40px;
-            max-width: 600px;
-            width: 95%;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
             max-height: 85vh;
             overflow-y: auto;
             box-shadow: 0 30px 50px -10px #000, 0 0 60px #a55be0;
-            transform: scale(0.9);
-            animation: slideUp 0.4s ease forwards;
             position: relative;
         }
 
-        .modal-content::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(145deg, #a55be0, #bf7cff, #a55be0);
-            border-radius: 52px;
-            z-index: -1;
-            opacity: 0.5;
-            animation: borderPulse 3s infinite;
-        }
-
         .modal-content h3 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
+            font-size: 2rem;
+            margin-bottom: 20px;
             color: #bf7cff;
             text-align: center;
-            text-shadow: 0 0 20px #bf7cff;
-            font-weight: 900;
-            letter-spacing: 2px;
         }
 
         .modal-content input,
         .modal-content select,
         .modal-content textarea {
             width: 100%;
-            padding: 15px 20px;
-            margin-bottom: 20px;
-            background: rgba(44, 25, 59, 0.9);
-            backdrop-filter: blur(5px);
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            background: #2c193b;
             border: 2px solid #b47bf0;
-            border-radius: 40px;
+            border-radius: 30px;
             color: white;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(180, 123, 240, 0.2);
-        }
-
-        .modal-content input:focus,
-        .modal-content select:focus,
-        .modal-content textarea:focus {
-            outline: none;
-            border-color: #f0e6ff;
-            box-shadow: 0 0 30px #bf7cff;
-            transform: scale(1.02);
-            background: rgba(54, 31, 72, 0.95);
-        }
-
-        .modal-content input:hover,
-        .modal-content select:hover,
-        .modal-content textarea:hover {
-            border-color: #bf7cff;
-            box-shadow: 0 0 25px #bf7cff;
+            font-size: 1rem;
         }
 
         .modal-content textarea {
-            min-height: 120px;
+            min-height: 100px;
             resize: vertical;
-            border-radius: 30px;
         }
 
         .modal-content button {
             background: linear-gradient(145deg, #c43aff, #a12ad4);
             border: none;
             color: white;
-            font-size: 1.4rem;
-            font-weight: 800;
-            padding: 16px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 12px;
             border-radius: 60px;
             cursor: pointer;
             width: 100%;
-            box-shadow: 0 8px 0 #832da8, 0 0 30px #c43aff;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            letter-spacing: 2px;
-            margin-top: 10px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .modal-content button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .modal-content button:hover::before {
-            left: 100%;
+            box-shadow: 0 6px 0 #832da8;
+            transition: all 0.3s ease;
         }
 
         .modal-content button:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 12px 0 #832da8, 0 0 50px #c43aff;
-        }
-
-        .modal-content button:active {
-            transform: translateY(4px);
-            box-shadow: 0 4px 0 #832da8;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 #832da8;
         }
 
         .close-btn {
             position: absolute;
-            top: 20px;
-            right: 25px;
-            font-size: 2.5rem;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
             cursor: pointer;
             color: #bda0e6;
-            transition: all 0.3s ease;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
         }
 
         .close-btn:hover {
             color: #f0e6ff;
-            transform: rotate(90deg) scale(1.1);
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 30px #bf7cff;
+            transform: rotate(90deg);
         }
 
         .message {
-            padding: 15px;
-            border-radius: 40px;
-            background: rgba(44, 25, 59, 0.9);
+            padding: 10px;
+            border-radius: 30px;
+            background: #2c193b;
             color: #bda0e6;
             text-align: center;
-            margin: 15px 0;
-            font-size: 1.1rem;
-            border-left: 6px solid #bf7cff;
-            animation: glow 2s infinite;
+            margin: 10px 0;
         }
 
         .loading {
             text-align: center;
             color: #bda0e6;
-            grid-column: 1/-1;
-            padding: 50px;
-            font-size: 1.3rem;
-            animation: pulse 2s infinite;
-        }
-
-        .char-counter {
-            text-align: right;
-            color: #bda0e6;
-            font-size: 0.9rem;
-            margin-top: -10px;
-            margin-bottom: 15px;
+            padding: 40px;
+            font-size: 1.2rem;
         }
 
         .signature {
-            margin-top: 70px;
-            font-size: 2rem;
+            margin-top: 60px;
+            font-size: 1.8rem;
             text-align: center;
             background: linear-gradient(145deg, #1d0b2c, #13071e);
-            padding: 20px 40px;
+            padding: 15px 30px;
             border-radius: 70px;
             border: 3px solid #ac71e6;
             display: inline-block;
             box-shadow: 0 0 40px #9f67e0;
-            transition: all 0.4s ease;
-            animation: pulse 3s infinite;
             font-weight: 700;
-            letter-spacing: 2px;
-        }
-
-        .signature:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 70px #bf7cff;
-            border-color: #f0e6ff;
         }
 
         .footer-note {
@@ -962,26 +912,23 @@
         .social-btn:disabled {
             background: #4a3b57;
             border-color: #8f79a3;
-            box-shadow: 0 6px 0 #2f2540, 0 0 10px #8f79a3;
             opacity: 0.6;
             cursor: not-allowed;
-            transform: none;
-            filter: grayscale(0.5);
             pointer-events: none;
         }
 
-        .social-btn:disabled:hover {
-            transform: none;
-            box-shadow: 0 6px 0 #2f2540;
-        }
-
-        .social-btn:disabled::before {
-            display: none;
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- ШАПКА -->
         <div class="header-card">
             <div class="header-content">
                 <div class="header-left">
@@ -1004,38 +951,56 @@
             </div>
         </div>
 
+        <!-- ПЛЕЕР -->
         <div class="stream-full">
             <div class="twitch-embed">
                 <iframe src="https://player.twitch.tv/?channel=honesty113&parent=localhost&parent=honesty113.vercel.app" allowfullscreen="true" scrolling="no" allow="autoplay; fullscreen"></iframe>
             </div>
         </div>
 
-        <div class="info-grid">
-            <div class="info-card">
-                <h2>📅 Календарь стримов</h2>
+        <!-- КАЛЕНДАРЬ -->
+        <div class="info-card">
+            <h2>📅 Календарь стримов</h2>
+            <div class="calendar-wrapper">
+                <div class="calendar-nav">
+                    <button id="prevMonth">←</button>
+                    <span id="monthYear"></span>
+                    <button id="nextMonth">→</button>
+                </div>
                 <div class="calendar-grid" id="calendar"></div>
-                <p style="margin-top: 20px; text-align: center; color: #bda0e6;">🌟 Стримы каждый день с 17:00 МСК</p>
             </div>
-            <div class="info-card">
-                <h2>🎲 Знаете ли вы?</h2>
-                <div class="fact-container" id="factContainer">
-                    <div class="fact-text" id="randomFact">Honesty113 стримит каждый день без выходных!</div>
+            <p style="margin-top: 20px; text-align: center; color: #bda0e6;">🌟 Стримы каждый день с 17:00 МСК</p>
+        </div>
+
+        <!-- СЛУЧАЙНЫЙ ФАКТ -->
+        <div class="info-card">
+            <h2>🎲 Знаете ли вы?</h2>
+            <div class="fact-container" id="factContainer">
+                <div class="fact-text" id="randomFact"></div>
+            </div>
+        </div>
+
+        <!-- ИГРОВОЙ КОМПАС -->
+        <div class="games-block">
+            <div class="games-header">
+                <h2>🎮 Игровой компас</h2>
+                <div class="games-controls">
+                    <input type="text" id="gameSearch" class="games-search" placeholder="Поиск игры...">
+                    <select id="gameCategoryFilter" class="games-filter">
+                        <option value="all">Все категории</option>
+                    </select>
                 </div>
             </div>
+            <div id="gamesGrid" class="games-grid"></div>
+            <div id="showMoreBtn" class="show-more-btn" style="display: none;">Показать все</div>
         </div>
 
-        <div class="games-block">
-            <h2>🎮 Игровой компас</h2>
-            <div class="games-grid" id="gamesGrid"></div>
-        </div>
-
+        <!-- ПРЕДЛОЖКИ -->
         <div class="suggestions-block">
             <div class="suggestions-header">
                 <h2>🎯 Предложки</h2>
                 <div class="login-bar">
                     <button class="social-btn twitch-login-btn" id="loginBtn">🔐 Войти через Twitch</button>
-                    <button class="social-btn donate-btn" id="suggestBtn" disabled>➕ Предложить</button>
-                    <button class="social-btn logout-btn" id="logoutBtn" style="display: none;">🚪 Выйти</button>
                     <div id="userInfo" style="display: none;"></div>
                 </div>
             </div>
@@ -1052,17 +1017,26 @@
                 </select>
             </div>
 
-            <div class="suggestions-grid" id="suggestionsGrid">
-                <div class="loading">⏳ Загрузка предложек...</div>
+            <div class="suggestions-scroll" id="suggestionsScroll">
+                <div class="suggestions-row" id="suggestionsGrid">
+                    <div class="loading">⏳ Загрузка предложек...</div>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="social-btn donate-btn" id="suggestBtn" disabled>➕ Предложить</button>
+                <button class="social-btn logout-btn" id="logoutBtn" style="display: none;">🚪 Выйти</button>
             </div>
         </div>
 
+        <!-- ПОДПИСЬ -->
         <div class="footer-note">
             <div class="signature">✦ by BuShiZm ✦</div>
             <small>для самого честного стримера Honesty113</small>
         </div>
     </div>
 
+    <!-- МОДАЛКА -->
     <div class="modal" id="suggestionModal">
         <div class="modal-content">
             <span class="close-btn" id="closeModal">&times;</span>
@@ -1071,7 +1045,7 @@
             <input type="text" id="suggestionTitle" placeholder="Название" required>
             <select id="suggestionCategory"></select>
             <input type="url" id="suggestionLink" placeholder="Ссылка (необязательно)">
-            <textarea id="suggestionComment" placeholder="Комментарий (макс. 150 символов)" rows="3" maxlength="150"></textarea>
+            <textarea id="suggestionComment" placeholder="Комментарий" rows="3" maxlength="150"></textarea>
             <div class="char-counter"><span id="charCount">0</span>/150</div>
             <button id="submitSuggestion">🚀 Отправить</button>
         </div>
@@ -1090,27 +1064,15 @@
         let userVotes = [];
         let vods = [];
         let games = [];
+        let allGames = [];
+        let gamesSearchTerm = '';
+        let gamesCategoryFilter = 'all';
+        let gamesShowAll = false;
+        
+        let currentCalendarYear = new Date().getFullYear();
+        let currentCalendarMonth = new Date().getMonth();
 
-        // Загружаем пользователя из localStorage
-        function loadUserFromStorage() {
-            const savedUser = localStorage.getItem('twitchUser');
-            if (savedUser) {
-                currentUser = JSON.parse(savedUser);
-                updateUIForUser();
-            }
-            
-            const savedVotes = localStorage.getItem('userVotes');
-            if (savedVotes) {
-                userVotes = JSON.parse(savedVotes);
-            }
-        }
-
-        // Счетчик символов
-        document.getElementById('suggestionComment').addEventListener('input', function() {
-            document.getElementById('charCount').textContent = this.value.length;
-        });
-
-        // ===== КАЛЕНДАРЬ =====
+        // === КАЛЕНДАРЬ ===
         async function loadVods() {
             try {
                 const response = await fetch(`${API_BASE}/get-vods`);
@@ -1121,50 +1083,99 @@
             }
         }
 
-        function renderCalendar() {
+        async function checkLiveStatus() {
+            try {
+                const response = await fetch(`${API_BASE}/current-game`);
+                const data = await response.json();
+                return data.isLive;
+            } catch {
+                return false;
+            }
+        }
+
+        function formatDateKey(year, month, day) {
+            return `${String(day).padStart(2, '0')}.${String(month + 1).padStart(2, '0')}.${year}`;
+        }
+
+        async function renderCalendar() {
             const calendarDiv = document.getElementById('calendar');
+            const monthYearSpan = document.getElementById('monthYear');
             const days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
-            const today = new Date();
             
-            const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
-            const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+            monthYearSpan.innerText = `${currentCalendarMonth + 1}.${currentCalendarYear}`;
+            
+            const firstDay = new Date(currentCalendarYear, currentCalendarMonth, 1);
+            const lastDay = new Date(currentCalendarYear, currentCalendarMonth + 1, 0);
+            const startDay = firstDay.getDay();
+            
+            const isLive = await checkLiveStatus();
+            const today = new Date();
+            const todayStr = formatDateKey(today.getFullYear(), today.getMonth(), today.getDate());
             
             let html = '';
             
-            // Пустые ячейки для дней предыдущего месяца
-            for (let i = 0; i < (firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1); i++) {
+            // Пустые ячейки
+            for (let i = 0; i < startDay; i++) {
                 html += '<div class="calendar-day off"></div>';
             }
             
-            // Дни текущего месяца
+            // Дни месяца
             for (let d = 1; d <= lastDay.getDate(); d++) {
-                const date = new Date(today.getFullYear(), today.getMonth(), d);
-                const dayName = days[date.getDay()];
-                const isToday = d === today.getDate() && today.getMonth() === new Date().getMonth();
-                const isPast = date < new Date(today.setHours(0,0,0,0));
-                
-                // Форматируем дату для поиска VOD
-                const dateStr = `${String(d).padStart(2, '0')}.${String(today.getMonth() + 1).padStart(2, '0')}.${today.getFullYear()}`;
+                const dateStr = formatDateKey(currentCalendarYear, currentCalendarMonth, d);
                 const hasVod = vods.some(v => v.date === dateStr);
+                const isToday = dateStr === todayStr;
+                const isPast = new Date(currentCalendarYear, currentCalendarMonth, d) < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+                const isFuture = !isPast && !isToday;
                 
                 let classes = 'calendar-day';
-                if (isToday) classes += ' today';
+                let link = `https://twitch.tv/honesty113`;
+                
+                if (hasVod) {
+                    classes += ' has-vod';
+                    const vod = vods.find(v => v.date === dateStr);
+                    link = vod.url;
+                }
+                
+                if (isToday && isLive) {
+                    classes += ' live';
+                    link = `https://twitch.tv/honesty113`;
+                } else if (isToday && !isLive) {
+                    classes += ' today-stream';
+                }
+                
                 if (isPast) classes += ' past';
-                if (hasVod) classes += ' has-vod';
+                if (isFuture) classes += ' future';
                 
-                // Ссылка на VOD или стрим
-                const vod = vods.find(v => v.date === dateStr);
-                const link = vod ? vod.url : `https://twitch.tv/honesty113`;
-                
-                html += `<div class="${classes}" onclick="window.open('${link}', '_blank')" title="${vod ? 'Запись стрима' : 'Текущий стрим'}">
-                    <span class="day-label">${dayName}</span> ${d}
-                </div>`;
+                html += `
+                    <div class="${classes}" onclick="window.open('${link}', '_blank')">
+                        <div class="day-number">${d}</div>
+                        <div class="day-label">${days[firstDay.getDay()]}</div>
+                    </div>
+                `;
             }
             
             calendarDiv.innerHTML = html;
         }
 
-        // ===== ФАКТЫ =====
+        document.getElementById('prevMonth').addEventListener('click', () => {
+            currentCalendarMonth--;
+            if (currentCalendarMonth < 0) {
+                currentCalendarMonth = 11;
+                currentCalendarYear--;
+            }
+            renderCalendar();
+        });
+
+        document.getElementById('nextMonth').addEventListener('click', () => {
+            currentCalendarMonth++;
+            if (currentCalendarMonth > 11) {
+                currentCalendarMonth = 0;
+                currentCalendarYear++;
+            }
+            renderCalendar();
+        });
+
+        // === ФАКТЫ ===
         const facts = [
             "Honesty113 стримит каждый день без выходных!",
             "Коллыван — его главный зритель и вдохновитель.",
@@ -1174,20 +1185,16 @@
             "Его Telegram-канал живёт своей жизнью.",
             "Честность — главное качество стримера.",
             "Обожает, когда в чате пишут его эмоции.",
-            "У него есть свой Discord-сервер с фанатами.",
-            "Любит хорроры, но сам боится их проходить.",
             "Начинал стримить в 2022 году с майнкрафта.",
             "Каждый стрим начинается с 17:00.",
-            "У него более 500 часов стримов.",
-            "Самая популярная игра — Minecraft.",
-            "Однажды в стриме участвовало 500 зрителей."
+            "У него более 500 часов стримов."
         ];
 
         let currentFactIndex = 0;
         const factElement = document.getElementById('randomFact');
         factElement.innerText = facts[currentFactIndex];
 
-        document.getElementById('factContainer').addEventListener('click', function() {
+        document.getElementById('factContainer').addEventListener('click', () => {
             currentFactIndex = (currentFactIndex + 1) % facts.length;
             factElement.style.animation = 'none';
             factElement.offsetHeight;
@@ -1195,42 +1202,40 @@
             factElement.innerText = facts[currentFactIndex];
         });
 
-        // ===== ИГРОВОЙ КОМПАС =====
+        // === ИГРОВОЙ КОМПАС ===
         async function loadGames() {
             try {
                 const response = await fetch(`${API_BASE}/get-games`);
-                games = await response.json();
-                renderGames();
+                allGames = await response.json();
+                applyGamesFilters();
             } catch (error) {
                 console.error('Ошибка загрузки игр:', error);
+                document.getElementById('gamesGrid').innerHTML = '<div class="loading">❌ Ошибка загрузки</div>';
             }
+        }
+
+        function applyGamesFilters() {
+            let filtered = [...allGames];
+            
+            if (gamesSearchTerm) {
+                filtered = filtered.filter(g => g.name.toLowerCase().includes(gamesSearchTerm.toLowerCase()));
+            }
+            
+            if (gamesCategoryFilter !== 'all') {
+                filtered = filtered.filter(g => g.category === gamesCategoryFilter);
+            }
+            
+            filtered.sort((a, b) => (b.totalMinutes || 0) - (a.totalMinutes || 0));
+            
+            allGames = filtered;
+            renderGames();
         }
 
         async function fetchCurrentGame() {
             try {
                 const response = await fetch(`${API_BASE}/current-game`);
                 const data = await response.json();
-                
                 if (data.gameName) {
-                    // Проверяем, есть ли игра в списке
-                    const gameExists = games.some(g => g.name.toLowerCase() === data.gameName.toLowerCase());
-                    
-                    if (!gameExists) {
-                        // Добавляем новую игру
-                        await fetch(`${API_BASE}/add-game`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                name: data.gameName,
-                                category: 'Другое',
-                                firstSeen: new Date().toLocaleDateString('ru-RU')
-                            })
-                        });
-                        // Перезагружаем список игр
-                        await loadGames();
-                    }
-                    
-                    // Подсвечиваем активную игру
                     highlightLiveGame(data.gameName);
                 }
             } catch (error) {
@@ -1239,52 +1244,81 @@
         }
 
         function highlightLiveGame(gameName) {
-            const squares = document.querySelectorAll('.game-square');
-            squares.forEach(sq => {
-                sq.classList.remove('live');
-                const title = sq.querySelector('.game-title').textContent;
-                if (title.toLowerCase() === gameName.toLowerCase()) {
-                    sq.classList.add('live');
-                    sq.querySelector('.game-status').textContent = '🟢 LIVE';
+            const cards = document.querySelectorAll('.game-card');
+            cards.forEach(card => {
+                card.classList.remove('live');
+                const nameEl = card.querySelector('.game-name span:first-child');
+                if (nameEl && nameEl.textContent.toLowerCase() === gameName.toLowerCase()) {
+                    card.classList.add('live');
                 }
             });
         }
 
+        function formatMinutes(minutes) {
+            if (!minutes) return '0 ч';
+            const hours = Math.floor(minutes / 60);
+            const mins = minutes % 60;
+            return mins > 0 ? `${hours} ч ${mins} мин` : `${hours} ч`;
+        }
+
         function renderGames() {
-            const gamesGrid = document.getElementById('gamesGrid');
+            const grid = document.getElementById('gamesGrid');
+            const showMoreBtn = document.getElementById('showMoreBtn');
+            const displayGames = gamesShowAll ? allGames : allGames.slice(0, 10);
             
-            if (games.length === 0) {
-                gamesGrid.innerHTML = '<div class="loading">Загрузка игр...</div>';
+            if (allGames.length === 0) {
+                grid.innerHTML = '<div class="loading">📭 Нет данных об играх</div>';
+                showMoreBtn.style.display = 'none';
                 return;
             }
-
-            gamesGrid.innerHTML = games.map(game => `
-                <div class="game-square">
-                    <div class="game-icon">${getGameIcon(game.name)}</div>
-                    <div class="game-title">${game.name.toUpperCase()}</div>
-                    <div class="game-status">⚪ не в игре</div>
+            
+            grid.innerHTML = displayGames.map(game => `
+                <div class="game-card">
+                    <div class="game-name">
+                        <span>${game.name}</span>
+                        <span class="game-badge">${game.category || 'Другое'}</span>
+                    </div>
+                    <div class="game-stats">
+                        <span>⏱️ ${formatMinutes(game.totalMinutes)}</span>
+                        <span>📅 ${game.lastStream || '—'}</span>
+                    </div>
                 </div>
             `).join('');
-        }
-
-        function getGameIcon(gameName) {
-            const icons = {
-                'minecraft': '⛏️',
-                'outlast': '😱',
-                'resident evil': '🧛',
-                'cyberpunk': '🌃',
-                'valorant': '🔫',
-                'default': '🎮'
-            };
             
-            const lower = gameName.toLowerCase();
-            for (let [key, icon] of Object.entries(icons)) {
-                if (lower.includes(key)) return icon;
-            }
-            return icons.default;
+            showMoreBtn.style.display = allGames.length > 10 && !gamesShowAll ? 'block' : 'none';
+            fetchCurrentGame();
         }
 
-        // ===== TWITCH АВТОРИЗАЦИЯ =====
+        document.getElementById('gameSearch').addEventListener('input', (e) => {
+            gamesSearchTerm = e.target.value;
+            gamesShowAll = false;
+            applyGamesFilters();
+        });
+
+        document.getElementById('gameCategoryFilter').addEventListener('change', (e) => {
+            gamesCategoryFilter = e.target.value;
+            gamesShowAll = false;
+            applyGamesFilters();
+        });
+
+        document.getElementById('showMoreBtn').addEventListener('click', () => {
+            gamesShowAll = true;
+            renderGames();
+        });
+
+        // === TWITCH АВТОРИЗАЦИЯ ===
+        function loadUserFromStorage() {
+            const savedUser = localStorage.getItem('twitchUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                updateUIForUser();
+            }
+            const savedVotes = localStorage.getItem('userVotes');
+            if (savedVotes) {
+                userVotes = JSON.parse(savedVotes);
+            }
+        }
+
         function checkTwitchAuth() {
             const hash = window.location.hash.substring(1);
             const params = new URLSearchParams(hash);
@@ -1303,25 +1337,10 @@
                         currentUser = data.data[0];
                         localStorage.setItem('twitchUser', JSON.stringify(currentUser));
                         updateUIForUser();
-                        saveUserToDB(currentUser);
                         window.location.hash = '';
                     }
                 });
             }
-        }
-
-        function saveUserToDB(user) {
-            fetch(`${API_BASE}/save-user`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    id: user.id,
-                    login: user.login,
-                    display_name: user.display_name,
-                    email: user.email || '',
-                    profile_image_url: user.profile_image_url
-                })
-            }).catch(err => console.error('Error saving user:', err));
         }
 
         function loginWithTwitch() {
@@ -1356,7 +1375,7 @@
             }
         }
 
-        // ===== ПРЕДЛОЖКИ =====
+        // === ПРЕДЛОЖКИ ===
         async function loadSuggestions() {
             try {
                 const response = await fetch(`${API_BASE}/get-suggestions`);
@@ -1435,6 +1454,14 @@
             renderSuggestions();
         }
 
+        function toggleSuggestionExpand(card, suggestion) {
+            const expanded = card.classList.contains('expanded');
+            document.querySelectorAll('.suggestion-card.expanded').forEach(c => c.classList.remove('expanded'));
+            if (!expanded) {
+                card.classList.add('expanded');
+            }
+        }
+
         function renderSuggestions() {
             const grid = document.getElementById('suggestionsGrid');
             
@@ -1446,20 +1473,24 @@
             grid.innerHTML = filteredSuggestions.map(s => {
                 const hasVoted = userVotes.includes(s.id);
                 return `
-                    <div class="suggestion-square">
-                        <span class="suggestion-category">${s.category}</span>
+                    <div class="suggestion-card" data-id="${s.id}" onclick="toggleSuggestionExpand(this, ${JSON.stringify(s).replace(/"/g, '&quot;')})">
+                        <div class="suggestion-header">
+                            <img src="${s.avatar || 'https://static-cdn.jtvnw.net/user-default-pictures-uv/13e5d884-3c7e-4c9a-9c6c-6f3c6d5f8e6a-profile_image-70x70.png'}" class="suggestion-avatar" onerror="this.src='https://static-cdn.jtvnw.net/user-default-pictures-uv/13e5d884-3c7e-4c9a-9c6c-6f3c6d5f8e6a-profile_image-70x70.png'">
+                            <span class="suggestion-nick">${s.nick}</span>
+                        </div>
                         <div class="suggestion-title">${s.title}</div>
-                        <div class="suggestion-author">👤 ${s.nick}</div>
-                        ${s.link && s.link !== '-' ? `<div class="suggestion-link"><a href="${s.link}" target="_blank">🔗 ссылка</a></div>` : ''}
-                        ${s.comment && s.comment !== '-' ? `<div class="suggestion-comment">💬 ${s.comment}</div>` : ''}
-                        <div class="suggestion-votes">
-                            <span class="vote-count">👍 ${s.votes}</span>
+                        <div class="suggestion-category">${s.category}</div>
+                        <div class="suggestion-footer">
+                            <span class="suggestion-votes">👍 ${s.votes}</span>
                             ${currentUser ? `
-                                <button class="vote-btn ${hasVoted ? 'voted' : ''}" 
-                                        onclick="vote('${s.id}')">
-                                    ${hasVoted ? '✓ Отозвать голос' : '+1'}
+                                <button class="vote-btn ${hasVoted ? 'voted' : ''}" onclick="event.stopPropagation(); vote('${s.id}')">
+                                    ${hasVoted ? '✓' : '+1'}
                                 </button>
                             ` : ''}
+                        </div>
+                        <div class="suggestion-details">
+                            ${s.link && s.link !== '-' ? `<div class="suggestion-link"><a href="${s.link}" target="_blank" onclick="event.stopPropagation()">🔗 ссылка</a></div>` : ''}
+                            ${s.comment && s.comment !== '-' ? `<div class="suggestion-comment">💬 ${s.comment}</div>` : ''}
                         </div>
                     </div>
                 `;
@@ -1472,6 +1503,7 @@
                 const categories = await response.json();
                 const select = document.getElementById('suggestionCategory');
                 const filterSelect = document.getElementById('categoryFilter');
+                const gameCategorySelect = document.getElementById('gameCategoryFilter');
                 
                 select.innerHTML = categories.map(c => `<option value="${c}">${c}</option>`).join('');
                 
@@ -1480,12 +1512,13 @@
                     filterOptions += `<option value="${c}">${c}</option>`;
                 });
                 filterSelect.innerHTML = filterOptions;
+                gameCategorySelect.innerHTML = '<option value="all">Все категории</option>' + categories.map(c => `<option value="${c}">${c}</option>`).join('');
             } catch (error) {
                 console.error('Ошибка загрузки категорий:', error);
             }
         }
 
-        // ===== МОДАЛКА =====
+        // === МОДАЛКА ===
         const modal = document.getElementById('suggestionModal');
         const suggestBtn = document.getElementById('suggestBtn');
         const closeBtn = document.getElementById('closeModal');
@@ -1509,6 +1542,10 @@
             }
         };
 
+        document.getElementById('suggestionComment').addEventListener('input', function() {
+            document.getElementById('charCount').textContent = this.value.length;
+        });
+
         document.getElementById('submitSuggestion').onclick = async () => {
             if (!currentUser) return;
 
@@ -1525,7 +1562,8 @@
                 category: document.getElementById('suggestionCategory').value,
                 link: document.getElementById('suggestionLink').value || '-',
                 comment: document.getElementById('suggestionComment').value || '-',
-                userId: currentUser.id
+                userId: currentUser.id,
+                avatar: currentUser.profile_image_url
             };
 
             try {
@@ -1558,22 +1596,22 @@
             applyFilters();
         });
 
-        // ===== ИНИЦИАЛИЗАЦИЯ =====
+        // === ИНИЦИАЛИЗАЦИЯ ===
         window.vote = vote;
+        window.toggleSuggestionExpand = toggleSuggestionExpand;
+        
         loadUserFromStorage();
         checkTwitchAuth();
         loadSuggestions();
         loadCategories();
         loadVods();
         loadGames();
-        fetchCurrentGame();
         
         document.getElementById('loginBtn').onclick = loginWithTwitch;
         
-        // Обновление каждые 30 секунд
-        setInterval(fetchCurrentGame, 30000);
-        setInterval(loadVods, 300000); // VOD раз в 5 минут
         setInterval(loadSuggestions, 300000);
+        setInterval(loadVods, 300000);
+        setInterval(fetchCurrentGame, 60000);
     </script>
 </body>
 </html>
