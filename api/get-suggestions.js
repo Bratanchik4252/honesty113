@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     const sheets = google.sheets({ version: 'v4', auth });
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.SHEET_ID,
-      range: 'Лист1!A:H',
+      range: 'Лист1!A:I',
     });
 
     const rows = response.data.values || [];
@@ -24,7 +24,8 @@ export default async function handler(req, res) {
       link: row[4] || '-',
       comment: row[5] || '-',
       votes: parseInt(row[6]) || 0,
-      id: row[7] || ''
+      id: row[7] || '',
+      avatar: row[8] || ''
     }));
 
     res.status(200).json(suggestions);
