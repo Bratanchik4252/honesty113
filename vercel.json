@@ -4,7 +4,7 @@
   ],
   "crons": [
     {
-      "path": "/api/cron",
+      "path": "/api/cron?secret=Honesty113SecretKey2026",
       "schedule": "0 */6 * * *"
     }
   ]
