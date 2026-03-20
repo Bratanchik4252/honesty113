@@ -15,13 +15,13 @@ export default async function handler(req, res) {
     if (action === 'posts') {
       const response = await sheets.spreadsheets.values.get({
         spreadsheetId: process.env.SHEET_ID,
-        range: 'posts!A:J',
+        range: 'posts!A:K',
       });
       const rows = response.data.values || [];
       const posts = rows.slice(1).map(row => ({
         id: row[0], date: row[1], authorId: row[2], nick: row[3],
-        avatar: row[4], title: row[5], text: row[5], category: row[6],
-        game: row[7], link: row[8], rating: parseInt(row[9]) || 0
+        avatar: row[4], title: row[5], text: row[6], category: row[7],
+        game: row[8], link: row[9], rating: parseInt(row[10]) || 0, ratingDown: 0
       }));
       return res.status(200).json(posts);
     }
@@ -33,9 +33,9 @@ export default async function handler(req, res) {
       const now = new Date().toLocaleString('ru-RU');
       await sheets.spreadsheets.values.append({
         spreadsheetId: process.env.SHEET_ID,
-        range: 'posts!A:J',
+        range: 'posts!A:K',
         valueInputOption: 'USER_ENTERED',
-        requestBody: { values: [[newId, now, userId || '', nick, avatar, title || text, category, game || '', link || '', '0']] }
+        requestBody: { values: [[newId, now, userId || '', nick, avatar, title || text, text, category, game || '', link || '', '0']] }
       });
       return res.status(200).json({ success: true, id: newId });
     }
@@ -45,7 +45,7 @@ export default async function handler(req, res) {
       const { postId } = req.query;
       const response = await sheets.spreadsheets.values.get({
         spreadsheetId: process.env.SHEET_ID,
-        range: 'comments!A:H',
+        range: 'comments!A:I',
       });
       const rows = response.data.values || [];
       const comments = rows.slice(1)
@@ -60,7 +60,7 @@ export default async function handler(req, res) {
       const commentId = Date.now().toString();
       await sheets.spreadsheets.values.append({
         spreadsheetId: process.env.SHEET_ID,
-        range: 'comments!A:H',
+        range: 'comments!A:I',
         valueInputOption: 'USER_ENTERED',
         requestBody: { values: [[postId, commentId, now, userId, nick, avatar, text, '0', '0']] }
       });
@@ -72,7 +72,7 @@ export default async function handler(req, res) {
       const { postId, type, userId } = req.body;
       const response = await sheets.spreadsheets.values.get({
         spreadsheetId: process.env.SHEET_ID,
-        range: 'posts!A:J',
+        range: 'posts!A:K',
       });
       const rows = response.data.values || [];
       let rowIndex = -1;
@@ -80,11 +80,11 @@ export default async function handler(req, res) {
         if (rows[i][0] === postId) { rowIndex = i + 1; break; }
       }
       if (rowIndex === -1) return res.status(404).json({ error: 'Post not found' });
-      const currentRating = parseInt(rows[rowIndex - 1][9]) || 0;
+      const currentRating = parseInt(rows[rowIndex - 1][10]) || 0;
       const newRating = type === 'up' ? currentRating + 1 : currentRating - 1;
       await sheets.spreadsheets.values.update({
         spreadsheetId: process.env.SHEET_ID,
-        range: `posts!J${rowIndex}`,
+        range: `posts!K${rowIndex}`,
         valueInputOption: 'USER_ENTERED',
         requestBody: { values: [[newRating]] }
       });
