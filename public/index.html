@@ -3,1615 +3,444 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Honesty113 | Творчество стримера</title>
+    <title>Honesty113 | Фан-портал</title>
     <link rel="icon" href="/IkonkaTOXA" type="image/png">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
         }
 
         body {
-            background: linear-gradient(145deg, #0d0015 0%, #1e0a2b 70%, #2d1040 100%);
-            color: #f0e6ff;
+            background: radial-gradient(circle at 20% 30%, #0a0415, #020108);
             min-height: 100vh;
-            padding: 30px 20px 50px;
+            color: #f0e6ff;
+            overflow-x: hidden;
+        }
+
+        /* ===== АНИМАЦИИ ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glowPulse {
+            0% { box-shadow: 0 0 5px #a55be0; }
+            50% { box-shadow: 0 0 20px #bf7cff, 0 0 30px #9147ff; }
+            100% { box-shadow: 0 0 5px #a55be0; }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ===== ЛАЙАУТ С САЙДБАРОМ ===== */
+        .app {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            opacity: 0;
-            animation: fadeIn 0.8s ease-in forwards;
+            min-height: 100vh;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        /* ===== САЙДБАР (как в Telegram) ===== */
+        .sidebar {
+            width: 280px;
+            background: rgba(18, 12, 28, 0.7);
+            backdrop-filter: blur(16px);
+            border-right: 1px solid rgba(165, 91, 224, 0.3);
+            padding: 30px 20px;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            transition: all 0.3s ease;
+            z-index: 100;
+            animation: slideIn 0.5s ease;
         }
 
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes glow {
-            0% { box-shadow: 0 0 5px #b47bf0; }
-            50% { box-shadow: 0 0 25px #b47bf0, 0 0 40px #a25ef0; }
-            100% { box-shadow: 0 0 5px #b47bf0; }
-        }
-
-        @keyframes borderPulse {
-            0% { border-color: #a55be0; }
-            50% { border-color: #bf7cff; }
-            100% { border-color: #a55be0; }
-        }
-
-        .container {
-            max-width: 1400px;
-            width: 100%;
-            animation: slideUp 0.7s ease-out;
-        }
-
-        /* ===== ШАПКА ===== */
-        .header-card {
-            background: rgba(75, 20, 120, 0.3);
-            backdrop-filter: blur(12px);
-            border: 2px solid #a55be0;
-            border-radius: 60px;
-            padding: 20px 35px;
+        .sidebar-header {
             margin-bottom: 40px;
-            box-shadow: 0 25px 35px -10px #2a0e3f, 0 0 30px rgba(165, 91, 224, 0.3);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            animation: slideUp 0.6s ease-out, borderPulse 4s infinite;
-        }
-
-        .header-card:hover {
-            transform: translateY(-8px) scale(1.01);
-            box-shadow: 0 35px 45px -10px #4a2b6e, 0 0 50px rgba(165, 91, 224, 0.5);
-        }
-
-        .header-content {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-        }
-
-        .header-left, .header-right {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            flex: 1;
-            min-width: 150px;
-        }
-
-        .title-box {
             text-align: center;
-            flex: 2;
-            min-width: 300px;
         }
 
-        .title-box .nick {
-            font-size: 2.8rem;
-            background: linear-gradient(135deg, #ceadff, #a159ff, #f0e6ff);
+        .sidebar-header h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #ceadff, #a159ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 900;
-            letter-spacing: 2px;
-            line-height: 1.2;
-            animation: pulse 3s infinite;
-            text-shadow: 0 0 20px rgba(161, 89, 255, 0.5);
-        }
-
-        .title-box h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            text-shadow: 0 0 15px #b05eff;
-            color: #f3e5ff;
-            margin: 5px 0 10px;
-            letter-spacing: 3px;
-        }
-
-        .kalevan-box span {
-            background: linear-gradient(145deg, #ab73ff, #8a4fd9);
-            color: #140021;
-            padding: 8px 30px;
-            border-radius: 60px;
             font-weight: 800;
-            display: inline-flex;
+        }
+
+        .sidebar-header p {
+            font-size: 0.8rem;
+            color: #bda0e6;
+            margin-top: 5px;
+        }
+
+        .nav-item {
+            display: flex;
             align-items: center;
-            gap: 12px;
-            border: 2px solid #f0e6ff;
-            box-shadow: 0 6px 0 #4a2b6e, 0 0 20px #bf7cff;
-            transition: all 0.3s ease;
-            font-size: 1.2rem;
+            gap: 15px;
+            padding: 12px 20px;
+            margin: 5px 0;
+            border-radius: 14px;
+            color: #bda0e6;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            font-weight: 500;
         }
 
-        .kalevan-box span:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 0 #4a2b6e, 0 0 30px #d4a5ff;
-            background: linear-gradient(145deg, #bf7cff, #9a5fde);
-        }
-
-        .social-btn {
-            background: linear-gradient(145deg, #2e1d40, #1a0e28);
-            border: 2px solid #9a5fde;
-            border-radius: 50px;
-            padding: 14px 18px;
+        .nav-item:hover {
+            background: rgba(165, 91, 224, 0.2);
             color: white;
-            text-decoration: none;
+            transform: translateX(5px);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(145deg, #9147ff, #6e2bc7);
+            color: white;
+            box-shadow: 0 4px 15px rgba(145, 71, 255, 0.3);
+        }
+
+        .nav-item .icon {
+            font-size: 1.4rem;
+            width: 32px;
+            text-align: center;
+        }
+
+        .nav-divider {
+            height: 1px;
+            background: rgba(165, 91, 224, 0.2);
+            margin: 15px 0;
+        }
+
+        /* ===== ОСНОВНОЙ КОНТЕНТ ===== */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 30px 40px;
+            transition: all 0.3s ease;
+        }
+
+        /* ===== КАРТОЧКИ ===== */
+        .card {
+            background: rgba(26, 16, 40, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(165, 91, 224, 0.3);
+            border-radius: 28px;
+            padding: 24px;
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .card:hover {
+            border-color: #bf7cff;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        /* ===== ПОСТЫ ===== */
+        .post-header {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .post-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #bf7cff;
+        }
+
+        .post-author {
             font-weight: 700;
             font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            box-shadow: 0 6px 0 #311f49, 0 0 15px rgba(154, 95, 222, 0.3);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            width: 100%;
-            cursor: pointer;
-            border: none;
-            position: relative;
-            overflow: hidden;
         }
 
-        .social-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s ease;
+        .post-time {
+            font-size: 0.75rem;
+            color: #9b86b3;
         }
 
-        .social-btn:hover::before {
-            left: 100%;
+        .post-content {
+            margin: 15px 0;
+            line-height: 1.5;
         }
 
-        .social-btn:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 8px 0 #311f49, 0 0 25px #b47bf0;
-            filter: brightness(1.1);
-        }
-
-        .social-btn:active {
-            transform: translateY(3px);
-            box-shadow: 0 3px 0 #311f49;
-        }
-
-        .donate-btn {
-            background: linear-gradient(145deg, #c43aff, #a12ad4);
-            box-shadow: 0 6px 0 #832da8, 0 0 15px #c43aff;
-        }
-
-        .huyustriki-btn {
-            background: linear-gradient(145deg, #b84a8c, #9a3a72);
-            box-shadow: 0 6px 0 #6a2d52, 0 0 15px #b84a8c;
-        }
-
-        .twitch-login-btn {
-            background: linear-gradient(145deg, #9147ff, #6e2bc7);
-            box-shadow: 0 6px 0 #5a2e9e, 0 0 15px #9147ff;
-        }
-
-        .logout-btn {
-            background: linear-gradient(145deg, #ff4d4d, #cc0000);
-            box-shadow: 0 6px 0 #992626, 0 0 15px #ff4d4d;
-        }
-
-        /* ===== ПЛЕЕР ===== */
-        .stream-full {
-            width: 100%;
-            margin-bottom: 40px;
-            animation: slideUp 0.7s ease-out;
+        .post-tag {
+            display: inline-block;
+            background: rgba(145, 71, 255, 0.2);
+            padding: 4px 12px;
             border-radius: 30px;
-            overflow: hidden;
-            box-shadow: 0 25px 35px -8px #000000, 0 0 40px rgba(165, 91, 224, 0.4);
-            transition: all 0.4s ease;
+            font-size: 0.75rem;
+            margin-right: 10px;
         }
 
-        .stream-full:hover {
-            transform: scale(1.01);
-            box-shadow: 0 30px 45px -8px #000000, 0 0 60px #a55be0;
-        }
-
-        .twitch-embed {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            background: #000;
-        }
-
-        .twitch-embed iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* ===== КАЛЕНДАРЬ + ФАКТ ===== */
-        .calendar-wrapper {
-            margin-bottom: 20px;
-        }
-
-        .calendar-nav {
+        .post-stats {
             display: flex;
-            justify-content: space-between;
+            gap: 20px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(165, 91, 224, 0.2);
+        }
+
+        .stat-btn {
+            display: flex;
             align-items: center;
-            margin-bottom: 20px;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .calendar-nav button {
-            background: linear-gradient(145deg, #2e1d40, #1a0e28);
-            border: 2px solid #9a5fde;
-            border-radius: 40px;
-            padding: 8px 20px;
-            color: white;
-            font-weight: 600;
+            gap: 6px;
+            background: none;
+            border: none;
+            color: #bda0e6;
             cursor: pointer;
-            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            transition: all 0.2s;
         }
 
-        .calendar-nav button:hover {
-            background: #3d2357;
-            transform: scale(1.02);
+        .stat-btn:hover {
+            color: #bf7cff;
+            transform: scale(1.05);
         }
 
-        .calendar-nav span {
-            font-size: 1.5rem;
-            font-weight: 700;
+        /* ===== КОММЕНТАРИИ ===== */
+        .comment-section {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(165, 91, 224, 0.2);
+        }
+
+        .comment {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .comment-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+        }
+
+        .comment-bubble {
             background: rgba(0,0,0,0.3);
-            padding: 5px 20px;
-            border-radius: 40px;
+            border-radius: 20px;
+            padding: 10px 15px;
+            flex: 1;
         }
 
+        /* ===== ФОРМЫ ===== */
+        .input-modern {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(165, 91, 224, 0.5);
+            border-radius: 60px;
+            padding: 12px 20px;
+            color: white;
+            width: 100%;
+            transition: all 0.2s;
+        }
+
+        .input-modern:focus {
+            outline: none;
+            border-color: #bf7cff;
+            box-shadow: 0 0 10px #bf7cff;
+        }
+
+        .btn-primary {
+            background: linear-gradient(145deg, #9147ff, #6e2bc7);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(145, 71, 255, 0.4);
+        }
+
+        /* ===== КАЛЕНДАРЬ ===== */
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             gap: 8px;
             text-align: center;
         }
-
         .calendar-day {
-            background: #1e102b;
-            padding: 12px 0;
-            border-radius: 20px;
-            border: 1px solid #6a3e9e;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .calendar-day::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(180, 123, 240, 0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .calendar-day:hover::before {
-            left: 100%;
-        }
-
-        .calendar-day:hover {
-            background: #3d2357;
-            transform: scale(1.05);
-            border-color: #b47bf0;
-            box-shadow: 0 0 15px #b47bf0;
-        }
-
-        .calendar-day.has-vod {
-            background: linear-gradient(145deg, #2a6e3a, #1a4a2a);
-            border-color: #00ff88;
-        }
-
-        .calendar-day.live {
-            background: linear-gradient(145deg, #aa3333, #771111);
-            border-color: #ff4444;
-            animation: pulse 1s infinite;
-        }
-
-        .calendar-day.today-stream {
-            background: linear-gradient(145deg, #2a6e8a, #1a4a6a);
-            border-color: #44aaff;
-        }
-
-        .calendar-day.past {
-            opacity: 0.6;
-        }
-
-        .calendar-day.future {
-            background: #2e1d40;
-        }
-
-        .calendar-day .day-number {
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
-        .calendar-day .day-label {
-            font-size: 0.7rem;
-            color: #b59ec9;
-        }
-
-        .calendar-day.has-vod .day-label,
-        .calendar-day.live .day-label,
-        .calendar-day.today-stream .day-label {
-            color: #f0e6ff;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin: 50px 0;
-        }
-
-        .info-card {
-            background: rgba(42, 16, 63, 0.8);
-            backdrop-filter: blur(10px);
-            border: 2px solid #ac71e6;
-            border-radius: 40px;
-            padding: 28px;
-            box-shadow: 0 20px 30px -5px #000000b3, 0 0 30px rgba(172, 113, 230, 0.2);
-            transition: all 0.4s ease;
-            animation: slideUp 0.8s ease-out;
-        }
-
-        .info-card:hover {
-            transform: translateY(-10px);
-            border-color: #bf7cff;
-            box-shadow: 0 30px 40px -5px #7d3eb0, 0 0 50px #ac71e6;
-        }
-
-        .info-card h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            border-bottom: 3px dashed #ad5bff;
-            padding-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-shadow: 0 0 10px #b47bf0;
-        }
-
-        .fact-container {
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .fact-text {
-            font-size: 1.3rem;
-            font-style: italic;
-            background: linear-gradient(145deg, #221530, #1a0e24);
-            padding: 22px;
-            border-radius: 25px;
-            border-left: 6px solid #b47bf0;
-            line-height: 1.5;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(180, 123, 240, 0.2);
-        }
-
-        .fact-text:hover {
-            background: #2f1b42;
-            border-left-width: 10px;
-            transform: translateX(8px);
-            box-shadow: 0 0 30px #b47bf0;
-        }
-
-        /* ===== ИГРОВОЙ КОМПАС ===== */
-        .games-block {
-            margin: 50px 0;
-        }
-
-        .games-header {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            gap: 15px;
-        }
-
-        .games-header h2 {
-            font-size: 2.5rem;
-            border-bottom: 4px dashed #ad5bff;
-            padding-bottom: 12px;
-            margin: 0;
-        }
-
-        .games-controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .games-search {
-            background: #2e1d40;
-            border: 2px solid #9a5fde;
-            border-radius: 40px;
-            padding: 8px 15px;
-            color: white;
-            font-size: 1rem;
-            min-width: 180px;
-        }
-
-        .games-filter {
-            background: #2e1d40;
-            border: 2px solid #9a5fde;
-            border-radius: 40px;
-            padding: 8px 15px;
-            color: white;
-            cursor: pointer;
-        }
-
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .game-card {
-            background: linear-gradient(145deg, #211030, #180d24);
-            border: 2px solid #a25ef0;
-            border-radius: 25px;
+            background: rgba(0,0,0,0.3);
             padding: 12px;
-            transition: all 0.3s ease;
+            border-radius: 16px;
             cursor: pointer;
-            position: relative;
+            transition: all 0.2s;
         }
+        .calendar-day.has-vod { background: #9147ff; color: white; }
+        .calendar-day.live { background: #ff4444; animation: glowPulse 1s infinite; }
 
-        .game-card:hover {
-            transform: translateY(-3px);
-            border-color: #bf7cff;
-            box-shadow: 0 0 20px #a25ef0;
+        /* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 260px;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+            .menu-toggle {
+                display: block;
+                position: fixed;
+                top: 20px;
+                left: 20px;
+                z-index: 200;
+                background: #9147ff;
+                padding: 10px;
+                border-radius: 50%;
+                cursor: pointer;
+            }
         }
-
-        .game-card.live {
-            border-color: #00ff88;
-            box-shadow: 0 0 20px #00ff88;
-            background: linear-gradient(145deg, #1a3a2a, #0e2a1a);
-        }
-
-        .game-name {
-            font-weight: 800;
-            font-size: 1.2rem;
-            margin-bottom: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .game-badge {
-            font-size: 0.8rem;
-            background: #7d3eb0;
-            padding: 2px 8px;
-            border-radius: 20px;
-        }
-
-        .game-stats {
-            font-size: 0.85rem;
-            color: #bda0e6;
-            display: flex;
-            justify-content: space-between;
-            margin-top: 8px;
-        }
-
-        .game-category {
-            font-size: 0.75rem;
-            background: #2c193b;
-            padding: 2px 8px;
-            border-radius: 20px;
-            display: inline-block;
-        }
-
-        .show-more-btn {
-            background: #2e1d40;
-            border: 2px solid #9a5fde;
-            border-radius: 40px;
-            padding: 10px 20px;
-            color: white;
-            cursor: pointer;
-            width: fit-content;
-            margin: 20px auto 0;
-            text-align: center;
-        }
-
-        /* ===== ПРЕДЛОЖКИ (ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ) ===== */
-        .suggestions-block {
-            margin: 50px 0;
-        }
-
-        .suggestions-header {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 25px;
-            border-bottom: 4px dashed #ad5bff;
-            padding-bottom: 15px;
-        }
-
-        .suggestions-header h2 {
-            font-size: 2.5rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 0;
-            border: none;
-            padding: 0;
-            text-shadow: 0 0 15px #b47bf0;
-        }
-
-        .login-bar {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            background: rgba(46, 29, 64, 0.8);
-            backdrop-filter: blur(8px);
-            padding: 6px 15px;
-            border-radius: 40px;
-            border: 2px solid #b47bf0;
-            box-shadow: 0 0 20px rgba(180, 123, 240, 0.3);
-        }
-
-        .user-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            border: 2px solid #bf7cff;
-        }
-
-        .filter-controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .filter-select {
-            background: rgba(46, 29, 64, 0.9);
-            border: 2px solid #9a5fde;
-            border-radius: 40px;
-            padding: 10px 20px;
-            color: white;
-            font-size: 1rem;
-            cursor: pointer;
-            min-width: 150px;
-        }
-
-        /* Горизонтальный скролл предложек */
-        .suggestions-scroll {
-            overflow-x: auto;
-            overflow-y: visible;
-            white-space: nowrap;
-            padding: 10px 5px;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .suggestions-scroll::-webkit-scrollbar {
-            height: 6px;
-        }
-
-        .suggestions-scroll::-webkit-scrollbar-track {
-            background: #1e102b;
-            border-radius: 10px;
-        }
-
-        .suggestions-scroll::-webkit-scrollbar-thumb {
-            background: #b47bf0;
-            border-radius: 10px;
-        }
-
-        .suggestions-row {
-            display: inline-flex;
-            gap: 15px;
-            white-space: normal;
-        }
-
-        .suggestion-card {
-            background: linear-gradient(145deg, #211030, #180d24);
-            border: 2px solid #a25ef0;
-            border-radius: 25px;
-            padding: 12px;
-            width: 220px;
-            display: inline-block;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            white-space: normal;
-        }
-
-        .suggestion-card:hover {
-            transform: translateY(-3px);
-            border-color: #bf7cff;
-            box-shadow: 0 0 20px #a25ef0;
-        }
-
-        .suggestion-card.expanded {
-            width: 280px;
-            position: relative;
-            z-index: 10;
-            background: linear-gradient(145deg, #2a1a40, #201030);
-            border-color: #bf7cff;
-        }
-
-        .suggestion-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 8px;
-        }
-
-        .suggestion-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            border: 2px solid #bf7cff;
-        }
-
-        .suggestion-nick {
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: #bda0e6;
-        }
-
-        .suggestion-title {
-            font-weight: 700;
-            font-size: 1rem;
-            margin: 5px 0;
-            white-space: normal;
-            word-break: break-word;
-        }
-
-        .suggestion-category {
-            display: inline-block;
-            background: #7d3eb0;
-            color: white;
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            margin-top: 5px;
-        }
-
-        .suggestion-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
-        }
-
-        .suggestion-votes {
-            font-weight: 700;
-            color: #ffd966;
-            font-size: 1rem;
-        }
-
-        .vote-btn {
-            background: #4a2b6e;
-            border: 1px solid #b47bf0;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .vote-btn:hover {
-            background: #6a3e9e;
-            transform: scale(1.05);
-        }
-
-        .vote-btn.voted {
-            background: #00aa88;
-            border-color: #00ffaa;
-        }
-
-        .suggestion-details {
-            margin-top: 10px;
-            padding-top: 8px;
-            border-top: 1px solid #6a3e9e;
-            display: none;
-        }
-
-        .suggestion-card.expanded .suggestion-details {
-            display: block;
-        }
-
-        .suggestion-link a {
-            color: #bf7cff;
-            text-decoration: none;
-            font-size: 0.8rem;
-            word-break: break-all;
-        }
-
-        .suggestion-comment {
-            font-size: 0.8rem;
-            font-style: italic;
-            color: #d4b5ff;
-            margin: 5px 0;
-            word-break: break-word;
-        }
-
-        /* ===== МОДАЛКА ===== */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(12px);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: linear-gradient(145deg, #221530, #1a0e28);
-            border: 3px solid #a55be0;
-            border-radius: 50px;
-            padding: 30px;
-            max-width: 500px;
-            width: 90%;
-            max-height: 85vh;
-            overflow-y: auto;
-            box-shadow: 0 30px 50px -10px #000, 0 0 60px #a55be0;
-            position: relative;
-        }
-
-        .modal-content h3 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: #bf7cff;
-            text-align: center;
-        }
-
-        .modal-content input,
-        .modal-content select,
-        .modal-content textarea {
-            width: 100%;
-            padding: 12px 15px;
-            margin-bottom: 15px;
-            background: #2c193b;
-            border: 2px solid #b47bf0;
-            border-radius: 30px;
-            color: white;
-            font-size: 1rem;
-        }
-
-        .modal-content textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .modal-content button {
-            background: linear-gradient(145deg, #c43aff, #a12ad4);
-            border: none;
-            color: white;
-            font-size: 1.2rem;
-            font-weight: 700;
-            padding: 12px;
-            border-radius: 60px;
-            cursor: pointer;
-            width: 100%;
-            box-shadow: 0 6px 0 #832da8;
-            transition: all 0.3s ease;
-        }
-
-        .modal-content button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 0 #832da8;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 2rem;
-            cursor: pointer;
-            color: #bda0e6;
-        }
-
-        .close-btn:hover {
-            color: #f0e6ff;
-            transform: rotate(90deg);
-        }
-
-        .message {
-            padding: 10px;
-            border-radius: 30px;
-            background: #2c193b;
-            color: #bda0e6;
-            text-align: center;
-            margin: 10px 0;
-        }
-
-        .loading {
-            text-align: center;
-            color: #bda0e6;
-            padding: 40px;
-            font-size: 1.2rem;
-        }
-
-        .signature {
-            margin-top: 60px;
-            font-size: 1.8rem;
-            text-align: center;
-            background: linear-gradient(145deg, #1d0b2c, #13071e);
-            padding: 15px 30px;
-            border-radius: 70px;
-            border: 3px solid #ac71e6;
-            display: inline-block;
-            box-shadow: 0 0 40px #9f67e0;
-            font-weight: 700;
-        }
-
-        .footer-note {
-            text-align: center;
-            width: 100%;
-        }
-
-        .footer-note small {
-            font-size: 1rem;
-            color: #bda0e6;
-            display: block;
-            margin-top: 15px;
-        }
-
-        .social-btn:disabled {
-            background: #4a3b57;
-            border-color: #8f79a3;
-            opacity: 0.6;
-            cursor: not-allowed;
-            pointer-events: none;
-        }
-
-        .action-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
+        .menu-toggle { display: none; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- ШАПКА -->
-        <div class="header-card">
-            <div class="header-content">
-                <div class="header-left">
-                    <a href="https://t.me/hoststreet" target="_blank" class="social-btn">📱 Telegram</a>
-                    <a href="https://discord.gg/ynDWeAYB2" target="_blank" class="social-btn">💬 Discord</a>
-                </div>
-
-                <div class="title-box">
-                    <div class="nick">Honesty113</div>
-                    <h1>⚡TWITCH⚡</h1>
-                    <div class="kalevan-box">
-                        <span>🐻 Коллыван ⚔️</span>
-                    </div>
-                </div>
-
-                <div class="header-right">
-                    <a href="https://www.donationalerts.com/r/honesty113" target="_blank" class="social-btn donate-btn">💰 Donate</a>
-                    <a href="https://memealerts.com/6602a0ee288f43c13c2293df" target="_blank" class="social-btn huyustriki-btn">🔞 Хуюстрики</a>
-                </div>
-            </div>
+<div class="app">
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h1>HONESTY113</h1>
+            <p>фан-портал</p>
         </div>
-
-        <!-- ПЛЕЕР -->
-        <div class="stream-full">
-            <div class="twitch-embed">
-                <iframe src="https://player.twitch.tv/?channel=honesty113&parent=localhost&parent=honesty113.vercel.app" allowfullscreen="true" scrolling="no" allow="autoplay; fullscreen"></iframe>
-            </div>
+        <div class="nav-item active" data-page="feed">
+            <span class="icon">📰</span> <span>Лента</span>
         </div>
-
-        <!-- КАЛЕНДАРЬ -->
-        <div class="info-card">
-            <h2>📅 Календарь стримов</h2>
-            <div class="calendar-wrapper">
-                <div class="calendar-nav">
-                    <button id="prevMonth">←</button>
-                    <span id="monthYear"></span>
-                    <button id="nextMonth">→</button>
-                </div>
-                <div class="calendar-grid" id="calendar"></div>
-            </div>
-            <p style="margin-top: 20px; text-align: center; color: #bda0e6;">🌟 Стримы каждый день с 17:00 МСК</p>
+        <div class="nav-item" data-page="calendar">
+            <span class="icon">📅</span> <span>Календарь</span>
         </div>
-
-        <!-- СЛУЧАЙНЫЙ ФАКТ -->
-        <div class="info-card">
-            <h2>🎲 Знаете ли вы?</h2>
-            <div class="fact-container" id="factContainer">
-                <div class="fact-text" id="randomFact"></div>
-            </div>
+        <div class="nav-item" data-page="suggestions">
+            <span class="icon">🎯</span> <span>Предложки</span>
         </div>
-
-        <!-- ИГРОВОЙ КОМПАС -->
-        <div class="games-block">
-            <div class="games-header">
-                <h2>🎮 Игровой компас</h2>
-                <div class="games-controls">
-                    <input type="text" id="gameSearch" class="games-search" placeholder="Поиск игры...">
-                    <select id="gameCategoryFilter" class="games-filter">
-                        <option value="all">Все категории</option>
-                    </select>
-                </div>
-            </div>
-            <div id="gamesGrid" class="games-grid"></div>
-            <div id="showMoreBtn" class="show-more-btn" style="display: none;">Показать все</div>
+        <div class="nav-item" data-page="links">
+            <span class="icon">🔗</span> <span>Ссылки</span>
         </div>
-
-        <!-- ПРЕДЛОЖКИ -->
-        <div class="suggestions-block">
-            <div class="suggestions-header">
-                <h2>🎯 Предложки</h2>
-                <div class="login-bar">
-                    <button class="social-btn twitch-login-btn" id="loginBtn">🔐 Войти через Twitch</button>
-                    <div id="userInfo" style="display: none;"></div>
-                </div>
-            </div>
-            
-            <div class="filter-controls">
-                <select id="categoryFilter" class="filter-select">
-                    <option value="all">Все категории</option>
-                </select>
-                <select id="sortFilter" class="filter-select">
-                    <option value="date_desc">📅 Сначала новые</option>
-                    <option value="date_asc">📅 Сначала старые</option>
-                    <option value="votes_desc">👍 По голосам (сначала больше)</option>
-                    <option value="votes_asc">👍 По голосам (сначала меньше)</option>
-                </select>
-            </div>
-
-            <div class="suggestions-scroll" id="suggestionsScroll">
-                <div class="suggestions-row" id="suggestionsGrid">
-                    <div class="loading">⏳ Загрузка предложек...</div>
-                </div>
-            </div>
-            
-            <div class="action-buttons">
-                <button class="social-btn donate-btn" id="suggestBtn" disabled>➕ Предложить</button>
-                <button class="social-btn logout-btn" id="logoutBtn" style="display: none;">🚪 Выйти</button>
-            </div>
+        <div class="nav-divider"></div>
+        <div class="nav-item" data-page="settings">
+            <span class="icon">⚙️</span> <span>Настройки</span>
         </div>
-
-        <!-- ПОДПИСЬ -->
-        <div class="footer-note">
-            <div class="signature">✦ by BuShiZm ✦</div>
-            <small>для самого честного стримера Honesty113</small>
+        <div class="nav-item" data-page="profile">
+            <span class="icon">👤</span> <span>Профиль</span>
         </div>
     </div>
 
-    <!-- МОДАЛКА -->
-    <div class="modal" id="suggestionModal">
-        <div class="modal-content">
-            <span class="close-btn" id="closeModal">&times;</span>
-            <h3>🎮 Предложить игру или видео</h3>
-            <div id="modalMessage" class="message" style="display: none;"></div>
-            <input type="text" id="suggestionTitle" placeholder="Название" required>
-            <select id="suggestionCategory"></select>
-            <input type="url" id="suggestionLink" placeholder="Ссылка (необязательно)">
-            <textarea id="suggestionComment" placeholder="Комментарий" rows="3" maxlength="150"></textarea>
-            <div class="char-counter"><span id="charCount">0</span>/150</div>
-            <button id="submitSuggestion">🚀 Отправить</button>
-        </div>
+    <div class="main-content" id="mainContent">
+        <!-- Контент будет загружаться сюда динамически -->
+        <div style="text-align: center; padding: 50px;">Загрузка...</div>
     </div>
+</div>
 
-    <script>
-        const API_BASE = '/api';
-        const CLIENT_ID = 'oivt3xslzr0wi1b3eu4a59lntv5isk';
-        const REDIRECT_URI = window.location.origin;
+<script>
+    // === ГЛОБАЛЬНЫЕ ДАННЫЕ ===
+    let currentUser = null;
+    let posts = [];
+    let vods = [];
 
-        let currentUser = null;
-        let allSuggestions = [];
-        let filteredSuggestions = [];
-        let currentCategory = 'all';
-        let currentSort = 'date_desc';
-        let userVotes = [];
-        let vods = [];
-        let games = [];
-        let allGames = [];
-        let gamesSearchTerm = '';
-        let gamesCategoryFilter = 'all';
-        let gamesShowAll = false;
-        
-        let currentCalendarYear = new Date().getFullYear();
-        let currentCalendarMonth = new Date().getMonth();
+    // === ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ ===
+    function loadPage(page) {
+        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+        document.querySelector(`[data-page="${page}"]`).classList.add('active');
 
-        // === КАЛЕНДАРЬ ===
-        async function loadVods() {
-            try {
-                const response = await fetch(`${API_BASE}/get-vods`);
-                vods = await response.json();
-                renderCalendar();
-            } catch (error) {
-                console.error('Ошибка загрузки VOD:', error);
-            }
-        }
+        const content = document.getElementById('mainContent');
+        if (page === 'feed') renderFeed(content);
+        else if (page === 'calendar') renderCalendar(content);
+        else if (page === 'suggestions') renderSuggestions(content);
+        else if (page === 'links') renderLinks(content);
+        else if (page === 'settings') renderSettings(content);
+        else if (page === 'profile') renderProfile(content);
+    }
 
-        async function checkLiveStatus() {
-            try {
-                const response = await fetch(`${API_BASE}/current-game`);
-                const data = await response.json();
-                return data.isLive;
-            } catch {
-                return false;
-            }
-        }
-
-        function formatDateKey(year, month, day) {
-            return `${String(day).padStart(2, '0')}.${String(month + 1).padStart(2, '0')}.${year}`;
-        }
-
-        async function renderCalendar() {
-            const calendarDiv = document.getElementById('calendar');
-            const monthYearSpan = document.getElementById('monthYear');
-            const days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
-            
-            monthYearSpan.innerText = `${currentCalendarMonth + 1}.${currentCalendarYear}`;
-            
-            const firstDay = new Date(currentCalendarYear, currentCalendarMonth, 1);
-            const lastDay = new Date(currentCalendarYear, currentCalendarMonth + 1, 0);
-            const startDay = firstDay.getDay();
-            
-            const isLive = await checkLiveStatus();
-            const today = new Date();
-            const todayStr = formatDateKey(today.getFullYear(), today.getMonth(), today.getDate());
-            
-            let html = '';
-            
-            // Пустые ячейки
-            for (let i = 0; i < startDay; i++) {
-                html += '<div class="calendar-day off"></div>';
-            }
-            
-            // Дни месяца
-            for (let d = 1; d <= lastDay.getDate(); d++) {
-                const dateStr = formatDateKey(currentCalendarYear, currentCalendarMonth, d);
-                const hasVod = vods.some(v => v.date === dateStr);
-                const isToday = dateStr === todayStr;
-                const isPast = new Date(currentCalendarYear, currentCalendarMonth, d) < new Date(today.getFullYear(), today.getMonth(), today.getDate());
-                const isFuture = !isPast && !isToday;
-                
-                let classes = 'calendar-day';
-                let link = `https://twitch.tv/honesty113`;
-                
-                if (hasVod) {
-                    classes += ' has-vod';
-                    const vod = vods.find(v => v.date === dateStr);
-                    link = vod.url;
-                }
-                
-                if (isToday && isLive) {
-                    classes += ' live';
-                    link = `https://twitch.tv/honesty113`;
-                } else if (isToday && !isLive) {
-                    classes += ' today-stream';
-                }
-                
-                if (isPast) classes += ' past';
-                if (isFuture) classes += ' future';
-                
-                html += `
-                    <div class="${classes}" onclick="window.open('${link}', '_blank')">
-                        <div class="day-number">${d}</div>
-                        <div class="day-label">${days[firstDay.getDay()]}</div>
-                    </div>
-                `;
-            }
-            
-            calendarDiv.innerHTML = html;
-        }
-
-        document.getElementById('prevMonth').addEventListener('click', () => {
-            currentCalendarMonth--;
-            if (currentCalendarMonth < 0) {
-                currentCalendarMonth = 11;
-                currentCalendarYear--;
-            }
-            renderCalendar();
-        });
-
-        document.getElementById('nextMonth').addEventListener('click', () => {
-            currentCalendarMonth++;
-            if (currentCalendarMonth > 11) {
-                currentCalendarMonth = 0;
-                currentCalendarYear++;
-            }
-            renderCalendar();
-        });
-
-        // === ФАКТЫ ===
-        const facts = [
-            "Honesty113 стримит каждый день без выходных!",
-            "Коллыван — его главный зритель и вдохновитель.",
-            "Любимая игра — Minecraft, но пробует всё подряд.",
-            "В Valorant 'жду только я' — это уже мем.",
-            "Однажды стримил 24 часа подряд.",
-            "Его Telegram-канал живёт своей жизнью.",
-            "Честность — главное качество стримера.",
-            "Обожает, когда в чате пишут его эмоции.",
-            "Начинал стримить в 2022 году с майнкрафта.",
-            "Каждый стрим начинается с 17:00.",
-            "У него более 500 часов стримов."
-        ];
-
-        let currentFactIndex = 0;
-        const factElement = document.getElementById('randomFact');
-        factElement.innerText = facts[currentFactIndex];
-
-        document.getElementById('factContainer').addEventListener('click', () => {
-            currentFactIndex = (currentFactIndex + 1) % facts.length;
-            factElement.style.animation = 'none';
-            factElement.offsetHeight;
-            factElement.style.animation = 'slideDown 0.3s ease-out';
-            factElement.innerText = facts[currentFactIndex];
-        });
-
-        // === ИГРОВОЙ КОМПАС ===
-        async function loadGames() {
-            try {
-                const response = await fetch(`${API_BASE}/get-games`);
-                allGames = await response.json();
-                applyGamesFilters();
-            } catch (error) {
-                console.error('Ошибка загрузки игр:', error);
-                document.getElementById('gamesGrid').innerHTML = '<div class="loading">❌ Ошибка загрузки</div>';
-            }
-        }
-
-        function applyGamesFilters() {
-            let filtered = [...allGames];
-            
-            if (gamesSearchTerm) {
-                filtered = filtered.filter(g => g.name.toLowerCase().includes(gamesSearchTerm.toLowerCase()));
-            }
-            
-            if (gamesCategoryFilter !== 'all') {
-                filtered = filtered.filter(g => g.category === gamesCategoryFilter);
-            }
-            
-            filtered.sort((a, b) => (b.totalMinutes || 0) - (a.totalMinutes || 0));
-            
-            allGames = filtered;
-            renderGames();
-        }
-
-        async function fetchCurrentGame() {
-            try {
-                const response = await fetch(`${API_BASE}/current-game`);
-                const data = await response.json();
-                if (data.gameName) {
-                    highlightLiveGame(data.gameName);
-                }
-            } catch (error) {
-                console.error('Ошибка получения игры:', error);
-            }
-        }
-
-        function highlightLiveGame(gameName) {
-            const cards = document.querySelectorAll('.game-card');
-            cards.forEach(card => {
-                card.classList.remove('live');
-                const nameEl = card.querySelector('.game-name span:first-child');
-                if (nameEl && nameEl.textContent.toLowerCase() === gameName.toLowerCase()) {
-                    card.classList.add('live');
-                }
-            });
-        }
-
-        function formatMinutes(minutes) {
-            if (!minutes) return '0 ч';
-            const hours = Math.floor(minutes / 60);
-            const mins = minutes % 60;
-            return mins > 0 ? `${hours} ч ${mins} мин` : `${hours} ч`;
-        }
-
-        function renderGames() {
-            const grid = document.getElementById('gamesGrid');
-            const showMoreBtn = document.getElementById('showMoreBtn');
-            const displayGames = gamesShowAll ? allGames : allGames.slice(0, 10);
-            
-            if (allGames.length === 0) {
-                grid.innerHTML = '<div class="loading">📭 Нет данных об играх</div>';
-                showMoreBtn.style.display = 'none';
-                return;
-            }
-            
-            grid.innerHTML = displayGames.map(game => `
-                <div class="game-card">
-                    <div class="game-name">
-                        <span>${game.name}</span>
-                        <span class="game-badge">${game.category || 'Другое'}</span>
-                    </div>
-                    <div class="game-stats">
-                        <span>⏱️ ${formatMinutes(game.totalMinutes)}</span>
-                        <span>📅 ${game.lastStream || '—'}</span>
-                    </div>
+    // === ЛЕНТА (ПОСТЫ + КОММЕНТАРИИ) ===
+    async function renderFeed(container) {
+        // тут будет загрузка постов с API
+        container.innerHTML = `<div class="card">🔥 Лента загружается...</div>`;
+        // заглушка для демо
+        container.innerHTML = `
+            <div class="card">
+                <div class="post-header">
+                    <img class="post-avatar" src="https://static-cdn.jtvnw.net/user-default-pictures-uv/13e5d884-3c7e-4c9a-9c6c-6f3c6d5f8e6a-profile_image-70x70.png">
+                    <div><div class="post-author">xX_HonestyFan</div><div class="post-time">2 часа назад</div></div>
                 </div>
-            `).join('');
-            
-            showMoreBtn.style.display = allGames.length > 10 && !gamesShowAll ? 'block' : 'none';
-            fetchCurrentGame();
-        }
+                <div class="post-content">🔥 ПРЕДЛАГАЮ ЗАСТРИМИТЬ НОВЫЙ ХАРДКОРНЫЙ СИД В МАЙНКРАФТЕ! УЖЕ НАШЕЛ СУПЕР-СЛОЖНЫЙ</div>
+                <div><span class="post-tag">Игра</span><span class="post-tag">Minecraft</span></div>
+                <div class="post-stats">
+                    <button class="stat-btn">👍 156</button>
+                    <button class="stat-btn">👎 12</button>
+                    <button class="stat-btn">💬 34</button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="post-header">
+                    <img class="post-avatar" src="https://static-cdn.jtvnw.net/user-default-pictures-uv/13e5d884-3c7e-4c9a-9c6c-6f3c6d5f8e6a-profile_image-70x70.png">
+                    <div><div class="post-author">gamer123</div><div class="post-time">5 часов назад</div></div>
+                </div>
+                <div class="post-content">OUTLAST 2 НА МАКСИМАЛКЕ С КАМЕРОЙ НА ЛИЦО! ЭТО БУДЕТ ЖЕСТКО!</div>
+                <div><span class="post-tag">Хоррор</span></div>
+                <div class="post-stats">
+                    <button class="stat-btn">👍 89</button>
+                    <button class="stat-btn">👎 4</button>
+                    <button class="stat-btn">💬 12</button>
+                </div>
+            </div>
+            <div style="margin-top:20px;"><button class="btn-primary" onclick="alert('Модалка создания поста будет здесь')">➕ Новый пост</button></div>
+        `;
+    }
 
-        document.getElementById('gameSearch').addEventListener('input', (e) => {
-            gamesSearchTerm = e.target.value;
-            gamesShowAll = false;
-            applyGamesFilters();
-        });
+    function renderCalendar(container) {
+        container.innerHTML = `<div class="card">📅 Календарь стримов (будет тут)</div>`;
+    }
+    function renderSuggestions(container) {
+        container.innerHTML = `<div class="card">🎯 Предложки (голосование + комменты)</div>`;
+    }
+    function renderLinks(container) {
+        container.innerHTML = `<div class="card">
+            <h3>🔗 Полезные ссылки</h3>
+            <div style="display:flex; gap:20px; flex-wrap:wrap; margin-top:20px;">
+                <a href="https://twitch.tv/honesty113" target="_blank" class="btn-primary" style="display:inline-block;">📺 Twitch</a>
+                <a href="https://t.me/hoststreet" target="_blank" class="btn-primary" style="display:inline-block;">📱 Telegram</a>
+                <a href="https://discord.gg/ynDWeAYB2" target="_blank" class="btn-primary" style="display:inline-block;">💬 Discord</a>
+                <a href="https://www.donationalerts.com/r/honesty113" target="_blank" class="btn-primary" style="display:inline-block;">💰 Donate</a>
+                <a href="https://memealerts.com/6602a0ee288f43c13c2293df" target="_blank" class="btn-primary" style="display:inline-block;">🔞 Хуюстрики</a>
+            </div>
+        </div>`;
+    }
+    function renderSettings(container) {
+        container.innerHTML = `<div class="card">⚙️ Настройки: тема, шрифты и уведомления (будет)</div>`;
+    }
+    function renderProfile(container) {
+        container.innerHTML = `<div class="card">👤 Профиль: аватарка, статистика, мои посты (будет)</div>`;
+    }
 
-        document.getElementById('gameCategoryFilter').addEventListener('change', (e) => {
-            gamesCategoryFilter = e.target.value;
-            gamesShowAll = false;
-            applyGamesFilters();
-        });
-
-        document.getElementById('showMoreBtn').addEventListener('click', () => {
-            gamesShowAll = true;
-            renderGames();
-        });
-
-        // === TWITCH АВТОРИЗАЦИЯ ===
-        function loadUserFromStorage() {
-            const savedUser = localStorage.getItem('twitchUser');
-            if (savedUser) {
-                currentUser = JSON.parse(savedUser);
-                updateUIForUser();
-            }
-            const savedVotes = localStorage.getItem('userVotes');
-            if (savedVotes) {
-                userVotes = JSON.parse(savedVotes);
-            }
-        }
-
-        function checkTwitchAuth() {
-            const hash = window.location.hash.substring(1);
-            const params = new URLSearchParams(hash);
-            const accessToken = params.get('access_token');
-            
-            if (accessToken) {
-                fetch('https://api.twitch.tv/helix/users', {
-                    headers: {
-                        'Authorization': `Bearer ${accessToken}`,
-                        'Client-ID': CLIENT_ID
-                    }
-                })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.data && data.data[0]) {
-                        currentUser = data.data[0];
-                        localStorage.setItem('twitchUser', JSON.stringify(currentUser));
-                        updateUIForUser();
-                        window.location.hash = '';
-                    }
-                });
-            }
-        }
-
-        function loginWithTwitch() {
-            const scopes = 'user:read:email';
-            const authUrl = `https://id.twitch.tv/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token&scope=${scopes}`;
-            window.location.href = authUrl;
-        }
-
-        function logout() {
-            currentUser = null;
-            localStorage.removeItem('twitchUser');
-            document.getElementById('loginBtn').style.display = 'block';
-            document.getElementById('suggestBtn').disabled = true;
-            document.getElementById('userInfo').style.display = 'none';
-            document.getElementById('logoutBtn').style.display = 'none';
-        }
-
-        function updateUIForUser() {
-            if (currentUser) {
-                document.getElementById('loginBtn').style.display = 'none';
-                document.getElementById('suggestBtn').disabled = false;
-                document.getElementById('logoutBtn').style.display = 'block';
-                
-                const userInfoDiv = document.getElementById('userInfo');
-                userInfoDiv.style.display = 'flex';
-                userInfoDiv.innerHTML = `
-                    <div class="user-info">
-                        <img src="${currentUser.profile_image_url}" class="user-avatar">
-                        <span>${currentUser.display_name}</span>
-                    </div>
-                `;
-            }
-        }
-
-        // === ПРЕДЛОЖКИ ===
-        async function loadSuggestions() {
-            try {
-                const response = await fetch(`${API_BASE}/get-suggestions`);
-                const data = await response.json();
-                allSuggestions = data;
-                applyFilters();
-            } catch (error) {
-                console.error('Ошибка:', error);
-                document.getElementById('suggestionsGrid').innerHTML = '<div class="loading">❌ Ошибка загрузки</div>';
-            }
-        }
-
-        async function vote(suggestionId) {
-            if (!currentUser) return;
-            
-            const hasVoted = userVotes.includes(suggestionId);
-            
-            try {
-                const response = await fetch(`${API_BASE}/${hasVoted ? 'unvote' : 'vote'}-suggestion`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        suggestionId: suggestionId,
-                        userId: currentUser.id
-                    })
-                });
-
-                const data = await response.json();
-                
-                if (response.ok) {
-                    if (hasVoted) {
-                        userVotes = userVotes.filter(id => id !== suggestionId);
-                    } else {
-                        userVotes.push(suggestionId);
-                    }
-                    
-                    localStorage.setItem('userVotes', JSON.stringify(userVotes));
-                    
-                    const suggestion = allSuggestions.find(s => s.id === suggestionId);
-                    if (suggestion) {
-                        suggestion.votes = data.newVotes;
-                    }
-                    
-                    applyFilters();
-                } else {
-                    alert('Ошибка: ' + data.error);
-                }
-            } catch (error) {
-                console.error('Ошибка голосования:', error);
-                alert('Не удалось проголосовать');
-            }
-        }
-
-        function applyFilters() {
-            filteredSuggestions = [...allSuggestions];
-            
-            if (currentCategory !== 'all') {
-                filteredSuggestions = filteredSuggestions.filter(s => s.category === currentCategory);
-            }
-            
-            switch(currentSort) {
-                case 'date_desc':
-                    filteredSuggestions.sort((a, b) => new Date(b.date) - new Date(a.date));
-                    break;
-                case 'date_asc':
-                    filteredSuggestions.sort((a, b) => new Date(a.date) - new Date(b.date));
-                    break;
-                case 'votes_desc':
-                    filteredSuggestions.sort((a, b) => b.votes - a.votes);
-                    break;
-                case 'votes_asc':
-                    filteredSuggestions.sort((a, b) => a.votes - b.votes);
-                    break;
-            }
-            
-            renderSuggestions();
-        }
-
-        function toggleSuggestionExpand(card, suggestion) {
-            const expanded = card.classList.contains('expanded');
-            document.querySelectorAll('.suggestion-card.expanded').forEach(c => c.classList.remove('expanded'));
-            if (!expanded) {
-                card.classList.add('expanded');
-            }
-        }
-
-        function renderSuggestions() {
-            const grid = document.getElementById('suggestionsGrid');
-            
-            if (filteredSuggestions.length === 0) {
-                grid.innerHTML = '<div class="loading">📭 Нет предложек</div>';
-                return;
-            }
-
-            grid.innerHTML = filteredSuggestions.map(s => {
-                const hasVoted = userVotes.includes(s.id);
-                return `
-                    <div class="suggestion-card" data-id="${s.id}" onclick="toggleSuggestionExpand(this, ${JSON.stringify(s).replace(/"/g, '&quot;')})">
-                        <div class="suggestion-header">
-                            <img src="${s.avatar || 'https://static-cdn.jtvnw.net/user-default-pictures-uv/13e5d884-3c7e-4c9a-9c6c-6f3c6d5f8e6a-profile_image-70x70.png'}" class="suggestion-avatar" onerror="this.src='https://static-cdn.jtvnw.net/user-default-pictures-uv/13e5d884-3c7e-4c9a-9c6c-6f3c6d5f8e6a-profile_image-70x70.png'">
-                            <span class="suggestion-nick">${s.nick}</span>
-                        </div>
-                        <div class="suggestion-title">${s.title}</div>
-                        <div class="suggestion-category">${s.category}</div>
-                        <div class="suggestion-footer">
-                            <span class="suggestion-votes">👍 ${s.votes}</span>
-                            ${currentUser ? `
-                                <button class="vote-btn ${hasVoted ? 'voted' : ''}" onclick="event.stopPropagation(); vote('${s.id}')">
-                                    ${hasVoted ? '✓' : '+1'}
-                                </button>
-                            ` : ''}
-                        </div>
-                        <div class="suggestion-details">
-                            ${s.link && s.link !== '-' ? `<div class="suggestion-link"><a href="${s.link}" target="_blank" onclick="event.stopPropagation()">🔗 ссылка</a></div>` : ''}
-                            ${s.comment && s.comment !== '-' ? `<div class="suggestion-comment">💬 ${s.comment}</div>` : ''}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        async function loadCategories() {
-            try {
-                const response = await fetch(`${API_BASE}/get-categories`);
-                const categories = await response.json();
-                const select = document.getElementById('suggestionCategory');
-                const filterSelect = document.getElementById('categoryFilter');
-                const gameCategorySelect = document.getElementById('gameCategoryFilter');
-                
-                select.innerHTML = categories.map(c => `<option value="${c}">${c}</option>`).join('');
-                
-                let filterOptions = '<option value="all">Все категории</option>';
-                categories.forEach(c => {
-                    filterOptions += `<option value="${c}">${c}</option>`;
-                });
-                filterSelect.innerHTML = filterOptions;
-                gameCategorySelect.innerHTML = '<option value="all">Все категории</option>' + categories.map(c => `<option value="${c}">${c}</option>`).join('');
-            } catch (error) {
-                console.error('Ошибка загрузки категорий:', error);
-            }
-        }
-
-        // === МОДАЛКА ===
-        const modal = document.getElementById('suggestionModal');
-        const suggestBtn = document.getElementById('suggestBtn');
-        const closeBtn = document.getElementById('closeModal');
-        const logoutBtn = document.getElementById('logoutBtn');
-
-        suggestBtn.onclick = () => {
-            if (currentUser) {
-                modal.style.display = 'flex';
-            }
-        };
-
-        closeBtn.onclick = () => {
-            modal.style.display = 'none';
-        };
-
-        logoutBtn.onclick = logout;
-
-        window.onclick = (e) => {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-            }
-        };
-
-        document.getElementById('suggestionComment').addEventListener('input', function() {
-            document.getElementById('charCount').textContent = this.value.length;
-        });
-
-        document.getElementById('submitSuggestion').onclick = async () => {
-            if (!currentUser) return;
-
-            const title = document.getElementById('suggestionTitle').value;
-            if (!title) {
-                document.getElementById('modalMessage').style.display = 'block';
-                document.getElementById('modalMessage').innerText = '❌ Введите название';
-                return;
-            }
-
-            const suggestion = {
-                nick: currentUser.display_name,
-                title: title,
-                category: document.getElementById('suggestionCategory').value,
-                link: document.getElementById('suggestionLink').value || '-',
-                comment: document.getElementById('suggestionComment').value || '-',
-                userId: currentUser.id,
-                avatar: currentUser.profile_image_url
-            };
-
-            try {
-                const response = await fetch(`${API_BASE}/add-suggestion`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(suggestion)
-                });
-                
-                if (response.ok) {
-                    modal.style.display = 'none';
-                    document.getElementById('suggestionTitle').value = '';
-                    document.getElementById('suggestionLink').value = '';
-                    document.getElementById('suggestionComment').value = '';
-                    document.getElementById('charCount').textContent = '0';
-                    loadSuggestions();
-                }
-            } catch (error) {
-                console.error('Ошибка:', error);
-            }
-        };
-
-        document.getElementById('categoryFilter').addEventListener('change', (e) => {
-            currentCategory = e.target.value;
-            applyFilters();
-        });
-
-        document.getElementById('sortFilter').addEventListener('change', (e) => {
-            currentSort = e.target.value;
-            applyFilters();
-        });
-
-        // === ИНИЦИАЛИЗАЦИЯ ===
-        window.vote = vote;
-        window.toggleSuggestionExpand = toggleSuggestionExpand;
-        
-        loadUserFromStorage();
-        checkTwitchAuth();
-        loadSuggestions();
-        loadCategories();
-        loadVods();
-        loadGames();
-        
-        document.getElementById('loginBtn').onclick = loginWithTwitch;
-        
-        setInterval(loadSuggestions, 300000);
-        setInterval(loadVods, 300000);
-        setInterval(fetchCurrentGame, 60000);
-    </script>
+    // === ИНИЦИАЛИЗАЦИЯ ===
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', () => loadPage(item.dataset.page));
+    });
+    loadPage('feed');
+</script>
 </body>
 </html>
