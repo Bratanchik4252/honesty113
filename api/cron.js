@@ -45,4 +45,24 @@ export default async function handler(req, res) {
       
       if (lastDate !== today) {
         await sheets.spreadsheets.values.append({
-          spreadsheetId: process.env
+          spreadsheetId: process.env.SHEET_ID,
+          range: 'vods!A:C',
+          valueInputOption: 'USER_ENTERED',
+          requestBody: {
+            values: [[
+              today,
+              `https://twitch.tv/honesty113`,
+              `Стрим ${today}`
+            ]]
+          }
+        });
+        added++;
+      }
+    }
+
+    res.status(200).json({ success: true, added });
+  } catch (error) {
+    console.error('Cron error:', error);
+    res.status(500).json({ error: error.message });
+  }
+}
