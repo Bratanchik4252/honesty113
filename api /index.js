@@ -11,7 +11,6 @@ export default async function handler(req, res) {
     });
     const sheets = google.sheets({ version: 'v4', auth });
 
-    // === ПОЛУЧИТЬ ПОСТЫ ===
     if (action === 'posts') {
       const response = await sheets.spreadsheets.values.get({
         spreadsheetId: process.env.SHEET_ID,
@@ -26,7 +25,6 @@ export default async function handler(req, res) {
       return res.status(200).json(posts);
     }
 
-    // === СОЗДАТЬ ПОСТ ===
     if (action === 'create' && req.method === 'POST') {
       const { title, text, category, game, link, nick, avatar, userId } = req.body;
       const newId = Date.now().toString();
@@ -40,7 +38,6 @@ export default async function handler(req, res) {
       return res.status(200).json({ success: true, id: newId });
     }
 
-    // === КОММЕНТАРИИ ===
     if (action === 'comments') {
       const { postId } = req.query;
       const response = await sheets.spreadsheets.values.get({
@@ -67,7 +64,6 @@ export default async function handler(req, res) {
       return res.status(200).json({ success: true });
     }
 
-    // === ГОЛОСОВАНИЕ ===
     if (action === 'vote' && req.method === 'POST') {
       const { postId, type, userId } = req.body;
       const response = await sheets.spreadsheets.values.get({
@@ -91,7 +87,6 @@ export default async function handler(req, res) {
       return res.status(200).json({ success: true, newRating });
     }
 
-    // === VOD (КАЛЕНДАРЬ) ===
     if (action === 'vods') {
       const response = await sheets.spreadsheets.values.get({
         spreadsheetId: process.env.SHEET_ID,
