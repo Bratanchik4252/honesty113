@@ -21,7 +21,7 @@ export default async function handler(req, res) {
       const posts = rows.slice(1).map(row => ({
         id: row[0], date: row[1], authorId: row[2], nick: row[3],
         avatar: row[4], title: row[5], text: row[6], category: row[7],
-        game: row[8], link: row[9], rating: parseInt(row[10]) || 0, ratingDown: 0
+        game: row[8], link: row[9], rating: parseInt(row[10]) || 0
       }));
       return res.status(200).json(posts);
     }
@@ -104,6 +104,7 @@ export default async function handler(req, res) {
 
     return res.status(400).json({ error: 'Unknown action' });
   } catch (error) {
+    console.error('API error:', error);
     return res.status(500).json({ error: error.message });
   }
 }
