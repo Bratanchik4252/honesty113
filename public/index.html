@@ -34,8 +34,6 @@
         body.light .post-tag { background: rgba(145,71,255,0.1); }
         body.light .stat-btn { color: #4a2b6e; }
         body.light .input-modern { background: white; border-color: #bda0e6; color: #1a1028; }
-        body.light .chat-message { background: rgba(0,0,0,0.05); }
-        body.light .chat-bot { background: #e9e0ff; }
 
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
@@ -236,41 +234,6 @@
         .profile-stat-value { font-size: 1.8rem; font-weight: 800; color: #ffd966; }
         .profile-stat-label { font-size: 0.8rem; color: #9b86b3; }
 
-        .chat-container {
-            background: rgba(0,0,0,0.2);
-            border-radius: 24px;
-            padding: 16px;
-            margin-top: 16px;
-        }
-        .chat-message {
-            margin-bottom: 12px;
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
-        }
-        .chat-bot {
-            background: rgba(145,71,255,0.2);
-            border-radius: 20px;
-            padding: 10px 16px;
-            max-width: 80%;
-        }
-        .chat-user {
-            justify-content: flex-end;
-        }
-        .chat-user .chat-bot {
-            background: rgba(255,255,255,0.1);
-        }
-        .chat-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: #9147ff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-
         @media (max-width: 768px) {
             .sidebar { transform: translateX(-100%); width: 260px; }
             .sidebar.open { transform: translateX(0); }
@@ -298,9 +261,6 @@
             </div>
             <div class="nav-item" data-page="links">
                 <span class="icon">🔗</span> <span>Ссылки</span>
-            </div>
-            <div class="nav-item" data-page="chat">
-                <span class="icon">🤖</span> <span>ИИ-помощник</span>
             </div>
             <div class="nav-divider"></div>
             <div class="nav-item" data-page="settings">
@@ -356,7 +316,6 @@
         theme: 'dark', fontSize: 'medium', animations: true, defaultSort: 'date_desc', language: 'ru'
     };
 
-    // Применение настроек
     function applySettings() {
         document.body.className = settings.theme;
         document.body.style.fontSize = settings.fontSize === 'large' ? '18px' : settings.fontSize === 'small' ? '14px' : '16px';
@@ -372,7 +331,6 @@
         applySettings();
     }
 
-    // Авторизация
     function loadUserFromStorage() {
         const saved = localStorage.getItem('twitchUser');
         if (saved) {
@@ -430,7 +388,6 @@
         }
     }
 
-    // API вызовы
     async function fetchPosts() {
         try {
             const res = await fetch(`${API_BASE}?action=posts`);
@@ -480,7 +437,6 @@
         return await res.json();
     }
 
-    // Отрисовка страниц
     async function renderFeed() {
         const container = document.getElementById('mainContent');
         container.innerHTML = '<div class="loading">Загрузка идей...</div>';
@@ -663,7 +619,7 @@
         container.innerHTML = '<div class="loading">Загрузка календаря...</div>';
         try {
             const res = await fetch(`${API_BASE}?action=vods`);
-            if (!res.ok) throw new Error();
+            if (!res.ok) throw new Error('HTTP error');
             const vods = await res.json();
             const today = new Date();
             const year = today.getFullYear();
@@ -675,12 +631,14 @@
             for (let d = 1; d <= daysInMonth; d++) {
                 const dateStr = `${d}.${month+1}.${year}`;
                 const hasVod = vods.some(v => v.date === dateStr);
-                html += `<div class="calendar-day ${hasVod ? 'has-vod' : ''}" onclick="window.open('${hasVod ? vods.find(v=>v.date===dateStr).url : 'https://twitch.tv/honesty113'}', '_blank')">${d}</div>`;
+                const vodUrl = hasVod ? vods.find(v => v.date === dateStr).url : 'https://twitch.tv/honesty113';
+                html += `<div class="calendar-day ${hasVod ? 'has-vod' : ''}" onclick="window.open('${vodUrl}', '_blank')">${d}</div>`;
             }
             html += '</div></div>';
             container.innerHTML = html;
         } catch (err) {
-            container.innerHTML = '<div class="card"><h2>📅 Календарь стримов</h2><p>Ошибка загрузки календаря</p></div>';
+            console.error('Calendar error:', err);
+            container.innerHTML = '<div class="card"><h2>📅 Календарь стримов</h2><p>Ошибка загрузки календаря. Проверьте лист vods в таблице.</p></div>';
         }
     }
 
@@ -820,78 +778,6 @@
         `;
     }
 
-    // ИИ-помощник (без API)
-    const aiKnowledge = {
-        "кто такой тоха": "Тоха — это Honesty113, крутой стример, который каждый день радует нас майнкрафтом, хоррорами и общением!",
-        "как начать стримить": "Сначала нужно создать аккаунт на Twitch, настроить OBS и нажать кнопку «Начать трансляцию». Тоха начинал с майнкрафта!",
-        "любимая игра тохи": "Больше всего Тоха любит Minecraft, но иногда играет в Outlast 2, Cyberpunk 2077 и Valorant.",
-        "когда стримы": "Стримы каждый день в 18:00 МСК. Смотри расписание в календаре!",
-        "как предложить идею": "Зайди на вкладку «Предложки», нажми «Новая идея» и напиши своё предложение.",
-        "коллыван": "Коллыван — это легендарный персонаж из мультфильма «Три богатыря». Тоха его обожает!"
-    };
-
-    function renderChat() {
-        const container = document.getElementById('mainContent');
-        container.innerHTML = `
-            <div class="card">
-                <h2>🤖 ИИ-помощник по Тохе</h2>
-                <p>Спроси что-нибудь о Тохи, стримах или сайте!</p>
-                <div class="chat-container" id="chatContainer">
-                    <div class="chat-message">
-                        <div class="chat-avatar">🤖</div>
-                        <div class="chat-bot">Привет! Я знаю всё о Тохе. Спроси меня, например: "кто такой тоха", "когда стримы", "любимая игра тохи".</div>
-                    </div>
-                </div>
-                <div style="display:flex; gap:10px; margin-top:16px;">
-                    <input type="text" id="chatInput" class="input-modern" placeholder="Спроси меня..." style="flex:1;">
-                    <button class="btn-primary" id="chatSendBtn">Отправить</button>
-                </div>
-            </div>
-        `;
-        const chatContainer = document.getElementById('chatContainer');
-        const chatInput = document.getElementById('chatInput');
-        const sendBtn = document.getElementById('chatSendBtn');
-
-        function addMessage(text, isUser = true) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `chat-message ${isUser ? 'chat-user' : ''}`;
-            if (isUser) {
-                messageDiv.innerHTML = `
-                    <div style="flex:1;"></div>
-                    <div class="chat-bot">${escapeHtml(text)}</div>
-                    <div class="chat-avatar">👤</div>
-                `;
-            } else {
-                messageDiv.innerHTML = `
-                    <div class="chat-avatar">🤖</div>
-                    <div class="chat-bot">${escapeHtml(text)}</div>
-                `;
-            }
-            chatContainer.appendChild(messageDiv);
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-        }
-
-        function getBotAnswer(question) {
-            const lower = question.toLowerCase().trim();
-            for (let [key, answer] of Object.entries(aiKnowledge)) {
-                if (lower.includes(key)) return answer;
-            }
-            return "Я пока не знаю ответа на этот вопрос. Попробуй спросить про Тоху, стримы или предложки!";
-        }
-
-        sendBtn.onclick = () => {
-            const text = chatInput.value.trim();
-            if (!text) return;
-            addMessage(text, true);
-            const answer = getBotAnswer(text);
-            setTimeout(() => addMessage(answer, false), 200);
-            chatInput.value = '';
-        };
-        chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendBtn.click();
-        });
-    }
-
     function loadPage(page) {
         document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
         document.querySelector(`[data-page="${page}"]`).classList.add('active');
@@ -900,7 +786,6 @@
         else if (page === 'links') renderLinks();
         else if (page === 'settings') renderSettings();
         else if (page === 'profile') renderProfile();
-        else if (page === 'chat') renderChat();
     }
 
     function escapeHtml(str) {
