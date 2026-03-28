@@ -10,7 +10,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+            font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
             transition: all 0.2s ease;
         }
 
@@ -34,15 +34,12 @@
         body.light .post-tag { background: rgba(145,71,255,0.1); }
         body.light .stat-btn { color: #4a2b6e; }
         body.light .input-modern { background: white; border-color: #bda0e6; color: #1a1028; }
+        body.light .chat-message { background: rgba(0,0,0,0.05); }
+        body.light .chat-bot { background: #e9e0ff; }
 
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes glowPulse {
-            0% { box-shadow: 0 0 5px #9147ff; }
-            50% { box-shadow: 0 0 25px #bf7cff, 0 0 40px #9147ff; }
-            100% { box-shadow: 0 0 5px #9147ff; }
         }
         @keyframes slideIn {
             from { opacity: 0; transform: translateX(-30px); }
@@ -112,7 +109,6 @@
             border-radius: 28px;
             padding: 24px;
             margin-bottom: 24px;
-            transition: all 0.3s ease;
             animation: fadeInUp 0.5s ease;
         }
         .card:hover { border-color: #bf7cff; transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
@@ -216,7 +212,6 @@
         .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center; margin-top: 20px; }
         .calendar-day { background: rgba(0,0,0,0.3); padding: 12px; border-radius: 16px; cursor: pointer; transition: all 0.2s; }
         .calendar-day.has-vod { background: #9147ff; color: white; }
-        .calendar-day.live { background: #ff4444; animation: glowPulse 1s infinite; }
 
         .settings-group {
             margin-bottom: 24px;
@@ -240,6 +235,41 @@
         .profile-stat { text-align: center; }
         .profile-stat-value { font-size: 1.8rem; font-weight: 800; color: #ffd966; }
         .profile-stat-label { font-size: 0.8rem; color: #9b86b3; }
+
+        .chat-container {
+            background: rgba(0,0,0,0.2);
+            border-radius: 24px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+        .chat-message {
+            margin-bottom: 12px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        .chat-bot {
+            background: rgba(145,71,255,0.2);
+            border-radius: 20px;
+            padding: 10px 16px;
+            max-width: 80%;
+        }
+        .chat-user {
+            justify-content: flex-end;
+        }
+        .chat-user .chat-bot {
+            background: rgba(255,255,255,0.1);
+        }
+        .chat-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #9147ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
 
         @media (max-width: 768px) {
             .sidebar { transform: translateX(-100%); width: 260px; }
@@ -268,6 +298,9 @@
             </div>
             <div class="nav-item" data-page="links">
                 <span class="icon">🔗</span> <span>Ссылки</span>
+            </div>
+            <div class="nav-item" data-page="chat">
+                <span class="icon">🤖</span> <span>ИИ-помощник</span>
             </div>
             <div class="nav-divider"></div>
             <div class="nav-item" data-page="settings">
@@ -305,7 +338,7 @@
         <input type="url" id="postLink" class="input-modern" placeholder="Ссылка (YouTube, Twitch...)" style="margin-top:15px;">
         <div style="display:flex; gap:10px; margin-top:20px;">
             <button class="btn-primary" id="submitPostBtn">Опубликовать</button>
-            <button class="btn-primary btn-secondary" onclick="closePostModal()">Отмена</button>
+            <button class="btn-primary btn-secondary" id="closeModalBtn">Отмена</button>
         </div>
     </div>
 </div>
@@ -319,9 +352,11 @@
     let allPosts = [];
     let allComments = {};
     let userVotes = JSON.parse(localStorage.getItem('userVotes')) || {};
-    let settings = JSON.parse(localStorage.getItem('userSettings')) || { theme: 'dark', fontSize: 'medium', animations: true, defaultSort: 'date_desc' };
+    let settings = JSON.parse(localStorage.getItem('userSettings')) || {
+        theme: 'dark', fontSize: 'medium', animations: true, defaultSort: 'date_desc', language: 'ru'
+    };
 
-    // ========== ПРИМЕНЕНИЕ НАСТРОЕК ==========
+    // Применение настроек
     function applySettings() {
         document.body.className = settings.theme;
         document.body.style.fontSize = settings.fontSize === 'large' ? '18px' : settings.fontSize === 'small' ? '14px' : '16px';
@@ -337,7 +372,7 @@
         applySettings();
     }
 
-    // ========== АВТОРИЗАЦИЯ ==========
+    // Авторизация
     function loadUserFromStorage() {
         const saved = localStorage.getItem('twitchUser');
         if (saved) {
@@ -361,7 +396,6 @@
                     localStorage.setItem('twitchUser', JSON.stringify(currentUser));
                     updateUserWidget();
                     window.location.hash = '';
-                    // После логина перезагружаем текущую страницу
                     loadPage(document.querySelector('.nav-item.active').dataset.page);
                 }
             })
@@ -387,7 +421,7 @@
             widget.innerHTML = `
                 <div style="display:flex; align-items:center; gap:10px; background:rgba(145,71,255,0.2); padding:10px; border-radius:40px;">
                     <img src="${currentUser.profile_image_url}" style="width:32px;height:32px;border-radius:50%;">
-                    <span style="font-weight:500;">${currentUser.display_name}</span>
+                    <span style="font-weight:500;">${escapeHtml(currentUser.display_name)}</span>
                     <button onclick="logout()" style="background:none; border:none; color:#ff6b6b; cursor:pointer;">🚪</button>
                 </div>
             `;
@@ -396,7 +430,7 @@
         }
     }
 
-    // ========== API ВЫЗОВЫ ==========
+    // API вызовы
     async function fetchPosts() {
         try {
             const res = await fetch(`${API_BASE}?action=posts`);
@@ -446,7 +480,7 @@
         return await res.json();
     }
 
-    // ========== ОТРИСОВКА СТРАНИЦ ==========
+    // Отрисовка страниц
     async function renderFeed() {
         const container = document.getElementById('mainContent');
         container.innerHTML = '<div class="loading">Загрузка идей...</div>';
@@ -456,6 +490,15 @@
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:15px;">
                 <h2>🎯 Идеи для стрима</h2>
                 <div style="display:flex; gap:10px;">
+                    <select id="categoryFilter" class="input-modern" style="width:auto;">
+                        <option value="all">Все категории</option>
+                        <option value="Видео">🎬 Видео</option>
+                        <option value="Фильм">🎥 Фильм</option>
+                        <option value="Аниме">🍥 Аниме</option>
+                        <option value="Сериал">📺 Сериал</option>
+                        <option value="Игра">🎮 Игра</option>
+                        <option value="Другое">✨ Другое</option>
+                    </select>
                     <select id="sortSelect" class="input-modern" style="width:auto;">
                         <option value="date_desc">📅 Сначала новые</option>
                         <option value="date_asc">📅 Сначала старые</option>
@@ -474,8 +517,15 @@
             saveSettings();
             renderFeed();
         });
+        const categoryFilter = document.getElementById('categoryFilter');
+        categoryFilter.addEventListener('change', () => renderFeed());
         const feedDiv = document.getElementById('feedPosts');
-        let sorted = [...allPosts];
+        let filtered = [...allPosts];
+        const selectedCategory = categoryFilter.value;
+        if (selectedCategory !== 'all') {
+            filtered = filtered.filter(p => p.category === selectedCategory);
+        }
+        let sorted = [...filtered];
         if (settings.defaultSort === 'date_desc') sorted.sort((a,b) => new Date(b.date) - new Date(a.date));
         else if (settings.defaultSort === 'date_asc') sorted.sort((a,b) => new Date(a.date) - new Date(b.date));
         else sorted.sort((a,b) => (b.rating || 0) - (a.rating || 0));
@@ -606,6 +656,7 @@
         closePostModal();
         await renderFeed();
     };
+    document.getElementById('closeModalBtn').onclick = closePostModal;
 
     async function renderCalendar() {
         const container = document.getElementById('mainContent');
@@ -707,6 +758,13 @@
                         <div class="settings-option ${settings.defaultSort === 'rating_desc' ? 'active' : ''}" data-setting="defaultSort" data-value="rating_desc">По рейтингу</div>
                     </div>
                 </div>
+                <div class="settings-group">
+                    <div class="settings-label">🌐 Язык интерфейса</div>
+                    <div class="settings-options">
+                        <div class="settings-option ${settings.language === 'ru' ? 'active' : ''}" data-setting="language" data-value="ru">Русский</div>
+                        <div class="settings-option ${settings.language === 'en' ? 'active' : ''}" data-setting="language" data-value="en">English</div>
+                    </div>
+                </div>
             </div>
         `;
         document.querySelectorAll('.settings-option').forEach(opt => {
@@ -717,10 +775,8 @@
                 else settings[setting] = value;
                 saveSettings();
                 renderSettings();
-                // Если сортировка, перезагружаем ленту
-                if (setting === 'defaultSort') {
-                    loadPage('feed');
-                }
+                if (setting === 'defaultSort') loadPage('feed');
+                if (setting === 'language') loadPage('feed');
             };
         });
     }
@@ -759,18 +815,80 @@
                 </div>
                 <h3>🔥 Мои идеи</h3>
                 ${myPosts.length ? myPosts.map(p => `<div class="post-content" style="margin-top:10px; padding:10px; background:rgba(0,0,0,0.2); border-radius:20px;">📌 ${escapeHtml(p.title || p.text.substring(0,50))} 👍 ${p.rating || 0}</div>`).join('') : '<p>Нет идей</p>'}
-                <button class="btn-primary" style="margin-top:20px;" onclick="logout()">🚪 Выйти</button>
+                <button class="btn-primary" style="margin-top:20px;" onclick="logout()">🚪 Выйти из аккаунта</button>
             </div>
         `;
     }
 
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
+    // ИИ-помощник (без API)
+    const aiKnowledge = {
+        "кто такой тоха": "Тоха — это Honesty113, крутой стример, который каждый день радует нас майнкрафтом, хоррорами и общением!",
+        "как начать стримить": "Сначала нужно создать аккаунт на Twitch, настроить OBS и нажать кнопку «Начать трансляцию». Тоха начинал с майнкрафта!",
+        "любимая игра тохи": "Больше всего Тоха любит Minecraft, но иногда играет в Outlast 2, Cyberpunk 2077 и Valorant.",
+        "когда стримы": "Стримы каждый день в 18:00 МСК. Смотри расписание в календаре!",
+        "как предложить идею": "Зайди на вкладку «Предложки», нажми «Новая идея» и напиши своё предложение.",
+        "коллыван": "Коллыван — это легендарный персонаж из мультфильма «Три богатыря». Тоха его обожает!"
+    };
+
+    function renderChat() {
+        const container = document.getElementById('mainContent');
+        container.innerHTML = `
+            <div class="card">
+                <h2>🤖 ИИ-помощник по Тохе</h2>
+                <p>Спроси что-нибудь о Тохи, стримах или сайте!</p>
+                <div class="chat-container" id="chatContainer">
+                    <div class="chat-message">
+                        <div class="chat-avatar">🤖</div>
+                        <div class="chat-bot">Привет! Я знаю всё о Тохе. Спроси меня, например: "кто такой тоха", "когда стримы", "любимая игра тохи".</div>
+                    </div>
+                </div>
+                <div style="display:flex; gap:10px; margin-top:16px;">
+                    <input type="text" id="chatInput" class="input-modern" placeholder="Спроси меня..." style="flex:1;">
+                    <button class="btn-primary" id="chatSendBtn">Отправить</button>
+                </div>
+            </div>
+        `;
+        const chatContainer = document.getElementById('chatContainer');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('chatSendBtn');
+
+        function addMessage(text, isUser = true) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${isUser ? 'chat-user' : ''}`;
+            if (isUser) {
+                messageDiv.innerHTML = `
+                    <div style="flex:1;"></div>
+                    <div class="chat-bot">${escapeHtml(text)}</div>
+                    <div class="chat-avatar">👤</div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="chat-avatar">🤖</div>
+                    <div class="chat-bot">${escapeHtml(text)}</div>
+                `;
+            }
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function getBotAnswer(question) {
+            const lower = question.toLowerCase().trim();
+            for (let [key, answer] of Object.entries(aiKnowledge)) {
+                if (lower.includes(key)) return answer;
+            }
+            return "Я пока не знаю ответа на этот вопрос. Попробуй спросить про Тоху, стримы или предложки!";
+        }
+
+        sendBtn.onclick = () => {
+            const text = chatInput.value.trim();
+            if (!text) return;
+            addMessage(text, true);
+            const answer = getBotAnswer(text);
+            setTimeout(() => addMessage(answer, false), 200);
+            chatInput.value = '';
+        };
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendBtn.click();
         });
     }
 
@@ -782,6 +900,17 @@
         else if (page === 'links') renderLinks();
         else if (page === 'settings') renderSettings();
         else if (page === 'profile') renderProfile();
+        else if (page === 'chat') renderChat();
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
     }
 
     document.querySelectorAll('.nav-item').forEach(item => {
