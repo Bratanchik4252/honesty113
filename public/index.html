@@ -14,7 +14,6 @@
             transition: all 0.2s ease;
         }
 
-        /* ===== ТЕМЫ ===== */
         body {
             min-height: 100vh;
             overflow-x: hidden;
@@ -36,7 +35,6 @@
         body.light .stat-btn { color: #4a2b6e; }
         body.light .input-modern { background: white; border-color: #bda0e6; color: #1a1028; }
 
-        /* ===== АНИМАЦИИ ===== */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
@@ -51,13 +49,11 @@
             to { opacity: 1; transform: translateX(0); }
         }
 
-        /* ===== ЛАЙАУТ ===== */
         .app {
             display: flex;
             min-height: 100vh;
         }
 
-        /* ===== САЙДБАР ===== */
         .sidebar {
             width: 280px;
             background: rgba(18, 12, 28, 0.7);
@@ -102,7 +98,6 @@
         .nav-divider { height: 1px; background: rgba(165, 91, 224, 0.2); margin: 15px 0; }
         .sidebar-bottom { margin-top: auto; padding-top: 20px; }
 
-        /* ===== ОСНОВНОЙ КОНТЕНТ ===== */
         .main-content {
             flex: 1;
             margin-left: 280px;
@@ -110,7 +105,6 @@
             transition: all 0.3s ease;
         }
 
-        /* ===== КАРТОЧКИ ===== */
         .card {
             background: rgba(26, 16, 40, 0.6);
             backdrop-filter: blur(12px);
@@ -123,7 +117,6 @@
         }
         .card:hover { border-color: #bf7cff; transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
 
-        /* ===== ПОСТЫ ===== */
         .post-header { display: flex; gap: 15px; margin-bottom: 15px; }
         .post-avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #bf7cff; }
         .post-author { font-weight: 700; font-size: 1.1rem; }
@@ -135,14 +128,12 @@
         .stat-btn:hover { color: #bf7cff; transform: scale(1.05); }
         .stat-btn.active { color: #ffd966; }
 
-        /* ===== КОММЕНТАРИИ ===== */
         .comment-section { margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(165, 91, 224, 0.2); }
         .comment { display: flex; gap: 12px; margin-bottom: 15px; }
         .comment-avatar { width: 32px; height: 32px; border-radius: 50%; }
         .comment-bubble { background: rgba(0,0,0,0.3); border-radius: 20px; padding: 10px 15px; flex: 1; }
         .comment-meta { font-size: 0.7rem; color: #9b86b3; margin-bottom: 5px; }
 
-        /* ===== ФОРМЫ ===== */
         .input-modern {
             background: rgba(0,0,0,0.3);
             border: 1px solid rgba(165, 91, 224, 0.5);
@@ -190,7 +181,6 @@
             border: 1px solid #bf7cff;
         }
 
-        /* ===== ССЫЛКИ (СОВРЕМЕННЫЕ КВАДРАТЫ) ===== */
         .links-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -223,28 +213,18 @@
         .link-name { font-weight: 700; font-size: 1.1rem; }
         .link-url { font-size: 0.7rem; color: #9b86b3; word-break: break-all; }
 
-        /* ===== КАЛЕНДАРЬ ===== */
         .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center; margin-top: 20px; }
         .calendar-day { background: rgba(0,0,0,0.3); padding: 12px; border-radius: 16px; cursor: pointer; transition: all 0.2s; }
         .calendar-day.has-vod { background: #9147ff; color: white; }
         .calendar-day.live { background: #ff4444; animation: glowPulse 1s infinite; }
 
-        /* ===== НАСТРОЙКИ ===== */
         .settings-group {
             margin-bottom: 24px;
             padding-bottom: 16px;
             border-bottom: 1px solid rgba(165, 91, 224, 0.2);
         }
-        .settings-label {
-            font-weight: 600;
-            margin-bottom: 12px;
-            display: block;
-        }
-        .settings-options {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
+        .settings-label { font-weight: 600; margin-bottom: 12px; display: block; }
+        .settings-options { display: flex; gap: 16px; flex-wrap: wrap; }
         .settings-option {
             background: rgba(0,0,0,0.3);
             padding: 8px 20px;
@@ -252,39 +232,15 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-        .settings-option.active {
-            background: linear-gradient(145deg, #9147ff, #6e2bc7);
-            color: white;
-        }
+        .settings-option.active { background: linear-gradient(145deg, #9147ff, #6e2bc7); color: white; }
 
-        /* ===== ПРОФИЛЬ ===== */
-        .profile-header {
-            display: flex;
-            gap: 24px;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-bottom: 24px;
-        }
-        .profile-avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 3px solid #bf7cff;
-            object-fit: cover;
-        }
-        .profile-stats {
-            display: flex;
-            gap: 32px;
-            flex-wrap: wrap;
-            margin: 20px 0;
-        }
-        .profile-stat {
-            text-align: center;
-        }
+        .profile-header { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; margin-bottom: 24px; }
+        .profile-avatar { width: 100px; height: 100px; border-radius: 50%; border: 3px solid #bf7cff; object-fit: cover; }
+        .profile-stats { display: flex; gap: 32px; flex-wrap: wrap; margin: 20px 0; }
+        .profile-stat { text-align: center; }
         .profile-stat-value { font-size: 1.8rem; font-weight: 800; color: #ffd966; }
         .profile-stat-label { font-size: 0.8rem; color: #9b86b3; }
 
-        /* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
         @media (max-width: 768px) {
             .sidebar { transform: translateX(-100%); width: 260px; }
             .sidebar.open { transform: translateX(0); }
@@ -365,25 +321,20 @@
     let userVotes = JSON.parse(localStorage.getItem('userVotes')) || {};
     let settings = JSON.parse(localStorage.getItem('userSettings')) || { theme: 'dark', fontSize: 'medium', animations: true, defaultSort: 'date_desc' };
 
-    // ========== НАСТРОЙКИ ==========
+    // ========== ПРИМЕНЕНИЕ НАСТРОЕК ==========
     function applySettings() {
         document.body.className = settings.theme;
         document.body.style.fontSize = settings.fontSize === 'large' ? '18px' : settings.fontSize === 'small' ? '14px' : '16px';
         if (!settings.animations) {
             document.querySelectorAll('*').forEach(el => el.style.animation = 'none');
+        } else {
+            document.querySelectorAll('*').forEach(el => el.style.animation = '');
         }
     }
 
     function saveSettings() {
         localStorage.setItem('userSettings', JSON.stringify(settings));
         applySettings();
-        if (currentUser) {
-            fetch(`${API_BASE}?action=saveSettings`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userId: currentUser.id, settings })
-            }).catch(console.error);
-        }
     }
 
     // ========== АВТОРИЗАЦИЯ ==========
@@ -410,8 +361,11 @@
                     localStorage.setItem('twitchUser', JSON.stringify(currentUser));
                     updateUserWidget();
                     window.location.hash = '';
+                    // После логина перезагружаем текущую страницу
+                    loadPage(document.querySelector('.nav-item.active').dataset.page);
                 }
-            });
+            })
+            .catch(err => console.error('Auth error:', err));
         }
     }
 
@@ -444,13 +398,25 @@
 
     // ========== API ВЫЗОВЫ ==========
     async function fetchPosts() {
-        const res = await fetch(`${API_BASE}?action=posts`);
-        allPosts = await res.json();
+        try {
+            const res = await fetch(`${API_BASE}?action=posts`);
+            if (!res.ok) throw new Error('HTTP error');
+            allPosts = await res.json();
+        } catch (err) {
+            console.error('Failed to fetch posts:', err);
+            allPosts = [];
+        }
     }
 
     async function fetchComments(postId) {
-        const res = await fetch(`${API_BASE}?action=comments&postId=${postId}`);
-        allComments[postId] = await res.json();
+        try {
+            const res = await fetch(`${API_BASE}?action=comments&postId=${postId}`);
+            if (!res.ok) throw new Error('HTTP error');
+            allComments[postId] = await res.json();
+        } catch (err) {
+            console.error('Failed to fetch comments:', err);
+            allComments[postId] = [];
+        }
     }
 
     async function createPost(postData) {
@@ -501,8 +467,9 @@
             <div id="feedPosts"></div>
         `;
         if (currentUser) document.getElementById('newPostBtn').addEventListener('click', openPostModal);
-        document.getElementById('sortSelect').value = settings.defaultSort || 'date_desc';
-        document.getElementById('sortSelect').addEventListener('change', (e) => {
+        const sortSelect = document.getElementById('sortSelect');
+        sortSelect.value = settings.defaultSort;
+        sortSelect.addEventListener('change', (e) => {
             settings.defaultSort = e.target.value;
             saveSettings();
             renderFeed();
@@ -524,14 +491,14 @@
                 <div class="post-header">
                     <img class="post-avatar" src="${post.avatar || 'https://static-cdn.jtvnw.net/user-default-pictures-uv/13e5d884-3c7e-4c9a-9c6c-6f3c6d5f8e6a-profile_image-70x70.png'}">
                     <div>
-                        <div class="post-author">${post.nick}</div>
+                        <div class="post-author">${escapeHtml(post.nick)}</div>
                         <div class="post-time">${post.date}</div>
                     </div>
                 </div>
-                <div class="post-content"><strong>${post.title || ''}</strong><br>${post.text}</div>
+                <div class="post-content"><strong>${escapeHtml(post.title || '')}</strong><br>${escapeHtml(post.text || '')}</div>
                 <div>
                     <span class="post-tag">${getCategoryEmoji(post.category)} ${post.category}</span>
-                    ${post.game ? `<span class="post-tag">🎮 ${post.game}</span>` : ''}
+                    ${post.game ? `<span class="post-tag">🎮 ${escapeHtml(post.game)}</span>` : ''}
                     ${post.link ? `<span class="post-tag"><a href="${post.link}" target="_blank" style="color:#bf7cff;">🔗 ссылка</a></span>` : ''}
                 </div>
                 <div class="post-stats">
@@ -557,8 +524,8 @@
             <div class="comment">
                 <img class="comment-avatar" src="${comment.avatar || 'https://static-cdn.jtvnw.net/user-default-pictures-uv/13e5d884-3c7e-4c9a-9c6c-6f3c6d5f8e6a-profile_image-70x70.png'}">
                 <div class="comment-bubble">
-                    <div class="comment-meta"><strong>${comment.nick}</strong> · ${comment.date}</div>
-                    <div>${comment.text}</div>
+                    <div class="comment-meta"><strong>${escapeHtml(comment.nick)}</strong> · ${comment.date}</div>
+                    <div>${escapeHtml(comment.text)}</div>
                 </div>
             </div>
         `;
@@ -643,22 +610,27 @@
     async function renderCalendar() {
         const container = document.getElementById('mainContent');
         container.innerHTML = '<div class="loading">Загрузка календаря...</div>';
-        const res = await fetch(`${API_BASE}?action=vods`);
-        const vods = await res.json();
-        const today = new Date();
-        const year = today.getFullYear();
-        const month = today.getMonth();
-        const firstDay = new Date(year, month, 1).getDay();
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-        let html = '<div class="card"><h2>📅 Календарь стримов</h2><div class="calendar-grid">';
-        for (let i = 0; i < firstDay; i++) html += '<div></div>';
-        for (let d = 1; d <= daysInMonth; d++) {
-            const dateStr = `${d}.${month+1}.${year}`;
-            const hasVod = vods.some(v => v.date === dateStr);
-            html += `<div class="calendar-day ${hasVod ? 'has-vod' : ''}" onclick="window.open('${hasVod ? vods.find(v=>v.date===dateStr).url : 'https://twitch.tv/honesty113'}', '_blank')">${d}</div>`;
+        try {
+            const res = await fetch(`${API_BASE}?action=vods`);
+            if (!res.ok) throw new Error();
+            const vods = await res.json();
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = today.getMonth();
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            let html = '<div class="card"><h2>📅 Календарь стримов</h2><div class="calendar-grid">';
+            for (let i = 0; i < firstDay; i++) html += '<div></div>';
+            for (let d = 1; d <= daysInMonth; d++) {
+                const dateStr = `${d}.${month+1}.${year}`;
+                const hasVod = vods.some(v => v.date === dateStr);
+                html += `<div class="calendar-day ${hasVod ? 'has-vod' : ''}" onclick="window.open('${hasVod ? vods.find(v=>v.date===dateStr).url : 'https://twitch.tv/honesty113'}', '_blank')">${d}</div>`;
+            }
+            html += '</div></div>';
+            container.innerHTML = html;
+        } catch (err) {
+            container.innerHTML = '<div class="card"><h2>📅 Календарь стримов</h2><p>Ошибка загрузки календаря</p></div>';
         }
-        html += '</div></div>';
-        container.innerHTML = html;
     }
 
     function renderLinks() {
@@ -745,7 +717,10 @@
                 else settings[setting] = value;
                 saveSettings();
                 renderSettings();
-                renderFeed();
+                // Если сортировка, перезагружаем ленту
+                if (setting === 'defaultSort') {
+                    loadPage('feed');
+                }
             };
         });
     }
@@ -758,12 +733,13 @@
         await fetchPosts();
         const myPosts = allPosts.filter(p => p.authorId === currentUser.id);
         const totalRating = myPosts.reduce((sum,p) => sum + (p.rating || 0), 0);
+        const commentsCount = myPosts.reduce((sum,p) => sum + (allComments[p.id] ? allComments[p.id].length : 0), 0);
         document.getElementById('mainContent').innerHTML = `
             <div class="card">
                 <div class="profile-header">
                     <img src="${currentUser.profile_image_url}" class="profile-avatar">
                     <div>
-                        <h2>${currentUser.display_name}</h2>
+                        <h2>${escapeHtml(currentUser.display_name)}</h2>
                         <p>Twitch ID: ${currentUser.id}</p>
                     </div>
                 </div>
@@ -777,15 +753,25 @@
                         <div class="profile-stat-label">Рейтинг</div>
                     </div>
                     <div class="profile-stat">
-                        <div class="profile-stat-value">${myPosts.reduce((sum,p) => sum + (p.commentsCount || 0), 0)}</div>
+                        <div class="profile-stat-value">${commentsCount}</div>
                         <div class="profile-stat-label">Комментариев</div>
                     </div>
                 </div>
                 <h3>🔥 Мои идеи</h3>
-                ${myPosts.length ? myPosts.map(p => `<div class="post-content" style="margin-top:10px; padding:10px; background:rgba(0,0,0,0.2); border-radius:20px;">📌 ${p.title || p.text.substring(0,50)} 👍 ${p.rating || 0}</div>`).join('') : '<p>Нет идей</p>'}
+                ${myPosts.length ? myPosts.map(p => `<div class="post-content" style="margin-top:10px; padding:10px; background:rgba(0,0,0,0.2); border-radius:20px;">📌 ${escapeHtml(p.title || p.text.substring(0,50))} 👍 ${p.rating || 0}</div>`).join('') : '<p>Нет идей</p>'}
                 <button class="btn-primary" style="margin-top:20px;" onclick="logout()">🚪 Выйти</button>
             </div>
         `;
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
     }
 
     function loadPage(page) {
