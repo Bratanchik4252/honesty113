@@ -4,19 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Honesty113 | Фан-портал</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="/IkonkaTOXA" type="image/png">
     <style>
+        :root {
+            --accent: #9147ff;
+            --accent2: #bf7cff;
+            --radius: 20px;
+            --shadow: 0 12px 40px rgba(0,0,0,0.35);
+        }
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
-            transition: all 0.2s ease;
+            transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         body {
             min-height: 100vh;
             overflow-x: hidden;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
         body.dark {
             background: radial-gradient(circle at 20% 30%, #0a0415, #020108);
@@ -96,20 +106,30 @@
         .main-content {
             flex: 1;
             margin-left: 280px;
-            padding: 30px 40px;
+            min-width: 0;
+            padding: 24px 20px 48px;
             transition: all 0.3s ease;
+        }
+        .main-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            width: 100%;
         }
 
         .card {
-            background: rgba(26, 16, 40, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(165, 91, 224, 0.3);
-            border-radius: 28px;
-            padding: 24px;
-            margin-bottom: 24px;
-            animation: fadeInUp 0.5s ease;
+            background: rgba(26, 16, 40, 0.72);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(165, 91, 224, 0.28);
+            border-radius: var(--radius);
+            padding: 22px 24px;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.45s ease;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+            overflow-wrap: anywhere;
+            word-break: break-word;
         }
-        .card:hover { border-color: #bf7cff; transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+        .card:hover { border-color: var(--accent2); box-shadow: var(--shadow); }
+        body.light .card { box-shadow: 0 4px 20px rgba(80,40,120,0.08); }
 
         .post-header { display: flex; gap: 15px; margin-bottom: 15px; }
         .post-avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #bf7cff; }
@@ -128,17 +148,24 @@
         .comment-bubble { background: rgba(0,0,0,0.3); border-radius: 20px; padding: 10px 15px; flex: 1; }
         .comment-meta { font-size: 0.7rem; color: #9b86b3; margin-bottom: 5px; }
 
-        .input-modern {
-            background: rgba(0,0,0,0.3);
-            border: 1px solid rgba(165, 91, 224, 0.5);
-            border-radius: 60px;
-            padding: 12px 20px;
+        .input-modern, select.input-modern {
+            background: rgba(0,0,0,0.35);
+            border: 1px solid rgba(165, 91, 224, 0.45);
+            border-radius: 16px;
+            padding: 12px 18px;
             color: white;
             width: 100%;
-            transition: all 0.2s;
+            max-width: 100%;
+            min-width: 0;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
-        .input-modern:focus { outline: none; border-color: #bf7cff; box-shadow: 0 0 10px #bf7cff; }
-        textarea.input-modern { border-radius: 24px; resize: vertical; }
+        select.input-modern {
+            cursor: pointer;
+            appearance: auto;
+            padding-right: 12px;
+        }
+        .input-modern:focus { outline: none; border-color: var(--accent2); box-shadow: 0 0 0 3px rgba(191,124,255,0.2); }
+        textarea.input-modern { border-radius: 18px; resize: vertical; min-height: 88px; }
 
         .btn-primary {
             background: linear-gradient(145deg, #9147ff, #6e2bc7);
@@ -173,7 +200,59 @@
             max-width: 500px;
             width: 90%;
             border: 1px solid #bf7cff;
+            max-height: 92vh;
+            overflow-y: auto;
         }
+        .modal-content.modal-wide { max-width: 560px; }
+        body.light .modal-content { background: #faf8ff; border-color: #9147ff; color: #1a1028; }
+
+        .suggest-dropzone {
+            border: 2px dashed rgba(165, 91, 224, 0.55);
+            border-radius: 24px;
+            padding: 28px 20px;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 16px;
+            background: rgba(0,0,0,0.2);
+            transition: border-color 0.2s, background 0.2s;
+        }
+        body.light .suggest-dropzone { background: rgba(145,71,255,0.06); border-color: rgba(145,71,255,0.4); }
+        .suggest-dropzone:hover, .suggest-dropzone.dragover {
+            border-color: #bf7cff;
+            background: rgba(145, 71, 255, 0.12);
+        }
+        .suggest-dropzone p { color: #9b86b3; font-size: 0.88rem; line-height: 1.45; margin-top: 8px; }
+        body.light .suggest-dropzone p { color: #5c4a72; }
+        .suggest-preview-wrap { margin: 12px 0; position: relative; display: none; }
+        .suggest-preview-wrap.visible { display: block; }
+        .suggest-preview-wrap img {
+            max-width: 100%; max-height: 220px; border-radius: 16px; object-fit: contain;
+            border: 1px solid rgba(165, 91, 224, 0.4);
+        }
+        .suggest-remove-media {
+            margin-top: 8px; font-size: 0.85rem; color: #ff6b6b; cursor: pointer; background: none; border: none;
+        }
+        .char-count { font-size: 0.75rem; color: #9b86b3; text-align: right; margin-top: 4px; }
+        body.light .char-count { color: #6b5a7a; }
+        .nsfw-row {
+            display: flex; align-items: flex-start; gap: 12px; margin: 16px 0;
+            padding: 14px; border-radius: 16px; background: rgba(255, 107, 107, 0.08); border: 1px solid rgba(255,107,107,0.25);
+        }
+        .nsfw-row input { margin-top: 4px; }
+        .nsfw-row label { font-size: 0.9rem; line-height: 1.4; cursor: pointer; }
+
+        .post-media-wrap {
+            margin: 14px 0; border-radius: 20px; overflow: hidden; position: relative;
+            border: 1px solid rgba(165, 91, 224, 0.35);
+        }
+        .post-media-wrap img { width: 100%; max-height: 420px; object-fit: contain; display: block; background: rgba(0,0,0,0.25); }
+        .post-media--censored img { filter: blur(28px); transform: scale(1.08); }
+        .post-media-hint {
+            position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+            padding: 16px; text-align: center; font-weight: 600; font-size: 0.95rem;
+            background: rgba(10, 4, 21, 0.55); color: #f0e6ff;
+        }
+        .post-tag.nsfw-tag { background: rgba(255, 107, 107, 0.25); border: 1px solid rgba(255,107,107,0.4); }
 
         .links-grid {
             display: grid;
@@ -229,6 +308,41 @@
 
         .profile-header { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; margin-bottom: 24px; }
         .profile-avatar { width: 100px; height: 100px; border-radius: 50%; border: 3px solid #bf7cff; object-fit: cover; }
+        .profile-layout { display: grid; gap: 20px; grid-template-columns: 1fr; align-items: start; }
+        .profile-main { min-width: 0; }
+        @media (min-width: 960px) {
+            .profile-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+            .profile-badges-aside { position: sticky; top: 16px; max-height: calc(100vh - 32px); overflow-y: auto; }
+        }
+        .profile-badges-aside {
+            padding: 16px; border-radius: var(--radius); background: rgba(0,0,0,0.22);
+            border: 1px solid rgba(165,91,224,0.3);
+        }
+        body.light .profile-badges-aside { background: rgba(255,255,255,0.75); border-color: rgba(145,71,255,0.25); }
+        .badge-progress { font-size: 0.85rem; opacity: 0.85; font-weight: 600; }
+        .badge-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(52px, 1fr)); gap: 8px; margin-top: 8px; }
+        .badge-cell {
+            aspect-ratio: 1; border-radius: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 4px; text-align: center; cursor: default; border: 1px solid rgba(165,91,224,0.25);
+            font-size: 0.65rem; line-height: 1.15; transition: transform 0.15s ease, filter 0.15s ease, opacity 0.15s ease;
+        }
+        .badge-cell.unlocked { background: rgba(145,71,255,0.22); border-color: rgba(191,124,255,0.55); }
+        .badge-cell.locked { opacity: 0.38; filter: grayscale(0.85); }
+        .badge-cell.secret-b.locked { filter: grayscale(1); }
+        .badge-emoji { font-size: 1.35rem; line-height: 1; }
+        .badge-name { display: none; }
+        @media (min-width: 400px) {
+            .badge-grid { grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); }
+            .badge-name { display: block; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-top: 4px; }
+            .badge-cell { font-size: 0.68rem; }
+        }
+        .badge-section-title {
+            font-size: 0.78rem; font-weight: 700; color: #bf7cff; margin: 14px 0 6px; padding-bottom: 4px;
+            border-bottom: 1px solid rgba(165,91,224,0.2);
+        }
+        .badge-section-title:first-child { margin-top: 0; }
+        body.light .badge-section-title { color: #6e2bc7; }
+
         .profile-stats { display: flex; gap: 32px; flex-wrap: wrap; margin: 20px 0; }
         .profile-stat { text-align: center; }
         .profile-stat-value { font-size: 1.8rem; font-weight: 800; color: #ffd966; }
@@ -243,9 +357,123 @@
         .menu-toggle { display: none; }
 
         .loading { text-align: center; padding: 50px; color: #bda0e6; }
+
+        #appLoader {
+            position: fixed; inset: 0; z-index: 9999; background: rgba(10,4,21,0.92);
+            display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 16px;
+            opacity: 0; pointer-events: none; transition: opacity 0.35s ease;
+        }
+        #appLoader.visible { opacity: 1; pointer-events: auto; }
+        .loader-spin { width: 48px; height: 48px; border: 4px solid rgba(191,124,255,0.25); border-top-color: #bf7cff; border-radius: 50%;
+            animation: spin 0.85s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        #scrollTopBtn {
+            position: fixed; bottom: 28px; right: 28px; z-index: 500; width: 52px; height: 52px; border-radius: 50%;
+            border: none; cursor: pointer; background: linear-gradient(145deg, #9147ff, #6e2bc7); color: white; font-size: 1.3rem;
+            box-shadow: 0 8px 24px rgba(145,71,255,0.45); display: none;
+        }
+        #scrollTopBtn.visible { display: flex; align-items: center; justify-content: center; }
+        #netToast {
+            position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%); z-index: 600;
+            background: rgba(26,16,40,0.95); border: 1px solid #bf7cff; padding: 10px 20px; border-radius: 40px; font-size: 0.9rem;
+            display: none;
+        }
+        #netToast.visible { display: block; }
+        html.no-anim *, html.no-anim *::before, html.no-anim *::after { transition: none !important; animation: none !important; }
+
+        .feed-toolbar { margin-bottom: 20px; }
+        .feed-title { margin-bottom: 14px; }
+        .toolbar-rows { display: flex; flex-direction: column; gap: 12px; }
+        .toolbar-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+        .tb-label { font-size: 0.8rem; color: #9b86b3; }
+        .tb-select { width: auto !important; min-width: 140px; }
+        .tb-input { flex: 1; min-width: 160px; max-width: 280px; }
+        .tb-check { font-size: 0.85rem; display: flex; align-items: center; gap: 8px; cursor: pointer; }
+
+        .forum-row { display: flex; gap: 18px; cursor: pointer; align-items: flex-start; text-align: left; }
+        .forum-row.post-own { border-color: #ffd966; box-shadow: 0 0 0 1px rgba(255,217,102,0.35); }
+        .compact-thumb { width: 100px; min-width: 100px; height: 72px; border-radius: 14px; overflow: hidden; background: rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; }
+        .compact-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .compact-thumb--blur img { filter: blur(12px); transform: scale(1.05); }
+        .forum-row-main { flex: 1; min-width: 0; }
+        .forum-row-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 6px; }
+        .forum-row-meta { font-size: 0.75rem; color: #9b86b3; margin-bottom: 6px; }
+        .forum-row-snippet { font-size: 0.88rem; color: #c9b8e0; line-height: 1.4; margin-bottom: 8px; }
+        .forum-row-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .tag-click { cursor: pointer; border: none; font: inherit; }
+
+        .thread-nav { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+        .thread-h1 { font-size: 1.45rem; margin: 12px 0; }
+        .thread-body { white-space: pre-wrap; }
+        .coauthors { font-size: 0.9rem; color: #bda0e6; margin: 10px 0; }
+        .thread-actions { flex-wrap: wrap; }
+        .boost-inline { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 8px; max-width: 100%; }
+        .boost-label { font-size: 0.88rem; opacity: 0.92; display: inline-flex; align-items: center; gap: 6px; }
+        .boost-amt { width: 72px; padding: 6px 8px; }
+        .sticker-bar { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+        .sticker-btn { background: rgba(0,0,0,0.35); border: 1px solid rgba(165,91,224,0.4); border-radius: 12px; padding: 6px 10px; cursor: pointer; font-size: 1.1rem; }
+        .reply-hint { font-size: 0.85rem; color: #ffd966; margin-bottom: 8px; }
+        .hint-login, .hint-bar { color: #9b86b3; font-size: 0.9rem; }
+
+        .stream-strip { margin-bottom: 16px; font-size: 0.95rem; }
+        .stream-live { border-color: #ff4466 !important; background: rgba(255,68,102,0.12) !important; }
+        .stream-offline a { color: #bf7cff; }
+
+        .link-preview-box { display: flex; gap: 12px; align-items: center; margin-top: 14px; padding: 14px; border-radius: 16px;
+            background: rgba(0,0,0,0.25); border: 1px solid rgba(165,91,224,0.35); text-decoration: none; color: inherit; }
+        .lp-host { font-weight: 600; color: #bf7cff; }
+        .lp-url { font-size: 0.75rem; color: #9b86b3; word-break: break-all; }
+
+        .stat-list { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+        .stat-row { display: flex; justify-content: space-between; padding: 10px 14px; background: rgba(0,0,0,0.2); border-radius: 12px; }
+        .badge { display: inline-block; margin: 4px 6px 0 0; padding: 4px 10px; border-radius: 20px; background: rgba(145,71,255,0.25); font-size: 0.8rem; }
+        .hist-row { padding: 10px; margin-top: 8px; border-radius: 12px; background: rgba(0,0,0,0.2); cursor: pointer; }
+        .btn-xs { margin-left: 8px; padding: 4px 10px; border-radius: 8px; border: 1px solid #9147ff; background: rgba(145,71,255,0.2); color: inherit; cursor: pointer; }
+        .wallet-row, .mod-item { padding: 10px; margin: 8px 0; border-radius: 12px; background: rgba(0,0,0,0.2); }
+
+        .mention { color: #7ec8ff; font-weight: 600; }
+        .spoiler-wrap { display: inline-block; }
+        .spoiler-btn { background: rgba(145,71,255,0.35); border: none; color: inherit; padding: 2px 10px; border-radius: 8px; cursor: pointer; font-size: 0.8rem; margin-right: 6px; }
+        .spoiler-body { display: none; }
+        .spoiler-wrap.revealed .spoiler-body { display: inline; }
+        .spoiler-wrap.revealed .spoiler-btn { display: none; }
+
+        .comment-quote { font-size: 0.8rem; color: #9b86b3; border-left: 3px solid #9147ff; padding-left: 10px; margin-bottom: 8px; }
+        .quote-btn { background: none; border: none; color: #bf7cff; cursor: pointer; margin-left: 8px; font-size: 0.85rem; }
+        .comment-more { background: none; border: none; color: #bf7cff; cursor: pointer; font-size: 0.85rem; margin-top: 6px; }
+
+        .load-more-wrap { text-align: center; margin: 24px 0; }
+        .feed-toolbar .toolbar-row { align-items: stretch; }
+        .feed-toolbar .tb-select, .feed-toolbar .tb-input { max-width: 100%; }
+        .forum-row-title, .forum-row-snippet { overflow-wrap: anywhere; }
+        .mod-layout { display: grid; gap: 20px; grid-template-columns: 1fr; }
+        @media (min-width: 900px) {
+            .mod-layout { grid-template-columns: 1fr 1fr; }
+        }
+        .mod-user-card {
+            margin-top: 14px; padding: 16px; border-radius: 16px;
+            background: rgba(0,0,0,0.25); border: 1px solid rgba(165,91,224,0.35);
+        }
+        .mod-queue-item {
+            padding: 14px; margin-bottom: 10px; border-radius: 14px;
+            background: rgba(0,0,0,0.2); border: 1px solid rgba(165,91,224,0.2);
+        }
+        .search-hit {
+            display: block; width: 100%; text-align: left; margin-bottom: 8px;
+            padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(165,91,224,0.35);
+            background: rgba(0,0,0,0.2); color: inherit; cursor: pointer; font: inherit;
+        }
+        .search-hit:hover, .search-hit.active { border-color: var(--accent2); background: rgba(145,71,255,0.15); }
     </style>
 </head>
 <body class="dark">
+<datalist id="categoryPresets">
+    <option value="Видео"><option value="Фильм"><option value="Аниме"><option value="Сериал"><option value="Игра"><option value="Другое">
+    <option value="Клипы"><option value="Музыка"><option value="IRL"><option value="Арт"><option value="Мемы">
+</datalist>
+<div id="appLoader"><div class="loader-spin"></div><span>Загрузка…</span></div>
+<button type="button" id="scrollTopBtn" title="Наверх" aria-label="Наверх">↑</button>
+<div id="netToast"></div>
 <div class="app">
     <div class="sidebar" id="sidebar">
         <div class="sidebar-top">
@@ -254,20 +482,29 @@
                 <p>фан-портал</p>
             </div>
             <div class="nav-item active" data-page="feed">
-                <span class="icon">🎯</span> <span>Предложки</span>
+                <span class="icon">🎯</span> <span data-i18n="nav_feed">Лента</span>
+            </div>
+            <div class="nav-item" data-page="videos">
+                <span class="icon">🎬</span> <span data-i18n="nav_videos">Видосы</span>
+            </div>
+            <div class="nav-item" data-page="discover">
+                <span class="icon">📊</span> <span data-i18n="nav_discover">Обзор</span>
             </div>
             <div class="nav-item" data-page="calendar">
-                <span class="icon">📅</span> <span>Календарь</span>
+                <span class="icon">📅</span> <span data-i18n="nav_calendar">Календарь</span>
             </div>
             <div class="nav-item" data-page="links">
-                <span class="icon">🔗</span> <span>Ссылки</span>
+                <span class="icon">🔗</span> <span data-i18n="nav_links">Ссылки</span>
             </div>
             <div class="nav-divider"></div>
             <div class="nav-item" data-page="settings">
-                <span class="icon">⚙️</span> <span>Настройки</span>
+                <span class="icon">⚙️</span> <span data-i18n="nav_settings">Настройки</span>
             </div>
             <div class="nav-item" data-page="profile">
-                <span class="icon">👤</span> <span>Профиль</span>
+                <span class="icon">👤</span> <span data-i18n="nav_profile">Профиль</span>
+            </div>
+            <div class="nav-item" data-page="admin">
+                <span class="icon">🛡</span> <span data-i18n="nav_admin">Модерация</span>
             </div>
         </div>
         <div class="sidebar-bottom">
@@ -275,542 +512,87 @@
         </div>
     </div>
 
-    <div class="main-content" id="mainContent">
-        <div class="loading">Загрузка...</div>
+    <div class="main-content">
+        <div class="main-inner" id="mainContent">
+            <div class="loading">Загрузка...</div>
+        </div>
     </div>
 </div>
 
-<!-- Модалка нового поста -->
 <div class="modal" id="postModal">
-    <div class="modal-content">
-        <h3 style="margin-bottom:20px;">✨ Новая идея для стрима</h3>
-        <input type="text" id="postTitle" class="input-modern" placeholder="Заголовок" style="margin-bottom:15px;">
-        <textarea id="postText" class="input-modern" rows="4" placeholder="Описание..."></textarea>
-        <select id="postCategory" class="input-modern" style="margin-top:15px;">
-            <option value="Видео">🎬 Видео</option>
-            <option value="Фильм">🎥 Фильм</option>
-            <option value="Аниме">🍥 Аниме</option>
-            <option value="Сериал">📺 Сериал</option>
-            <option value="Игра">🎮 Игра</option>
-            <option value="Другое">✨ Другое</option>
-        </select>
-        <input type="text" id="postGame" class="input-modern" placeholder="Название (игры/фильма/аниме)" style="margin-top:15px;">
-        <input type="url" id="postLink" class="input-modern" placeholder="Ссылка (YouTube, Twitch...)" style="margin-top:15px;">
-        <div style="display:flex; gap:10px; margin-top:20px;">
+    <div class="modal-content modal-wide">
+        <h3 style="margin-bottom:8px;">✨ Новая предложка</h3>
+        <p style="color:#9b86b3;font-size:0.88rem;margin-bottom:18px;">Фото — перетащите или выберите. Видео и большие файлы добавляйте ссылкой ниже.</p>
+
+        <div class="suggest-dropzone" id="suggestDropZone" tabindex="0">
+            <strong>Перетащите сюда файл</strong>
+            <p>JPEG, PNG, WebP · до 8 МБ<br>или нажмите для выбора</p>
+            <input type="file" id="suggestFileInput" accept="image/jpeg,image/png,image/webp" style="display:none;">
+        </div>
+        <div class="suggest-preview-wrap" id="suggestPreviewWrap">
+            <img id="suggestPreviewImg" alt="Превью">
+            <button type="button" class="suggest-remove-media" id="suggestRemoveMedia">Убрать фото</button>
+        </div>
+        <label style="display:block;margin-bottom:6px;font-size:0.85rem;color:#bda0e6;">Ссылка на картинку (если не загружаете файл)</label>
+        <input type="url" id="postMediaLink" class="input-modern" placeholder="https://…">
+
+        <label style="display:block;margin:16px 0 6px;font-size:0.85rem;color:#bda0e6;">Название <span id="titleCount">0</span>/100</label>
+        <input type="text" id="postTitle" class="input-modern" maxlength="100" placeholder="Короткое название предложки">
+        <label style="display:block;margin:16px 0 6px;font-size:0.85rem;color:#bda0e6;">Описание <span id="textCount">0</span>/1000</label>
+        <textarea id="postText" class="input-modern" rows="5" maxlength="1000" placeholder="Подробности, почему это круто для стрима…"></textarea>
+
+        <label style="display:block;margin:16px 0 6px;font-size:0.85rem;color:#bda0e6;">Категория</label>
+        <input type="text" id="postCategory" class="input-modern" list="categoryPresets" maxlength="40" placeholder="Своя или из подсказок при вводе">
+        <input type="text" id="postGame" class="input-modern" placeholder="Название (игры / фильма / аниме)" style="margin-top:15px;">
+        <input type="url" id="postLink" class="input-modern" placeholder="Ссылка: YouTube, Twitch, материал…" style="margin-top:15px;">
+        <input type="text" id="postCoAuthors" class="input-modern" placeholder="Соавторы (ники через запятую, необязательно)" style="margin-top:15px;">
+
+        <div class="nsfw-row">
+            <input type="checkbox" id="postNotForStream">
+            <label for="postNotForStream">Не для стрима — жёстче обычного; картинка скрыта блюром, пока зритель не разрешит показ в настройках.</label>
+        </div>
+
+        <div style="display:flex; gap:10px; margin-top:20px; flex-wrap:wrap;">
             <button class="btn-primary" id="submitPostBtn">Опубликовать</button>
             <button class="btn-primary btn-secondary" id="closeModalBtn">Отмена</button>
         </div>
     </div>
 </div>
 
-<script>
-    const API_BASE = '/api';
-    const CLIENT_ID = 'oivt3xslzr0wi1b3eu4a59lntv5isk';
-    const REDIRECT_URI = window.location.origin;
+<!-- Редактирование поста -->
+<div class="modal" id="editModal">
+    <div class="modal-content modal-wide">
+        <h3>✏️ Редактировать</h3>
+        <input type="hidden" id="editPostId">
+        <label class="tb-label">Заголовок</label>
+        <input type="text" id="editTitle" class="input-modern" maxlength="100">
+        <label class="tb-label" style="margin-top:12px;">Текст</label>
+        <textarea id="editText" class="input-modern" rows="5" maxlength="1000"></textarea>
+        <input type="text" id="editGame" class="input-modern" style="margin-top:12px;" placeholder="Игра / название">
+        <input type="url" id="editLink" class="input-modern" style="margin-top:12px;" placeholder="Ссылка">
+        <label class="tb-label" style="margin-top:12px;">Категория</label>
+        <input type="text" id="editCategory" class="input-modern" list="categoryPresets" maxlength="40">
+        <input type="text" id="editCoAuthors" class="input-modern" style="margin-top:12px;" placeholder="Соавторы">
+        <div style="display:flex;gap:10px;margin-top:20px;">
+            <button type="button" class="btn-primary" id="saveEditBtn">Сохранить</button>
+            <button type="button" class="btn-primary btn-secondary" id="closeEditBtn">Отмена</button>
+        </div>
+    </div>
+</div>
 
-    let currentUser = null;
-    let allPosts = [];
-    let allComments = {};
-    let userVotes = JSON.parse(localStorage.getItem('userVotes')) || {};
-    let settings = JSON.parse(localStorage.getItem('userSettings')) || {
-        theme: 'dark', fontSize: 'medium', animations: true, defaultSort: 'date_desc', language: 'ru'
-    };
+<div class="modal" id="deleteModal">
+    <div class="modal-content">
+        <h3>Удалить пост?</h3>
+        <input type="hidden" id="deletePostId">
+        <p style="color:#9b86b3;margin:12px 0;">Пост исчезнет из ленты.</p>
+        <div style="display:flex;gap:10px;">
+            <button type="button" class="btn-primary" id="confirmDeleteBtn" style="background:#c44;">Удалить</button>
+            <button type="button" class="btn-primary btn-secondary" id="cancelDeleteBtn">Отмена</button>
+        </div>
+    </div>
+</div>
 
-    function applySettings() {
-        document.body.className = settings.theme;
-        document.body.style.fontSize = settings.fontSize === 'large' ? '18px' : settings.fontSize === 'small' ? '14px' : '16px';
-        if (!settings.animations) {
-            document.querySelectorAll('*').forEach(el => el.style.animation = 'none');
-        } else {
-            document.querySelectorAll('*').forEach(el => el.style.animation = '');
-        }
-    }
-
-    function saveSettings() {
-        localStorage.setItem('userSettings', JSON.stringify(settings));
-        applySettings();
-    }
-
-    function loadUserFromStorage() {
-        const saved = localStorage.getItem('twitchUser');
-        if (saved) {
-            currentUser = JSON.parse(saved);
-            updateUserWidget();
-        }
-    }
-
-    function checkTwitchAuth() {
-        const hash = window.location.hash.substring(1);
-        const params = new URLSearchParams(hash);
-        const token = params.get('access_token');
-        if (token) {
-            fetch('https://api.twitch.tv/helix/users', {
-                headers: { 'Authorization': `Bearer ${token}`, 'Client-ID': CLIENT_ID }
-            })
-            .then(r => r.json())
-            .then(data => {
-                if (data.data && data.data[0]) {
-                    currentUser = data.data[0];
-                    localStorage.setItem('twitchUser', JSON.stringify(currentUser));
-                    updateUserWidget();
-                    window.location.hash = '';
-                    loadPage(document.querySelector('.nav-item.active').dataset.page);
-                }
-            })
-            .catch(err => console.error('Auth error:', err));
-        }
-    }
-
-    function loginWithTwitch() {
-        const scopes = 'user:read:email';
-        window.location.href = `https://id.twitch.tv/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token&scope=${scopes}`;
-    }
-
-    function logout() {
-        currentUser = null;
-        localStorage.removeItem('twitchUser');
-        updateUserWidget();
-        loadPage(document.querySelector('.nav-item.active').dataset.page);
-    }
-
-    function updateUserWidget() {
-        const widget = document.getElementById('userWidget');
-        if (currentUser) {
-            widget.innerHTML = `
-                <div style="display:flex; align-items:center; gap:10px; background:rgba(145,71,255,0.2); padding:10px; border-radius:40px;">
-                    <img src="${currentUser.profile_image_url}" style="width:32px;height:32px;border-radius:50%;">
-                    <span style="font-weight:500;">${escapeHtml(currentUser.display_name)}</span>
-                    <button onclick="logout()" style="background:none; border:none; color:#ff6b6b; cursor:pointer;">🚪</button>
-                </div>
-            `;
-        } else {
-            widget.innerHTML = `<button class="btn-primary" style="width:100%;" onclick="loginWithTwitch()">🔐 Войти</button>`;
-        }
-    }
-
-    async function fetchPosts() {
-        try {
-            const res = await fetch(`${API_BASE}?action=posts`);
-            if (!res.ok) throw new Error('HTTP error');
-            allPosts = await res.json();
-        } catch (err) {
-            console.error('Failed to fetch posts:', err);
-            allPosts = [];
-        }
-    }
-
-    async function fetchComments(postId) {
-        try {
-            const res = await fetch(`${API_BASE}?action=comments&postId=${postId}`);
-            if (!res.ok) throw new Error('HTTP error');
-            allComments[postId] = await res.json();
-        } catch (err) {
-            console.error('Failed to fetch comments:', err);
-            allComments[postId] = [];
-        }
-    }
-
-    async function createPost(postData) {
-        const res = await fetch(`${API_BASE}?action=create`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(postData)
-        });
-        return await res.json();
-    }
-
-    async function addComment(postId, text) {
-        const res = await fetch(`${API_BASE}?action=addComment`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ postId, text, userId: currentUser?.id, nick: currentUser?.display_name, avatar: currentUser?.profile_image_url })
-        });
-        return await res.json();
-    }
-
-    async function vote(postId, type) {
-        const res = await fetch(`${API_BASE}?action=vote`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ postId, type, userId: currentUser?.id })
-        });
-        return await res.json();
-    }
-
-    async function renderFeed() {
-        const container = document.getElementById('mainContent');
-        container.innerHTML = '<div class="loading">Загрузка идей...</div>';
-        await fetchPosts();
-        await Promise.all(allPosts.map(p => fetchComments(p.id)));
-        container.innerHTML = `
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:15px;">
-                <h2>🎯 Идеи для стрима</h2>
-                <div style="display:flex; gap:10px;">
-                    <select id="categoryFilter" class="input-modern" style="width:auto;">
-                        <option value="all">Все категории</option>
-                        <option value="Видео">🎬 Видео</option>
-                        <option value="Фильм">🎥 Фильм</option>
-                        <option value="Аниме">🍥 Аниме</option>
-                        <option value="Сериал">📺 Сериал</option>
-                        <option value="Игра">🎮 Игра</option>
-                        <option value="Другое">✨ Другое</option>
-                    </select>
-                    <select id="sortSelect" class="input-modern" style="width:auto;">
-                        <option value="date_desc">📅 Сначала новые</option>
-                        <option value="date_asc">📅 Сначала старые</option>
-                        <option value="rating_desc">👍 По рейтингу</option>
-                    </select>
-                    ${currentUser ? `<button class="btn-primary" id="newPostBtn">➕ Новая идея</button>` : ''}
-                </div>
-            </div>
-            <div id="feedPosts"></div>
-        `;
-        if (currentUser) document.getElementById('newPostBtn').addEventListener('click', openPostModal);
-        const sortSelect = document.getElementById('sortSelect');
-        sortSelect.value = settings.defaultSort;
-        sortSelect.addEventListener('change', (e) => {
-            settings.defaultSort = e.target.value;
-            saveSettings();
-            renderFeed();
-        });
-        const categoryFilter = document.getElementById('categoryFilter');
-        categoryFilter.addEventListener('change', () => renderFeed());
-        const feedDiv = document.getElementById('feedPosts');
-        let filtered = [...allPosts];
-        const selectedCategory = categoryFilter.value;
-        if (selectedCategory !== 'all') {
-            filtered = filtered.filter(p => p.category === selectedCategory);
-        }
-        let sorted = [...filtered];
-        if (settings.defaultSort === 'date_desc') sorted.sort((a,b) => new Date(b.date) - new Date(a.date));
-        else if (settings.defaultSort === 'date_asc') sorted.sort((a,b) => new Date(a.date) - new Date(b.date));
-        else sorted.sort((a,b) => (b.rating || 0) - (a.rating || 0));
-        feedDiv.innerHTML = sorted.map(post => renderPostCard(post)).join('');
-        attachPostEventListeners();
-    }
-
-    function renderPostCard(post) {
-        const comments = allComments[post.id] || [];
-        const userVote = userVotes[post.id] || 0;
-        return `
-            <div class="card" data-post-id="${post.id}">
-                <div class="post-header">
-                    <img class="post-avatar" src="${post.avatar || 'https://static-cdn.jtvnw.net/user-default-pictures-uv/13e5d884-3c7e-4c9a-9c6c-6f3c6d5f8e6a-profile_image-70x70.png'}">
-                    <div>
-                        <div class="post-author">${escapeHtml(post.nick)}</div>
-                        <div class="post-time">${post.date}</div>
-                    </div>
-                </div>
-                <div class="post-content"><strong>${escapeHtml(post.title || '')}</strong><br>${escapeHtml(post.text || '')}</div>
-                <div>
-                    <span class="post-tag">${getCategoryEmoji(post.category)} ${post.category}</span>
-                    ${post.game ? `<span class="post-tag">🎮 ${escapeHtml(post.game)}</span>` : ''}
-                    ${post.link ? `<span class="post-tag"><a href="${post.link}" target="_blank" style="color:#bf7cff;">🔗 ссылка</a></span>` : ''}
-                </div>
-                <div class="post-stats">
-                    <button class="stat-btn ${userVote === 1 ? 'active' : ''}" data-action="up" data-post="${post.id}">👍 ${post.rating || 0}</button>
-                    <button class="stat-btn ${userVote === -1 ? 'active' : ''}" data-action="down" data-post="${post.id}">👎 ${post.ratingDown || 0}</button>
-                    <button class="stat-btn" data-action="toggleComments" data-post="${post.id}">💬 ${comments.length}</button>
-                </div>
-                <div class="comment-section" id="comments-${post.id}" style="display:none;">
-                    <div id="comments-list-${post.id}">${comments.map(c => renderComment(c)).join('')}</div>
-                    ${currentUser ? `
-                        <div style="display:flex; gap:10px; margin-top:10px;">
-                            <input type="text" id="comment-input-${post.id}" class="input-modern" placeholder="Написать комментарий..." style="flex:1;">
-                            <button class="btn-primary" onclick="submitComment('${post.id}')">➡️</button>
-                        </div>
-                    ` : '<p style="color:#bda0e6;">Войдите, чтобы комментировать</p>'}
-                </div>
-            </div>
-        `;
-    }
-
-    function renderComment(comment) {
-        return `
-            <div class="comment">
-                <img class="comment-avatar" src="${comment.avatar || 'https://static-cdn.jtvnw.net/user-default-pictures-uv/13e5d884-3c7e-4c9a-9c6c-6f3c6d5f8e6a-profile_image-70x70.png'}">
-                <div class="comment-bubble">
-                    <div class="comment-meta"><strong>${escapeHtml(comment.nick)}</strong> · ${comment.date}</div>
-                    <div>${escapeHtml(comment.text)}</div>
-                </div>
-            </div>
-        `;
-    }
-
-    function getCategoryEmoji(cat) {
-        const map = { 'Видео':'🎬', 'Фильм':'🎥', 'Аниме':'🍥', 'Сериал':'📺', 'Игра':'🎮', 'Другое':'✨' };
-        return map[cat] || '📌';
-    }
-
-    function attachPostEventListeners() {
-        document.querySelectorAll('.stat-btn[data-action="up"]').forEach(btn => {
-            btn.onclick = async () => {
-                if (!currentUser) { alert('Войдите через Twitch'); return; }
-                const postId = btn.dataset.post;
-                const res = await vote(postId, 'up');
-                if (res.success) {
-                    userVotes[postId] = 1;
-                    localStorage.setItem('userVotes', JSON.stringify(userVotes));
-                    await renderFeed();
-                }
-            };
-        });
-        document.querySelectorAll('.stat-btn[data-action="down"]').forEach(btn => {
-            btn.onclick = async () => {
-                if (!currentUser) { alert('Войдите через Twitch'); return; }
-                const postId = btn.dataset.post;
-                const res = await vote(postId, 'down');
-                if (res.success) {
-                    userVotes[postId] = -1;
-                    localStorage.setItem('userVotes', JSON.stringify(userVotes));
-                    await renderFeed();
-                }
-            };
-        });
-        document.querySelectorAll('.stat-btn[data-action="toggleComments"]').forEach(btn => {
-            btn.onclick = () => {
-                const postId = btn.dataset.post;
-                const section = document.getElementById(`comments-${postId}`);
-                section.style.display = section.style.display === 'none' ? 'block' : 'none';
-            };
-        });
-    }
-
-    window.submitComment = async function(postId) {
-        const input = document.getElementById(`comment-input-${postId}`);
-        if (!input.value.trim()) return;
-        await addComment(postId, input.value);
-        input.value = '';
-        await renderFeed();
-    };
-
-    function openPostModal() {
-        if (!currentUser) { alert('Войдите через Twitch'); return; }
-        document.getElementById('postModal').style.display = 'flex';
-    }
-    function closePostModal() {
-        document.getElementById('postModal').style.display = 'none';
-        document.getElementById('postTitle').value = '';
-        document.getElementById('postText').value = '';
-        document.getElementById('postGame').value = '';
-        document.getElementById('postLink').value = '';
-    }
-    document.getElementById('submitPostBtn').onclick = async () => {
-        const title = document.getElementById('postTitle').value;
-        const text = document.getElementById('postText').value;
-        if (!text.trim()) { alert('Напишите текст'); return; }
-        const postData = {
-            title, text,
-            category: document.getElementById('postCategory').value,
-            game: document.getElementById('postGame').value,
-            link: document.getElementById('postLink').value,
-            nick: currentUser.display_name,
-            avatar: currentUser.profile_image_url,
-            userId: currentUser.id
-        };
-        await createPost(postData);
-        closePostModal();
-        await renderFeed();
-    };
-    document.getElementById('closeModalBtn').onclick = closePostModal;
-
-    async function renderCalendar() {
-        const container = document.getElementById('mainContent');
-        container.innerHTML = '<div class="loading">Загрузка календаря...</div>';
-        try {
-            const res = await fetch(`${API_BASE}?action=vods`);
-            if (!res.ok) throw new Error('HTTP error');
-            const vods = await res.json();
-            const today = new Date();
-            const year = today.getFullYear();
-            const month = today.getMonth();
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            let html = '<div class="card"><h2>📅 Календарь стримов</h2><div class="calendar-grid">';
-            for (let i = 0; i < firstDay; i++) html += '<div></div>';
-            for (let d = 1; d <= daysInMonth; d++) {
-                const dateStr = `${d}.${month+1}.${year}`;
-                const hasVod = vods.some(v => v.date === dateStr);
-                const vodUrl = hasVod ? vods.find(v => v.date === dateStr).url : 'https://twitch.tv/honesty113';
-                html += `<div class="calendar-day ${hasVod ? 'has-vod' : ''}" onclick="window.open('${vodUrl}', '_blank')">${d}</div>`;
-            }
-            html += '</div></div>';
-            container.innerHTML = html;
-        } catch (err) {
-            console.error('Calendar error:', err);
-            container.innerHTML = '<div class="card"><h2>📅 Календарь стримов</h2><p>Ошибка загрузки календаря. Проверьте лист vods в таблице.</p></div>';
-        }
-    }
-
-    function renderLinks() {
-        document.getElementById('mainContent').innerHTML = `
-            <div class="card">
-                <h2>🔗 Полезные ссылки</h2>
-                <div class="links-grid">
-                    <a href="https://twitch.tv/honesty113" target="_blank" class="link-card">
-                        <div class="link-icon">📺</div>
-                        <div class="link-name">Twitch</div>
-                        <div class="link-url">honesty113</div>
-                    </a>
-                    <a href="https://t.me/hoststreet" target="_blank" class="link-card">
-                        <div class="link-icon">📱</div>
-                        <div class="link-name">Telegram</div>
-                        <div class="link-url">@hoststreet</div>
-                    </a>
-                    <a href="https://discord.gg/ynDWeAYB2" target="_blank" class="link-card">
-                        <div class="link-icon">💬</div>
-                        <div class="link-name">Discord</div>
-                        <div class="link-url">ynDWeAYB2</div>
-                    </a>
-                    <a href="https://www.donationalerts.com/r/honesty113" target="_blank" class="link-card">
-                        <div class="link-icon">💰</div>
-                        <div class="link-name">DonationAlerts</div>
-                        <div class="link-url">honesty113</div>
-                    </a>
-                    <a href="https://memealerts.com/6602a0ee288f43c13c2293df" target="_blank" class="link-card">
-                        <div class="link-icon">🔞</div>
-                        <div class="link-name">MemeAlerts</div>
-                        <div class="link-url">хуюстрики</div>
-                    </a>
-                    <a href="https://streamelements.com/honesty113" target="_blank" class="link-card">
-                        <div class="link-icon">🎮</div>
-                        <div class="link-name">StreamElements</div>
-                        <div class="link-url">honesty113</div>
-                    </a>
-                </div>
-            </div>
-        `;
-    }
-
-    function renderSettings() {
-        document.getElementById('mainContent').innerHTML = `
-            <div class="card">
-                <h2>⚙️ Настройки</h2>
-                <div class="settings-group">
-                    <div class="settings-label">🌙 Тема оформления</div>
-                    <div class="settings-options">
-                        <div class="settings-option ${settings.theme === 'dark' ? 'active' : ''}" data-setting="theme" data-value="dark">Тёмная</div>
-                        <div class="settings-option ${settings.theme === 'light' ? 'active' : ''}" data-setting="theme" data-value="light">Светлая</div>
-                    </div>
-                </div>
-                <div class="settings-group">
-                    <div class="settings-label">🔤 Размер шрифта</div>
-                    <div class="settings-options">
-                        <div class="settings-option ${settings.fontSize === 'small' ? 'active' : ''}" data-setting="fontSize" data-value="small">Маленький</div>
-                        <div class="settings-option ${settings.fontSize === 'medium' ? 'active' : ''}" data-setting="fontSize" data-value="medium">Средний</div>
-                        <div class="settings-option ${settings.fontSize === 'large' ? 'active' : ''}" data-setting="fontSize" data-value="large">Большой</div>
-                    </div>
-                </div>
-                <div class="settings-group">
-                    <div class="settings-label">🎬 Анимации</div>
-                    <div class="settings-options">
-                        <div class="settings-option ${settings.animations ? 'active' : ''}" data-setting="animations" data-value="true">Включены</div>
-                        <div class="settings-option ${!settings.animations ? 'active' : ''}" data-setting="animations" data-value="false">Выключены</div>
-                    </div>
-                </div>
-                <div class="settings-group">
-                    <div class="settings-label">📅 Сортировка по умолчанию</div>
-                    <div class="settings-options">
-                        <div class="settings-option ${settings.defaultSort === 'date_desc' ? 'active' : ''}" data-setting="defaultSort" data-value="date_desc">Сначала новые</div>
-                        <div class="settings-option ${settings.defaultSort === 'date_asc' ? 'active' : ''}" data-setting="defaultSort" data-value="date_asc">Сначала старые</div>
-                        <div class="settings-option ${settings.defaultSort === 'rating_desc' ? 'active' : ''}" data-setting="defaultSort" data-value="rating_desc">По рейтингу</div>
-                    </div>
-                </div>
-                <div class="settings-group">
-                    <div class="settings-label">🌐 Язык интерфейса</div>
-                    <div class="settings-options">
-                        <div class="settings-option ${settings.language === 'ru' ? 'active' : ''}" data-setting="language" data-value="ru">Русский</div>
-                        <div class="settings-option ${settings.language === 'en' ? 'active' : ''}" data-setting="language" data-value="en">English</div>
-                    </div>
-                </div>
-            </div>
-        `;
-        document.querySelectorAll('.settings-option').forEach(opt => {
-            opt.onclick = () => {
-                const setting = opt.dataset.setting;
-                const value = opt.dataset.value;
-                if (setting === 'animations') settings[setting] = value === 'true';
-                else settings[setting] = value;
-                saveSettings();
-                renderSettings();
-                if (setting === 'defaultSort') loadPage('feed');
-                if (setting === 'language') loadPage('feed');
-            };
-        });
-    }
-
-    async function renderProfile() {
-        if (!currentUser) {
-            document.getElementById('mainContent').innerHTML = '<div class="card"><h2>👤 Профиль</h2><p>Войдите через Twitch, чтобы увидеть свой профиль</p><button class="btn-primary" onclick="loginWithTwitch()">🔐 Войти через Twitch</button></div>';
-            return;
-        }
-        await fetchPosts();
-        const myPosts = allPosts.filter(p => p.authorId === currentUser.id);
-        const totalRating = myPosts.reduce((sum,p) => sum + (p.rating || 0), 0);
-        const commentsCount = myPosts.reduce((sum,p) => sum + (allComments[p.id] ? allComments[p.id].length : 0), 0);
-        document.getElementById('mainContent').innerHTML = `
-            <div class="card">
-                <div class="profile-header">
-                    <img src="${currentUser.profile_image_url}" class="profile-avatar">
-                    <div>
-                        <h2>${escapeHtml(currentUser.display_name)}</h2>
-                        <p>Twitch ID: ${currentUser.id}</p>
-                    </div>
-                </div>
-                <div class="profile-stats">
-                    <div class="profile-stat">
-                        <div class="profile-stat-value">${myPosts.length}</div>
-                        <div class="profile-stat-label">Идей</div>
-                    </div>
-                    <div class="profile-stat">
-                        <div class="profile-stat-value">${totalRating}</div>
-                        <div class="profile-stat-label">Рейтинг</div>
-                    </div>
-                    <div class="profile-stat">
-                        <div class="profile-stat-value">${commentsCount}</div>
-                        <div class="profile-stat-label">Комментариев</div>
-                    </div>
-                </div>
-                <h3>🔥 Мои идеи</h3>
-                ${myPosts.length ? myPosts.map(p => `<div class="post-content" style="margin-top:10px; padding:10px; background:rgba(0,0,0,0.2); border-radius:20px;">📌 ${escapeHtml(p.title || p.text.substring(0,50))} 👍 ${p.rating || 0}</div>`).join('') : '<p>Нет идей</p>'}
-                <button class="btn-primary" style="margin-top:20px;" onclick="logout()">🚪 Выйти из аккаунта</button>
-            </div>
-        `;
-    }
-
-    function loadPage(page) {
-        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-        document.querySelector(`[data-page="${page}"]`).classList.add('active');
-        if (page === 'feed') renderFeed();
-        else if (page === 'calendar') renderCalendar();
-        else if (page === 'links') renderLinks();
-        else if (page === 'settings') renderSettings();
-        else if (page === 'profile') renderProfile();
-    }
-
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
-
-    document.querySelectorAll('.nav-item').forEach(item => {
-        item.addEventListener('click', () => loadPage(item.dataset.page));
-    });
-
-    applySettings();
-    loadUserFromStorage();
-    checkTwitchAuth();
-    loadPage('feed');
-    window.closePostModal = closePostModal;
-    window.openPostModal = openPostModal;
-    window.loginWithTwitch = loginWithTwitch;
-    window.logout = logout;
-    window.submitComment = submitComment;
-</script>
+<script src="/badges-manifest.js"></script>
+<script src="/main.js" defer></script>
 </body>
 </html>
